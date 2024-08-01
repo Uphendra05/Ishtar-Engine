@@ -1,0 +1,13 @@
+# Blender 4.1.1 MTL File: 'None'
+# www.blender.org
+
+newmtl PolygonDarkFantasy_Mat_01_A.002
+Ns 200.000000
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd PolygonDarkFantasy_Texture_01_A.png
+map_Ke C:/Users/altai/My project/Assets/PolygonDarkFantasy/Textures/Emissive/PolygonDarkFantasy_Emissive_01_A.png
+map_Bump -bm 1.000000 C:/Users/altai/My project/Assets/PolygonDarkFantasy/Textures/Misc/PolygonDarkFantasy_Texture_01_Normals.png
