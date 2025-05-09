@@ -16,6 +16,7 @@ uniform float fogStart;
 uniform float fogEnd;
 uniform vec3 fogColor;
 uniform bool fogActive;
+
 void main()
 {    
       vec4 dif = texture(skybox, s_TexCoords);

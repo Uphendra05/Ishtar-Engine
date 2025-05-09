@@ -5,8 +5,9 @@ class Material;
 class SkyboxMaterial;
 class UnLitMaterial;
 class ParticleMaterial;
+class InteriorMappingMat;
 
-class BaseMaterial
+class BaseMaterial 
 {
 public:
 	
@@ -18,11 +19,14 @@ public:
 	SkyboxMaterial* skyboxMaterial();
 	UnLitMaterial* unLitMaterial();
 	ParticleMaterial* particleMaterial();
-
+	InteriorMappingMat* interiorMapMaterial();
 
 	glm::vec4 color = glm::vec4(1);
 
 
 private:
+
+
+	
 
 };

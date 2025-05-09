@@ -21,7 +21,7 @@ public:
 	 float fogStart = 8.0;
 	 float fogEnd = 40;
 	 glm::vec3 fogColor = { 0.49,0.49,0.49 };
-	 bool fogActive = true;
+	 bool fogActive = false;
 
 };
 

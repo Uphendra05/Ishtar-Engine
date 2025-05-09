@@ -581,6 +581,7 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
  {
      Entity::DrawProperties();
 
+    
      if (!ImGui::TreeNodeEx("Model Properties"))
      {
          return;
@@ -588,7 +589,11 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
      DrawBoolImGui("isOccluded", isOccluded, 250);
 
+
      ImGui::TreePop();
+
+
+     
  }
 
  void Model::SceneDraw()

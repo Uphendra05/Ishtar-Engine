@@ -13,6 +13,7 @@
 #include "Random.h"
 #include "Time.h"
 #include "SkyboxMaterial.h"
+#include "InteriorMappingMat.h"
 #include "GraphicsRender.h"
 #include "ImGui/PanelManager.h" 
 #include "ImGui/EditorLayout.h"
@@ -85,6 +86,7 @@ public:
 
 	Shader* stencilShader;
 	Shader* skyboxShader;
+	Shader* interiorMapShader;
 
 	glm::mat4 projection;
 	glm::mat4 view;

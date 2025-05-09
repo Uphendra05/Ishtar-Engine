@@ -423,7 +423,7 @@
     <ClCompile Include="src\SceneManager\Scenes\SceneNine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ImGui\DepthTestPanel.cpp">
+    <ClCompile Include="src\InteriorMappingMat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -890,7 +890,7 @@
     <ClInclude Include="src\SceneManager\Scenes\SceneNine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ImGui\DepthTestPanel.h">
+    <ClInclude Include="src\InteriorMappingMat.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -935,5 +935,7 @@
     <None Include="Shaders\Shadow\ShadowDepth.vert" />
     <None Include="Shaders\Shadow\ShadowMapShader.frag" />
     <None Include="Shaders\Shadow\ShadowMapShader.vert" />
+    <None Include="Shaders\InteriorMapShader.vert" />
+    <None Include="Shaders\InteriorMapShader.frag" />
   </ItemGroup>
 </Project>

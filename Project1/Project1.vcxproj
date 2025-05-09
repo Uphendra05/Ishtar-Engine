@@ -141,6 +141,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\InteriorMappingMat.cpp" />
+    <ClCompile Include="src\SceneManager\Scenes\SceneNine.cpp" />
     <ClCompile Include="src\Audio\AudioSystem.cpp" />
     <ClCompile Include="src\Audio\aRunAudio.cpp" />
     <ClCompile Include="src\Audio\AudioManager.cpp" />
@@ -277,6 +279,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\InteriorMappingMat.h" />
+    <ClInclude Include="src\SceneManager\Scenes\SceneNine.h" />
     <ClInclude Include="src\Audio\AudioSystem.h" />
     <ClInclude Include="src\Audio\aRunAudio.h" />
     <ClInclude Include="src\Audio\AudioManager.h" />
@@ -439,6 +443,8 @@
     <None Include="Shaders\DefaultShader_Vertex.vert" />
     <None Include="Shaders\Grass\GrassMeshInstanceShader.frag" />
     <None Include="Shaders\Grass\GrassMeshInstanceShader.vert" />
+    <None Include="Shaders\InteriorMapShader.frag" />
+    <None Include="Shaders\InteriorMapShader.vert" />
     <None Include="Shaders\MeshInstanceShader.frag" />
     <None Include="Shaders\MeshInstanceShader.vert" />
     <None Include="Shaders\ParticleShader.frag" />

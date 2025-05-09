@@ -8,6 +8,7 @@
 #include "SceneManager/Scenes/SceneSix.h"
 #include "SceneManager/Scenes/SceneSeven.h"
 #include "SceneManager/Scenes/SceneEight.h"
+#include "SceneManager/Scenes/SceneNine.h"
 
 ApplicationRenderer::ApplicationRenderer()
 {
@@ -145,8 +146,8 @@ void ApplicationRenderer::WindowInitialize(int width, int height,  std::string w
 
 
     sceneViewcamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
-    sceneViewcamera->transform.position = glm::vec3(-79.46, 11.76, 107.19);
-    sceneViewcamera->transform.SetRotation(glm::vec3(-41.70, -31.50,0));
+    sceneViewcamera->transform.position = glm::vec3(0, 0, 0);
+    sceneViewcamera->transform.SetRotation(glm::vec3(0, 0,0));
 
     gameScenecamera->InitializeCamera(CameraType::PERSPECTIVE, 45.0f, 0.1f, 1000.0f);
     gameScenecamera->transform.position = glm::vec3(-85.88, 9.03, 115.62);
@@ -173,7 +174,7 @@ void ApplicationRenderer::InitializeShaders()
    
     solidColorShader = new Shader("Shaders/SolidColor_Vertex.vert", "Shaders/SolidColor_Fragment.frag", SOLID);
     stencilShader = new Shader("Shaders/StencilOutline.vert", "Shaders/StencilOutline.frag", OPAQUE);
-    //ScrollShader = new Shader("Shaders/ScrollTexture.vert", "Shaders/ScrollTexture.frag");
+    
 
     alphaBlendShader = new Shader("Shaders/DefaultShader_Vertex.vert", "Shaders/DefaultShader_Fragment.frag", ALPHA_BLEND);
     alphaBlendShader->blendMode = ALPHA_BLEND;
@@ -183,6 +184,9 @@ void ApplicationRenderer::InitializeShaders()
 
     skyboxShader = new Shader("Shaders/SkyboxShader.vert", "Shaders/SkyboxShader.frag");
     skyboxShader->modelUniform = false;
+
+    interiorMapShader = new Shader("Shaders/InteriorMapShader.vert", "Shaders/InteriorMapShader.frag");
+    interiorMapShader->modelUniform = true;
 
     boneAnimationShader = new Shader("Shaders/AnimationShader.vert", "Shaders/AnimationShader.frag");
 
@@ -249,8 +253,9 @@ void ApplicationRenderer::Start()
     BaseScene* sceneSix = new SceneSix("AI_Scene");
     BaseScene* sceneSeven = new SceneSeven("occlusion");
     BaseScene* sceneEight = new SceneEight("SoftBody");
+    BaseScene* sceneNine = new SceneNine("InteriorMapping");
 
-    SceneManager::GetInstance().OnChangeScene("MainGame");
+    SceneManager::GetInstance().OnChangeScene("InteriorMapping");
 
     FPS* fps = new FPS();
     fogSystem = new FogSystem();
@@ -451,6 +456,12 @@ void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuff
     GraphicsRender::GetInstance().SkyBoxModel->Draw(skyboxShader);
     glDepthFunc(GL_LESS);
 
+    interiorMapShader->Bind();
+    interiorMapShader->setMat4("view", camera->GetViewMatrix());
+    interiorMapShader->setMat4("projection", camera->GetProjectionMatrix());
+    interiorMapShader->setVec3("cameraPos", camera->transform.position);
+   
+
     if (isSceneView)
     {
         EntityManager::GetInstance().Render();
@@ -509,6 +520,8 @@ void ApplicationRenderer::ShutDown()
 
     PhysXEngine::GetInstance().ShutDown();
     SceneManager::GetInstance().ShutDown();
+    delete fogSystem;
+    delete skyBoxModel;
 }
 
 void ApplicationRenderer::ProcessInput(GLFWwindow* window)

@@ -67,6 +67,7 @@ public:
 	Model* selectedModel;
 	Shader* selectedShader;
 	Model* SkyBoxModel;
+	Model* InteriorMapBuildingModel;
 	Shader* defaultShader;
 	Shader* solidColorShader;
 	Shader* stencilShader;
