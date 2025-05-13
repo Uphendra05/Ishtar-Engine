@@ -308,10 +308,11 @@ bool DrawBoolImGui(std::string label, bool& value, float columnWidth)
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2);
-	ImGui::SetColumnWidth(0, columnWidth);
+	ImGui::SetColumnWidth(columnWidth, columnWidth);
 	ImGui::Text(label.c_str());
 	ImGui::NextColumn();
 
+	
 	if (ImGui::Checkbox(("###" + label).c_str(), &value))
 	{
 		isUpdated = true;

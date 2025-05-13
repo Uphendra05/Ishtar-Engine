@@ -36,6 +36,7 @@
 #include "PhysX/Occulsion/OcculsionManager.h"
 #include "FPS/FPS.h"
 #include "FogSystem.h"
+#include "InteriorMapping/EmptyCheck.h"
 #include "Physics/PhysicsEngine.h"
 class ApplicationRenderer
 {

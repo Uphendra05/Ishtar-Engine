@@ -3,6 +3,9 @@
 #include "../../ApplicationRenderer.h"
 
 #include "../../PostProcessing bounds/CubeVolume.h"
+#include "../../InteriorMapping/InteriorMapping.h"
+#include "../../InteriorMapping/EmptyCheck.h"
+
 SceneNine::SceneNine(const std::string& sceneName) : BaseScene::BaseScene(sceneName)
 {
 }
@@ -10,7 +13,7 @@ SceneNine::SceneNine(const std::string& sceneName) : BaseScene::BaseScene(sceneN
 void SceneNine::Start()
 {
 
-  
+   
 
     Light* directionLight = new Light();
     directionLight->Initialize(LightType::DIRECTION_LIGHT, 1);
@@ -23,8 +26,12 @@ void SceneNine::Start()
     directionLight->transform.SetRotation(glm::vec3(0, 0, 5));
     directionLight->transform.SetPosition(glm::vec3(0, 0, 5));
 
+    InteriorMapping* window = new InteriorMapping(application);
+    EmptyCheck* dummy = new EmptyCheck();
+   
 
-    Model* interiorMapBuilding = new Model("Models/DefaultCube/DefaultCube.fbx");
+    // TODO Change this code to separate class
+    /*Model* interiorMapBuilding = new Model("Models/DefaultQuad/DefaultQuad.fbx");
    
     interiorMapBuilding->meshes[0]->meshMaterial = new InteriorMappingMat();
     InteriorMappingMat* interiorMapMat = interiorMapBuilding->meshes[0]->meshMaterial->interiorMapMaterial();
@@ -42,7 +49,7 @@ void SceneNine::Start()
     interiorMapMat->InteriorMapTexture->LoadTexture(faces);
 
    
-    GraphicsRender::GetInstance().AddModelAndShader(interiorMapBuilding, application->interiorMapShader);
+    GraphicsRender::GetInstance().AddModelAndShader(interiorMapBuilding, application->interiorMapShader);*/
    
 }
 

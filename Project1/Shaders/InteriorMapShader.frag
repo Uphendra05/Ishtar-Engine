@@ -6,8 +6,9 @@ in vec3 fragPos;
 uniform vec3 cameraPos;
 uniform samplerCube interiorCubemap;
 
-const float NUM_ROOMS_X = 1.0;
-const float NUM_ROOMS_Y = 1.0;
+
+uniform float NUM_ROOMS_X = 1.0;
+uniform float NUM_ROOMS_Y = 1.0;
 
 void main() 
 {  
@@ -30,7 +31,7 @@ void main()
   float tFar  = min(min(t2.x, t2.y), t2.z);
 
 
-  vec3 hitPos = localPos + viewDir * tFar; // Finding the hit position within the each cube section
+  vec3 hitPos = localPos + viewDir * tFar ; // Finding the hit position within the each cube section
 
 
   vec3 cubeDir = normalize(hitPos - vec3(0.5)); //normalizing the segments direction

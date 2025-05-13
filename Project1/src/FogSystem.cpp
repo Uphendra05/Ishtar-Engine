@@ -15,7 +15,7 @@ void FogSystem::DrawProperties()
 	float width = 150;
 	Entity::DrawProperties();
 
-	if (!ImGui::TreeNodeEx("Fog Properties", ImGuiTreeNodeFlags_DefaultOpen))
+	if (!ImGui::TreeNodeEx("Fogger Properties", ImGuiTreeNodeFlags_DefaultOpen))
 	{
 		return;
 	}

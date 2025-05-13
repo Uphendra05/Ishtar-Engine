@@ -259,7 +259,8 @@ void ApplicationRenderer::Start()
 
     FPS* fps = new FPS();
     fogSystem = new FogSystem();
-
+   
+   
 }
 
 

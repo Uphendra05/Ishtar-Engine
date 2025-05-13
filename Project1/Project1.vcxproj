@@ -141,6 +141,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\InteriorMapping\EmptyCheck.cpp" />
+    <ClCompile Include="src\InteriorMapping\InteriorMapping.cpp" />
     <ClCompile Include="src\InteriorMappingMat.cpp" />
     <ClCompile Include="src\SceneManager\Scenes\SceneNine.cpp" />
     <ClCompile Include="src\Audio\AudioSystem.cpp" />
@@ -279,6 +281,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\InteriorMapping\EmptyCheck.h" />
+    <ClInclude Include="src\InteriorMapping\InteriorMapping.h" />
     <ClInclude Include="src\InteriorMappingMat.h" />
     <ClInclude Include="src\SceneManager\Scenes\SceneNine.h" />
     <ClInclude Include="src\Audio\AudioSystem.h" />

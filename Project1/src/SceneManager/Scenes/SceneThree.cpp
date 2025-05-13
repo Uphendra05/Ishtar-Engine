@@ -1,6 +1,7 @@
 #include "SceneThree.h"
 #include "../../ApplicationRenderer.h"
 
+
 SceneThree::SceneThree(const std::string& sceneName) : BaseScene::BaseScene(sceneName)
 {
 
@@ -41,6 +42,9 @@ void SceneThree::Start()
     defaultCube->name = "Cube";
     defaultCube->transform.SetPosition(glm::vec3(3.5f, 0, 0));
     GraphicsRender::GetInstance().AddModelAndShader(defaultCube, application->defaultShader);
+
+
+    
 
 }
 

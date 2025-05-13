@@ -426,6 +426,12 @@
     <ClCompile Include="src\InteriorMappingMat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\InteriorMapping\InteriorMapping.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InteriorMapping\EmptyCheck.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -891,6 +897,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\InteriorMappingMat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InteriorMapping\InteriorMapping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InteriorMapping\EmptyCheck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
