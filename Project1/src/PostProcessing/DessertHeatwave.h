@@ -22,10 +22,10 @@ private:
 	Texture* noiseTexture;
 	Texture* sandTexture;
 
-    float distortAmount = 0.0015;
-    float distortZoom = 1.2;
-    float distortSpeed = 0.1;
-    float lerpIntensity = 0.6;
+    float distortAmount = 0.0015f;
+    float distortZoom = 1.2f;
+    float distortSpeed = 0.1f;
+    float lerpIntensity = 0.6f;
 
 };
 

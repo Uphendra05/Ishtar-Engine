@@ -10,8 +10,8 @@ struct Burst
 	Burst(float time, float count, float cycles, float interval, float probability)
 	{
 		this->time = time;
-		this->count = count;
-		this->cycles = cycles;
+		this->count = (int)count;
+		this->cycles = (int)cycles;
 		this->interval = interval;
 		this->probability = probability;
 	}

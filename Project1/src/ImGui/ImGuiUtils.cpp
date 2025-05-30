@@ -263,11 +263,34 @@ bool DrawDragFloatImGui(std::string label, float& value, float speed, float min,
 	ImGui::PushID(label.c_str());
 
 	ImGui::Columns(2);
-	ImGui::SetColumnWidth(0, columnWidth);
+	ImGui::SetColumnWidth(columnWidth, columnWidth);
 	ImGui::Text(label.c_str());
 	ImGui::NextColumn();
 
 	if (ImGui::DragFloat(("###" + label).c_str(), &value, speed, min, max, "%.2f"))
+	{
+		initiated = true;
+	}
+
+	ImGui::Columns(1);
+
+	ImGui::PopID();
+
+	return initiated;
+}
+
+bool DrawDragIntImGui(std::string label, int& value, float speed, float min, float max, float columnWidth)
+{
+	bool initiated = false;
+
+	ImGui::PushID(label.c_str());
+
+	ImGui::Columns(2);
+	ImGui::SetColumnWidth(0, columnWidth);
+	ImGui::Text(label.c_str());
+	ImGui::NextColumn();
+
+	if (ImGui::DragInt(("###" + label).c_str(), &value, speed, min, max, "%0"))
 	{
 		initiated = true;
 	}

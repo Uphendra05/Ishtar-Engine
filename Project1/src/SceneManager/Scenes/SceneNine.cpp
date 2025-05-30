@@ -27,29 +27,18 @@ void SceneNine::Start()
     directionLight->transform.SetPosition(glm::vec3(0, 0, 5));
 
     InteriorMapping* window = new InteriorMapping(application);
-    EmptyCheck* dummy = new EmptyCheck();
+
+    Model* window2 = new Model("Models/DefaultQuad/DefaultQuad.fbx");
+    window2->name = "Window 2";
+    Texture* diffuse = new Texture("Textures/Interior/blending_transparent_window.png");
+    Texture* alpha = new Texture("Textures/Interior/WindowAlphaMask.png");
+    window2->meshes[0]->meshMaterial->material()->diffuseTexture = diffuse;
+    window2->meshes[0]->meshMaterial->material()->alphaTexture = alpha;
+    window2->meshes[0]->meshMaterial->material()->useMaskTexture = true;
+
+    GraphicsRender::GetInstance().AddModelAndShader(window2, application->alphaBlendShader);
+    
    
-
-    // TODO Change this code to separate class
-    /*Model* interiorMapBuilding = new Model("Models/DefaultQuad/DefaultQuad.fbx");
-   
-    interiorMapBuilding->meshes[0]->meshMaterial = new InteriorMappingMat();
-    InteriorMappingMat* interiorMapMat = interiorMapBuilding->meshes[0]->meshMaterial->interiorMapMaterial();
-
-    std::vector<std::string> faces
-    {
-       ("Textures/Interior/Wall_1.png"),
-       ("Textures/Interior/Wall_1.png"),
-       ("Textures/Interior/Ceiling_1.png"),
-       ("Textures/Interior/Floor_1.png"),
-       ("Textures/Interior/Wall_1.png"),
-       ("Textures/Interior/Wall_1.png")
-    };
-
-    interiorMapMat->InteriorMapTexture->LoadTexture(faces);
-
-   
-    GraphicsRender::GetInstance().AddModelAndShader(interiorMapBuilding, application->interiorMapShader);*/
    
 }
 

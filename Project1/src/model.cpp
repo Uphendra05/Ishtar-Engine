@@ -274,6 +274,20 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
             vector.y = mesh->mNormals[i].y;
             vector.z = mesh->mNormals[i].z;
             vertex.Normal = vector;
+
+            glm::vec2 nXZ = glm::vec2(vector.x, vector.z);
+            if (glm::length(nXZ) < 0.001f) {
+                // Vertical surface (floor/ceiling) — fallback tangent
+                vertex.Tangents = glm::vec2(0.0f, 1.0f);
+            }
+            else {
+                nXZ = glm::normalize(nXZ);
+                vertex.Tangents = glm::vec2(-nXZ.y, nXZ.x);
+            }
+        }
+        else
+        {
+            vertex.Tangents = glm::vec2(0.0f, 1.0f); // fallback
         }
         // texture coordinates
         if (mesh->mTextureCoords[0]) 
@@ -287,6 +301,7 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
 
             
         }
+        
         else
         {
             vertex.TexCoords = glm::vec2(0.0f, 0.0f);

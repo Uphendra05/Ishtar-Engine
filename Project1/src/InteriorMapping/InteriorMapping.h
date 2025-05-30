@@ -25,8 +25,9 @@ private:
 	ApplicationRenderer* application = nullptr;
 	bool useDefaultShader = true;
 	float noOfRoomsX = 1.0f;
-	float noOfRoomY = 1.0f;
-	
+	float noOfRoomY =  1.0f;
+	Texture* buildingTexture = nullptr;
+	Texture* alphaTextrue = nullptr;
 
 		
 };

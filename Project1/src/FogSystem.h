@@ -17,10 +17,10 @@ public:
 	 void DrawProperties() override;
 	 void SceneDraw() override;
 
-	 float fogDensity = 0.4;
-	 float fogStart = 8.0;
-	 float fogEnd = 40;
-	 glm::vec3 fogColor = { 0.49,0.49,0.49 };
+	 float fogDensity = 0.4f;
+	 float fogStart = 8.0f;
+	 float fogEnd = 40.0f;
+	 glm::vec3 fogColor = { 0.49f,0.49f,0.49f };
 	 bool fogActive = false;
 
 };

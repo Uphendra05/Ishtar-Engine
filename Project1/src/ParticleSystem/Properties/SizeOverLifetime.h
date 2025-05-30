@@ -9,7 +9,7 @@ public:
 
 
 	bool isEnabled = false;
-	glm::vec3 startScale = glm::vec3(0.1);
+	glm::vec3 startScale = glm::vec3(0.1f);
 	glm::vec3 endScale = glm::vec3(1);
 
 	glm::vec3 ScaleParticle(Particle& particle);

@@ -16,8 +16,9 @@ InteriorMapping::InteriorMapping(ApplicationRenderer* applicaiton)
     LoadModel("Models/DefaultQuad/DefaultQuad.fbx");
     name = "Window";
     meshes[0]->meshMaterial = new InteriorMappingMat();
+   
     InteriorMappingMat* interiorMapMat = meshes[0]->meshMaterial->interiorMapMaterial();
-
+   
     std::vector<std::string> faces
     {
        ("Textures/Interior/Wall_1.png"),
@@ -31,6 +32,11 @@ InteriorMapping::InteriorMapping(ApplicationRenderer* applicaiton)
     interiorMapMat->InteriorMapTexture->LoadTexture(faces);
 
     GraphicsRender::GetInstance().AddModelAndShader(this, applicaiton->solidColorShader);
+
+
+
+   
+
 }
 
 InteriorMapping::~InteriorMapping()
@@ -55,9 +61,13 @@ void InteriorMapping::Draw(Shader* shader)
     else
     {
         shader = application->interiorMapShader;
+       
+
+
         shader->Bind();
         shader->setFloat("NUM_ROOMS_X", noOfRoomsX);
         shader->setFloat("NUM_ROOMS_Y", noOfRoomY);
+        
         Model::Draw(shader);
     }
     
