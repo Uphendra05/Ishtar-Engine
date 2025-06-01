@@ -14,6 +14,6 @@ void main()
     gPosition = FragPos;
     gNormal = normalize(Normal);
     vec3 texColor = texture(diffuse_Texture, TexCoords).rgb;
-    gAlbedoSpec.rgb = mix(vec3(1, 0, 0), texColor, 0.5); // Red + texture mix   
+    gAlbedoSpec.rgb = mix(vec3(0, 0, 1), texColor, 0.5); // Red + texture mix   
     gAlbedoSpec.a = specularIntensity;
 }
