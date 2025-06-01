@@ -124,14 +124,19 @@ void FrameBuffer::Unbind()
 
 uint32_t& FrameBuffer::GetColorAttachmentID(int index)
 {
-	if (index < colorAttachmentsID.size());
+	if (index < colorAttachmentsID.size()) // remove stray semicolon here
 	{
-		//std::cout << "Color attachment out of bounds : " << __FILE__<< std::endl;
-
 		return colorAttachmentsID[index];
-
 	}
-	//return colorAttachmentsID[index];
+
+	// Fallback: avoid undefined behavior
+	static uint32_t invalidID = 0;
+	return invalidID;
+}
+
+int FrameBuffer::GetColorAttachmentCount() const 
+{
+	return static_cast<int>(colorAttachmentsID.size());
 }
 
 unsigned int& FrameBuffer::GetRendererID()
@@ -171,12 +176,27 @@ void FrameBuffer::Invalidate()
 		for (size_t i = 0; i < colorAttachmentsID.size(); i++)
 		{
 			BindTexture(multiSample, colorAttachmentsID[i]);
+			auto format = colorAttachmentSpecifications[i].textureFormat;
 
-			switch (colorAttachmentSpecifications[i].textureFormat)
+			switch (format)
 			{
-			case FramebufferTextureFormat ::RGBA8 : 
+			case FramebufferTextureFormat::RGBA8:
 				AttachColorTexture(colorAttachmentsID[i], specification.samples,
-					GL_RGBA8,specification.width, specification.height, i);
+					GL_RGBA8, specification.width, specification.height, i);
+				break;
+
+			case FramebufferTextureFormat::RGB16F:
+				AttachColorTexture(colorAttachmentsID[i], specification.samples,
+					GL_RGB16F, specification.width, specification.height, i);
+				break;
+
+			case FramebufferTextureFormat::RGBA16F:
+				AttachColorTexture(colorAttachmentsID[i], specification.samples,
+					GL_RGBA16F, specification.width, specification.height, i);
+				break;
+
+			default:
+				std::cerr << "Unsupported framebuffer format\n";
 				break;
 			}
 			

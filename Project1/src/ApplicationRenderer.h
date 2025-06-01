@@ -69,9 +69,10 @@ public:
 	void RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView = false);
 	void ChangeCursorState(eCursorState state);
 	
-	FrameBufferSpecification specification;
+	
 	FrameBuffer* sceneViewframeBuffer;
 	FrameBuffer* gameframeBuffer;
+	FrameBuffer* gBufferFramebuffer;
 	Camera* sceneViewcamera;
 	Camera* gameScenecamera;
 	Camera* renderTextureCamera;
@@ -84,6 +85,7 @@ public:
 	Shader* defaultInstanceShader;
 	Shader* grassInstanceShader;
 	Shader* particleShader;
+	Shader* gBufferShader;
 
 	Shader* stencilShader;
 	Shader* skyboxShader;

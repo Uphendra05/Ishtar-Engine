@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\SceneManager\Scenes\SceneTen.cpp" />
     <ClCompile Include="src\InteriorMapping\EmptyCheck.cpp" />
     <ClCompile Include="src\InteriorMapping\InteriorMapping.cpp" />
     <ClCompile Include="src\InteriorMappingMat.cpp" />
@@ -281,6 +282,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\SceneManager\Scenes\SceneTen.h" />
     <ClInclude Include="src\InteriorMapping\EmptyCheck.h" />
     <ClInclude Include="src\InteriorMapping\InteriorMapping.h" />
     <ClInclude Include="src\InteriorMappingMat.h" />
@@ -443,6 +445,8 @@
     <None Include="Shaders\AnimationShader.vert" />
     <None Include="Shaders\color.frag" />
     <None Include="Shaders\color.vert" />
+    <None Include="Shaders\DefaultGBuffer.frag" />
+    <None Include="Shaders\DefaultGBuffer.vert" />
     <None Include="Shaders\DefaultShader_Fragment.frag" />
     <None Include="Shaders\DefaultShader_Vertex.vert" />
     <None Include="Shaders\Grass\GrassMeshInstanceShader.frag" />

@@ -9,6 +9,7 @@
 #include "SceneManager/Scenes/SceneSeven.h"
 #include "SceneManager/Scenes/SceneEight.h"
 #include "SceneManager/Scenes/SceneNine.h"
+#include "SceneManager/Scenes/SceneTen.h"
 
 ApplicationRenderer::ApplicationRenderer()
 {
@@ -121,15 +122,28 @@ void ApplicationRenderer::WindowInitialize(int width, int height,  std::string w
 
 
     FrameBufferSpecification specification;
+    FrameBufferSpecification gBufferFrameBufferSpecs;
 
     specification.width = windowWidth;
     specification.height = WindowHeight;
     specification.attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::DEPTH };
+
+
+    gBufferFrameBufferSpecs.width = windowWidth;
+    gBufferFrameBufferSpecs.height = WindowHeight;
+    gBufferFrameBufferSpecs.attachments = {
+        FramebufferTextureSpecification(FramebufferTextureFormat::RGB16F),   // gPosition
+        FramebufferTextureSpecification(FramebufferTextureFormat::RGB16F),   // gNormal
+        FramebufferTextureSpecification(FramebufferTextureFormat::RGBA8),    // gAlbedoSpec
+        FramebufferTextureSpecification(FramebufferTextureFormat::DEPTH24STENCIL8)
+    };
     
 
     sceneViewframeBuffer = new FrameBuffer(specification);
 
     gameframeBuffer = new FrameBuffer(specification);
+
+    gBufferFramebuffer = new FrameBuffer(gBufferFrameBufferSpecs);
 
     EditorLayout::GetInstance().applicationRenderer = this;
   
@@ -200,6 +214,9 @@ void ApplicationRenderer::InitializeShaders()
     particleShader = new Shader("Shaders/ParticleShader.vert", "Shaders/ParticleShader.frag");
     particleShader->blendMode = ALPHA_BLEND;
 
+    gBufferShader = new Shader("Shaders/DefaultGBuffer.vert", "Shaders/DefaultGBuffer.frag");
+
+
     GraphicsRender::GetInstance().defaultShader = defaultShader;
     GraphicsRender::GetInstance().solidColorShader = solidColorShader;
     GraphicsRender::GetInstance().stencilShader = stencilShader; 
@@ -209,6 +226,7 @@ void ApplicationRenderer::InitializeShaders()
     GraphicsRender::GetInstance().defaultInstanceShader = defaultInstanceShader;
     GraphicsRender::GetInstance().grassInstanceShader = grassInstanceShader;
     GraphicsRender::GetInstance().particleShader = particleShader;
+    GraphicsRender::GetInstance().gBufferShader = gBufferShader;
 
     LightManager::GetInstance().AddShader(defaultShader);
     LightManager::GetInstance().AddShader(boneAnimationShader);
@@ -254,8 +272,9 @@ void ApplicationRenderer::Start()
     BaseScene* sceneSeven = new SceneSeven("occlusion");
     BaseScene* sceneEight = new SceneEight("SoftBody");
     BaseScene* sceneNine = new SceneNine("InteriorMapping");
+    BaseScene* sceneTen = new SceneTen("DeferredRendering");
 
-    SceneManager::GetInstance().OnChangeScene("InteriorMapping");
+    SceneManager::GetInstance().OnChangeScene("DeferredRendering");
 
     FPS* fps = new FPS();
     fogSystem = new FogSystem();
@@ -310,7 +329,7 @@ void ApplicationRenderer::EngineGraphicsRender()
 
     if (!isMaximizePressed)
     {
-        RenderForCamera(sceneViewcamera, sceneViewframeBuffer, true);
+        RenderForCamera(sceneViewcamera, gBufferFramebuffer, true);
     }
 
     for (Camera* camera :  CameraManager::GetInstance().GetCameras())
@@ -350,6 +369,15 @@ void ApplicationRenderer::EngineGameLoop()
 }
 void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView)
 {
+
+    gBufferFramebuffer->Bind();
+
+    gBufferShader->Bind();
+    gBufferShader->setMat4("view", camera->GetViewMatrix());
+    gBufferShader->setMat4("projection", camera->GetProjectionMatrix());
+
+
+    gBufferFramebuffer->Unbind();
 
     framebuffer->Bind();
 

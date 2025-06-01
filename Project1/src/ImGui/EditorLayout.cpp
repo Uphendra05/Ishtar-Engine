@@ -24,7 +24,7 @@ void EditorLayout::InitializeEditors()
     gameviewportPanel = new GameViewportPanel();
     toolPanel = new ToolPanel();
 
-    sceneViewportPanel->frameBuffer = applicationRenderer->sceneViewframeBuffer;
+    sceneViewportPanel->frameBuffer = applicationRenderer->gBufferFramebuffer;
     sceneViewportPanel->sceneViewportCamera = applicationRenderer->sceneViewcamera;
   
     toolPanel->isApplicationPlayMode = &applicationRenderer->isPlayMode;

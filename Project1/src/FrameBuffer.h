@@ -5,13 +5,13 @@ enum class FramebufferTextureFormat
 {
 	NONE = 0,
 
-	//Color
+	// Color attachments
 	RGBA8,
+	RGB16F,
+	RGBA16F,
 
-	//Depth/Stencil
+	// Depth/stencil
 	DEPTH24STENCIL8,
-
-	//Default
 	DEPTH = DEPTH24STENCIL8
 
 };
@@ -61,6 +61,7 @@ public:
 	void Resize(uint32_t width, uint32_t height);
 
 	uint32_t& GetColorAttachmentID(int index = 0);
+	int GetColorAttachmentCount() const;
 	unsigned int& GetRendererID();
 	uint32_t& GetDepthAttachementID();
 	FrameBufferSpecification specification;
