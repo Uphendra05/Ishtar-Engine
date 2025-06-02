@@ -216,6 +216,8 @@ void ApplicationRenderer::InitializeShaders()
 
     gBufferShader = new Shader("Shaders/DefaultGBuffer.vert", "Shaders/DefaultGBuffer.frag");
 
+    lightPassShader = new Shader("Shaders/LightpassShader.vert", "Shaders/LightpassShader.frag");
+
 
     GraphicsRender::GetInstance().defaultShader = defaultShader;
     GraphicsRender::GetInstance().solidColorShader = solidColorShader;
@@ -234,6 +236,7 @@ void ApplicationRenderer::InitializeShaders()
     LightManager::GetInstance().AddShader(alphaCutoutShader);
     LightManager::GetInstance().AddShader(defaultInstanceShader);
     LightManager::GetInstance().AddShader(grassInstanceShader);
+   
 }
 
 void ApplicationRenderer::InitializeSkybox()
@@ -376,7 +379,7 @@ void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuff
     gBufferShader->setMat4("view", camera->GetViewMatrix());
     gBufferShader->setMat4("projection", camera->GetProjectionMatrix());
 
-
+   
     gBufferFramebuffer->Unbind();
 
     framebuffer->Bind();
@@ -389,8 +392,32 @@ void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuff
 
     skyBoxView = glm::mat4(glm::mat3(camera->GetViewMatrix()));
 
+
+    lightPassShader->Bind();
+
+    
+   
+
+    // Bind G-buffer textures
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(0)); // Position
+    lightPassShader->setInt("gPosition", 0);
+    glActiveTexture(GL_TEXTURE1);
+    glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(1)); // Normal
+    lightPassShader->setInt("gNormal", 1);
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(2)); // AlbedoSpec
+    lightPassShader->setInt("gAlbedoSpec", 2);
+    // Set uniforms (light, viewPos, etc.)
+    lightPassShader->setVec3("light.position", glm::vec3(1, 1, 1));
+    lightPassShader->setVec3("light.color", glm::vec3(1,1,1));
+    lightPassShader->setVec3("viewPos", camera->transform.position);
+    lightPassShader->setFloat("light.linear", 110.09f);
+    lightPassShader->setFloat("light.quadratic", 110.032f);
+
     LightManager::GetInstance().RenderLights();
 
+    Quad::GetInstance().RenderQuad();
 
     defaultShader->Bind();
     defaultShader->setMat4("projection", projection);

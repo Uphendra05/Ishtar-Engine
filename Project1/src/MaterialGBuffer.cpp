@@ -21,10 +21,9 @@ void MaterialGBuffer::UpdateMaterial(Shader* shader)
     shader->Bind();
 
 
-    // Specular intensity (single float or via texture)
     shader->setFloat("specularIntensity", 10.0f);
 
-    // Optional: handle textures
+    
     if (this->diffuseTexture != nullptr)
     {
         this->diffuseTexture->SetTextureSlot(0);

@@ -963,5 +963,7 @@
     <None Include="Shaders\InteriorMapShader.frag" />
     <None Include="Shaders\DefaultGBuffer.frag" />
     <None Include="Shaders\DefaultGBuffer.vert" />
+    <None Include="Shaders\LightpassShader.vert" />
+    <None Include="Shaders\LightpassShader.frag" />
   </ItemGroup>
 </Project>

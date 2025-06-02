@@ -46,7 +46,7 @@ void SceneViewportPanel::OnRender(float windowWidth, float windowHeight)
         sceneViewportCamera->Resize(viewportSize.x, viewportSize.y);
     }
 
-    ImGui::Image((void*)frameBuffer->GetColorAttachmentID(2), viewportSize, ImVec2(0, 1), ImVec2(1, 0));
+    ImGui::Image((void*)frameBuffer->GetColorAttachmentID(), viewportSize, ImVec2(0, 1), ImVec2(1, 0));
 
     Model* selectedModel = GraphicsRender::GetInstance().GetSelectedModel();
 

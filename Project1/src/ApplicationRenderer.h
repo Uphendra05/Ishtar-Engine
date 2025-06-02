@@ -86,6 +86,7 @@ public:
 	Shader* grassInstanceShader;
 	Shader* particleShader;
 	Shader* gBufferShader;
+	Shader* lightPassShader;
 
 	Shader* stencilShader;
 	Shader* skyboxShader;

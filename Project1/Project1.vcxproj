@@ -455,6 +455,8 @@
     <None Include="Shaders\Grass\GrassMeshInstanceShader.vert" />
     <None Include="Shaders\InteriorMapShader.frag" />
     <None Include="Shaders\InteriorMapShader.vert" />
+    <None Include="Shaders\LightpassShader.frag" />
+    <None Include="Shaders\LightpassShader.vert" />
     <None Include="Shaders\MeshInstanceShader.frag" />
     <None Include="Shaders\MeshInstanceShader.vert" />
     <None Include="Shaders\ParticleShader.frag" />
