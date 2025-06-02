@@ -432,6 +432,12 @@
     <ClCompile Include="src\InteriorMapping\EmptyCheck.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\SceneManager\Scenes\SceneTen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MaterialGBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -905,6 +911,12 @@
     <ClInclude Include="src\InteriorMapping\EmptyCheck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\SceneManager\Scenes\SceneTen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MaterialGBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source.frag" />
@@ -949,5 +961,7 @@
     <None Include="Shaders\Shadow\ShadowMapShader.vert" />
     <None Include="Shaders\InteriorMapShader.vert" />
     <None Include="Shaders\InteriorMapShader.frag" />
+    <None Include="Shaders\DefaultGBuffer.frag" />
+    <None Include="Shaders\DefaultGBuffer.vert" />
   </ItemGroup>
 </Project>

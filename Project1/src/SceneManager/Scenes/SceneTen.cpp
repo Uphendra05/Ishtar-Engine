@@ -1,4 +1,5 @@
 #include "SceneTen.h"
+
 #include "../../ApplicationRenderer.h"
 
 
@@ -24,12 +25,13 @@ void SceneTen::Start()
 
     Model* window2 = new Model("Models/Mimic/Mimic.fbx");
     window2->name = "Mimic";
-    Texture* diffuse = new Texture("Models/Mimic/Mimic_4K_BaseColor.fbx");
-    
-    window2->meshes[0]->meshMaterial->material()->diffuseTexture = diffuse;
+    Texture* diffuse = new Texture("Models/Mimic/Mimic_4K_BaseColor.png");
+    window2->meshes[0]->meshMaterial =  new MaterialGBuffer();
+
+    window2->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse;
    
 
-    GraphicsRender::GetInstance().AddModelAndShader(window2, application->gBufferShader);
+   GraphicsRender::GetInstance().AddModelAndShader(window2, application->gBufferShader);
 
 }
 

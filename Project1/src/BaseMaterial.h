@@ -2,10 +2,13 @@
 #include "Shader.h"
 
 class Material;
+class MaterialGBuffer;
 class SkyboxMaterial;
 class UnLitMaterial;
 class ParticleMaterial;
 class InteriorMappingMat;
+
+
 
 class BaseMaterial 
 {
@@ -16,6 +19,7 @@ public:
 	virtual BaseMaterial* DuplicateMaterial() = 0;
 
 	Material* material();
+	MaterialGBuffer* gBufferMat();
 	SkyboxMaterial* skyboxMaterial();
 	UnLitMaterial* unLitMaterial();
 	ParticleMaterial* particleMaterial();

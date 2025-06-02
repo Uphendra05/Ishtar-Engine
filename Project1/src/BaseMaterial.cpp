@@ -4,6 +4,7 @@
 #include "UnLitMaterial.h"
 #include "ParticleMaterial.h"
 #include "InteriorMappingMat.h"
+#include "MaterialGBuffer.h"
 
 
 Material* BaseMaterial::material()
@@ -11,12 +12,15 @@ Material* BaseMaterial::material()
 	return (Material*)this;
 }
 
+MaterialGBuffer* BaseMaterial::gBufferMat()
+{
+	return (MaterialGBuffer*)this;
+}
+
 SkyboxMaterial* BaseMaterial::skyboxMaterial()
 {
 	return (SkyboxMaterial*)this;
 }
-
-
 
 UnLitMaterial* BaseMaterial::unLitMaterial()
 {

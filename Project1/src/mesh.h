@@ -22,6 +22,7 @@
 #include "Vertex.h"
 #include "Triangle.h"
 #include "material.h"
+#include "MaterialGBuffer.h"
 #include "Object.h"
 #define MAX_BONE_INFLUENCE 4
 

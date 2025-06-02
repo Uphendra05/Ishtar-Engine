@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\MaterialGBuffer.cpp" />
     <ClCompile Include="src\SceneManager\Scenes\SceneTen.cpp" />
     <ClCompile Include="src\InteriorMapping\EmptyCheck.cpp" />
     <ClCompile Include="src\InteriorMapping\InteriorMapping.cpp" />
@@ -282,6 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\MaterialGBuffer.h" />
     <ClInclude Include="src\SceneManager\Scenes\SceneTen.h" />
     <ClInclude Include="src\InteriorMapping\EmptyCheck.h" />
     <ClInclude Include="src\InteriorMapping\InteriorMapping.h" />
