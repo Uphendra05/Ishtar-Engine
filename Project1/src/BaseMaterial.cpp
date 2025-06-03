@@ -7,6 +7,7 @@
 #include "MaterialGBuffer.h"
 
 
+
 Material* BaseMaterial::material()
 {
 	return (Material*)this;

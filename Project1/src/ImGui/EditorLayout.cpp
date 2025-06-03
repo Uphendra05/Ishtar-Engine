@@ -1,6 +1,7 @@
 #include "EditorLayout.h"
 #include "../ApplicationRenderer.h"
 
+int SETPIPELINE = 1;
 EditorLayout& EditorLayout::GetInstance()
 {
     static EditorLayout editorInstance;
@@ -24,7 +25,9 @@ void EditorLayout::InitializeEditors()
     gameviewportPanel = new GameViewportPanel();
     toolPanel = new ToolPanel();
 
+    
     sceneViewportPanel->frameBuffer = applicationRenderer->gBufferFramebuffer;
+   
     sceneViewportPanel->sceneViewportCamera = applicationRenderer->sceneViewcamera;
   
     toolPanel->isApplicationPlayMode = &applicationRenderer->isPlayMode;

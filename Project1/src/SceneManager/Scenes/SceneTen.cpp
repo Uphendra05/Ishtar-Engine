@@ -11,7 +11,7 @@ void SceneTen::Start()
 {
 
    
-
+    
    
 
     Model* window2 = new Model("Models/Backpack/Backpack.obj");

@@ -124,7 +124,7 @@ void FrameBuffer::Unbind()
 
 uint32_t& FrameBuffer::GetColorAttachmentID(int index)
 {
-	if (index < colorAttachmentsID.size()) // remove stray semicolon here
+	if (index < colorAttachmentsID.size()) 
 	{
 		return colorAttachmentsID[index];
 	}
