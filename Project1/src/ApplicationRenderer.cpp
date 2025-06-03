@@ -373,30 +373,25 @@ void ApplicationRenderer::EngineGameLoop()
 void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView)
 {
 
-    gBufferFramebuffer->Bind();
+    framebuffer->Bind();
+
+    GraphicsRender::GetInstance().Clear();
+
+   
+
+   
 
     gBufferShader->Bind();
     gBufferShader->setMat4("view", camera->GetViewMatrix());
     gBufferShader->setMat4("projection", camera->GetProjectionMatrix());
 
-   
-    gBufferFramebuffer->Unbind();
-
-    framebuffer->Bind();
-
-    GraphicsRender::GetInstance().Clear();
-
-    projection = camera->GetProjectionMatrix();
-
-    view = camera->GetViewMatrix();
-
-    skyBoxView = glm::mat4(glm::mat3(camera->GetViewMatrix()));
-
+    GraphicsRender::GetInstance().Draw();
+    
 
     lightPassShader->Bind();
 
-    
-   
+
+
 
     // Bind G-buffer textures
     glActiveTexture(GL_TEXTURE0);
@@ -410,14 +405,40 @@ void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuff
     lightPassShader->setInt("gAlbedoSpec", 2);
     // Set uniforms (light, viewPos, etc.)
     lightPassShader->setVec3("light.position", glm::vec3(1, 1, 1));
-    lightPassShader->setVec3("light.color", glm::vec3(1,1,1));
+    lightPassShader->setVec3("light.color", glm::vec3(1, 1, 1));
     lightPassShader->setVec3("viewPos", camera->transform.position);
-    lightPassShader->setFloat("light.linear", 110.09f);
-    lightPassShader->setFloat("light.quadratic", 110.032f);
-
-    LightManager::GetInstance().RenderLights();
+    lightPassShader->setFloat("light.linear", 0.009f);
+    lightPassShader->setFloat("light.quadratic", 0.0002f);
 
     Quad::GetInstance().RenderQuad();
+
+
+    
+
+    if (isSceneView)
+    {
+        EntityManager::GetInstance().Render();
+        SceneManager::GetInstance().Render();
+    }
+    GraphicsRender::GetInstance().SetCamera(camera);
+   
+    framebuffer->Unbind();
+
+   /* framebuffer->Bind();
+
+    GraphicsRender::GetInstance().Clear();
+
+    projection = camera->GetProjectionMatrix();
+
+    view = camera->GetViewMatrix();
+
+    skyBoxView = glm::mat4(glm::mat3(camera->GetViewMatrix()));
+
+
+    
+    LightManager::GetInstance().RenderLights();
+
+   
 
     defaultShader->Bind();
     defaultShader->setMat4("projection", projection);
@@ -533,7 +554,7 @@ void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuff
         camera->postprocessing->ApplyPostprocessing(framebuffer);
     }
 
-     framebuffer->Unbind();
+     framebuffer->Unbind();*/
 }
 
 void ApplicationRenderer::ChangeCursorState(eCursorState state)

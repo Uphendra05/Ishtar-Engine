@@ -31,6 +31,14 @@ void MaterialGBuffer::UpdateMaterial(Shader* shader)
         this->diffuseTexture->Bind();
     }
 
+    if (this->specularTexture != nullptr)
+    {
+        this->diffuseTexture->SetTextureSlot(1);
+        shader->setInt("specular_Texture", 1);
+        this->diffuseTexture->Bind();
+    }
+
+
     
 
   

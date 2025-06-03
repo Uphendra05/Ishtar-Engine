@@ -9,7 +9,7 @@ in vec2 TexCoords;
 
 uniform sampler2D diffuse_Texture;
 uniform sampler2D specular_Texture;
-uniform float specularIntensity = 1.0;
+uniform float specularIntensity ;
 
 void main()
 {
