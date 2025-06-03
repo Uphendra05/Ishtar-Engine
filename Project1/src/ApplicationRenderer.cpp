@@ -336,7 +336,7 @@ void ApplicationRenderer::EngineGraphicsRender()
     if (!isMaximizePressed)
     {
         
-            RenderForCamera(sceneViewcamera, gBufferFramebuffer, true);
+            RenderForCamera(sceneViewcamera, sceneViewframeBuffer, true);
 
     }
 
@@ -344,11 +344,11 @@ void ApplicationRenderer::EngineGraphicsRender()
     {
         if (camera->renderTexture == nullptr)
         {
-            RenderForCamera(camera, gameframeBuffer);
+            //RenderForCamera(camera, gameframeBuffer);
         }
         else
         {
-            RenderForCamera(camera, camera->renderTexture->framebuffer); 
+            //RenderForCamera(camera, camera->renderTexture->framebuffer); 
         }
        
     }
@@ -383,60 +383,39 @@ void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuff
   
 
     
-        framebuffer->Bind();
+    gBufferFramebuffer->Bind();
 
-        GraphicsRender::GetInstance().Clear();
-
-
-        gBufferShader->Bind();
-        gBufferShader->setMat4("view", camera->GetViewMatrix());
-        gBufferShader->setMat4("projection", camera->GetProjectionMatrix());
-
-        GraphicsRender::GetInstance().Draw();
+    GraphicsRender::GetInstance().Clear();
 
 
-        lightPassShader->Bind();
+    gBufferShader->Bind();
+    gBufferShader->setMat4("view", camera->GetViewMatrix());
+    gBufferShader->setMat4("projection", camera->GetProjectionMatrix());
+
+    GraphicsRender::GetInstance().Draw();
+
+    
+
+    gBufferFramebuffer->Unbind();
 
 
+       
 
 
-        // Bind G-buffer textures
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(0)); // Position
-        lightPassShader->setInt("gPosition", 0);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(1)); // Normal
-        lightPassShader->setInt("gNormal", 1);
-        glActiveTexture(GL_TEXTURE2);
-        glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(2)); // AlbedoSpec
-        lightPassShader->setInt("gAlbedoSpec", 2);
+         
 
+       
+       framebuffer->Bind();
+       GraphicsRender::GetInstance().Clear();
 
-        // Set uniforms (light, viewPos, etc.)
-        lightPassShader->setVec3("light.position", glm::vec3(1, 1, 1));
-        lightPassShader->setVec3("light.color", glm::vec3(1, 1, 1));
-        lightPassShader->setVec3("viewPos", camera->transform.position);
-        lightPassShader->setFloat("light.linear", 0.009f);
-        lightPassShader->setFloat("light.quadratic", 0.0002f);
-
-        Quad::GetInstance().RenderQuad();
+      
 
 
 
 
-        if (isSceneView)
-        {
-            EntityManager::GetInstance().Render();
-            SceneManager::GetInstance().Render();
-        }
-        GraphicsRender::GetInstance().SetCamera(camera);
+      
 
-        framebuffer->Unbind();
-   
-
-       /* framebuffer->Bind();
-
-        GraphicsRender::GetInstance().Clear();
+      
 
         projection = camera->GetProjectionMatrix();
 
@@ -446,7 +425,7 @@ void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuff
 
 
 
-        LightManager::GetInstance().RenderLights();
+       
 
 
 
@@ -556,7 +535,7 @@ void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuff
         }
         GraphicsRender::GetInstance().Draw();
         GraphicsRender::GetInstance().SetCamera(camera);
-
+        LightManager::GetInstance().RenderLights();
         ParticleSystemManager::GetInstance().Render();
 
         if (camera->isPostprocessing)
@@ -564,7 +543,33 @@ void ApplicationRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuff
             camera->postprocessing->ApplyPostprocessing(framebuffer);
         }
 
-        framebuffer->Unbind();*/
+
+        lightPassShader->Bind();
+
+
+
+        // Bind G-buffer textures
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(0)); // Position
+        lightPassShader->setInt("gPosition", 0);
+        glActiveTexture(GL_TEXTURE1);
+        glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(1)); // Normal
+        lightPassShader->setInt("gNormal", 1);
+        glActiveTexture(GL_TEXTURE2);
+        glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(2)); // AlbedoSpec
+        lightPassShader->setInt("gAlbedoSpec", 2);
+
+
+        // Set uniforms (light, viewPos, etc.)
+        lightPassShader->setVec3("light.position", glm::vec3(1, 1, 1));
+        lightPassShader->setVec3("light.color", glm::vec3(1, 1, 1));
+        lightPassShader->setVec3("viewPos", camera->transform.position);
+        lightPassShader->setFloat("light.linear", 0.009f);
+        lightPassShader->setFloat("light.quadratic", 0.0002f);
+
+        Quad::GetInstance().RenderQuad();
+
+        framebuffer->Unbind();
 
 
   
