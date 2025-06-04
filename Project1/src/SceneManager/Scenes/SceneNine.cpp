@@ -1,6 +1,6 @@
 #include "SceneNine.h"
 
-#include "../../ApplicationRenderer.h"
+#include "../../RenderingPipeline/BaseRenderingPipeline.h"
 
 #include "../../PostProcessing bounds/CubeVolume.h"
 #include "../../InteriorMapping/InteriorMapping.h"

@@ -1,5 +1,5 @@
 #include "SceneFour.h"
-#include "../../ApplicationRenderer.h"
+#include "../../RenderingPipeline/BaseRenderingPipeline.h"
 #include "../../Grass/GrassMesh.h"
 #include "../../ParticleSystem/ParticleAssets/FireFly.h"
 SceneFour::SceneFour(const std::string& sceneName) : BaseScene::BaseScene(sceneName)

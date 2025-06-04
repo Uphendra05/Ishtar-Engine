@@ -4,7 +4,7 @@
 #include "States/RunState.h"
 #include "States/MagicState.h"
 #include "CameraController.h"
-#include "../ApplicationRenderer.h"
+#include "../RenderingPipeline/BaseRenderingPipeline.h"
 PlayerController::PlayerController()
 {
     LoadModel("Models/Character/X Bot.fbx");
@@ -36,7 +36,7 @@ PlayerController::PlayerController()
     cameraController = new CameraController(this);
 }
 
-PlayerController::PlayerController(ApplicationRenderer* application)
+PlayerController::PlayerController(BaseRenderingPipeline* application)
 {
     this->application = application;
 

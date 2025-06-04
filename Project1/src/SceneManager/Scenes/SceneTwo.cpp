@@ -1,5 +1,5 @@
 #include "SceneTwo.h"
-#include "../../ApplicationRenderer.h"
+#include "../../RenderingPipeline/BaseRenderingPipeline.h"
 #include "../../Player/PlayerController.h"
 #include "../../PostProcessing bounds/CubeVolume.h"
 SceneTwo::SceneTwo(const std::string& sceneName) : BaseScene::BaseScene(sceneName)

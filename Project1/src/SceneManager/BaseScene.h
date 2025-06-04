@@ -7,13 +7,13 @@
 #include "../ParticleSystem/ParticleSystemManager.h"
 #include "../PhysX/PhysXEngine.h"
 
-class ApplicationRenderer;
+class BaseRenderingPipeline;
 class BaseScene
 {
 public:
 
 	std::string sceneName = "EmptyScene";
-	ApplicationRenderer* application = nullptr;
+	BaseRenderingPipeline* application = nullptr;
 
 	static unsigned int sceneID;
 

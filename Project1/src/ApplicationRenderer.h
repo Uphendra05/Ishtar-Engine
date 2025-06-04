@@ -45,102 +45,102 @@
 
 class ApplicationRenderer
 {
-public:
-	ApplicationRenderer();
-	~ApplicationRenderer();
-
-	static void SetViewPort(GLFWwindow* window, int width, int height);
-	void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods);
-	void MouseCallBack(GLFWwindow* window, double xposIn, double yposIn);
-	void MouseHeldCallBack(GLFWwindow* window, int& button, int& action, int& mods);
-	void MouseScroll(GLFWwindow* window, double xoffset, double yoffset);
-	void Joystick_callback(int jid, int event);
-	void JoyStickInputs();
-	
-	void WindowInitialize(int width, int height,  std::string windowName ="Window");
-	void InitializeShaders();
-	void InitializeSkybox();
-	
-	void Start();
+//public:
+//	ApplicationRenderer();
+//	~ApplicationRenderer();
+//
+//	static void SetViewPort(GLFWwindow* window, int width, int height);
+//	void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods);
+//	void MouseCallBack(GLFWwindow* window, double xposIn, double yposIn);
+//	void MouseHeldCallBack(GLFWwindow* window, int& button, int& action, int& mods);
+//	void MouseScroll(GLFWwindow* window, double xoffset, double yoffset);
+//	void Joystick_callback(int jid, int event);
+//	void JoyStickInputs();
+//	
+//	void WindowInitialize(int width, int height,  std::string windowName ="Window");
+//	void InitializeShaders();
+//	void InitializeSkybox();
+//	
+//	void Start();
 	void Render();
-	void PostRender();
-	void Clear();
-	void ShutDown();
-
-	void ProcessInput(GLFWwindow* window);
-
-	void EngineGraphicsRender();
-	void EngineGameLoop();
-	void RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView = false);
-	void ChangeCursorState(eCursorState state);
-	
-	
-	FrameBuffer* sceneViewframeBuffer;
-	FrameBuffer* gameframeBuffer;
-	FrameBuffer* gBufferFramebuffer;
-	Camera* sceneViewcamera;
-	Camera* gameScenecamera;
-	Camera* renderTextureCamera;
-
-	Shader* defaultShader;
-	Shader* solidColorShader;
-	Shader* alphaBlendShader;
-	Shader* alphaCutoutShader;
-	Shader* boneAnimationShader;
-	Shader* defaultInstanceShader;
-	Shader* grassInstanceShader;
-	Shader* particleShader;
-	Shader* gBufferShader;
-	Shader* lightPassShader;
-
-	Shader* stencilShader;
-	Shader* skyboxShader;
-	Shader* interiorMapShader;
-
-	glm::mat4 projection;
-	glm::mat4 view;
-	glm::mat4 skyBoxView;
-
-	eCursorState currentCursorState = eCursorState::VISIBLE;
-
-	OcculsionManager* occlusionManager;
-	FogSystem* fogSystem;
-
-	bool isPlayMode = false;
-	bool isMaximizePressed = false;
-	bool isDepth = false;
-	bool isFog = false;
-	bool isCellShade = false;
-
-	int windowWidth;
-	int  WindowHeight;
-private:
-
-	GLFWwindow* window;
-
-	SkyboxMaterial* skyBoxMaterial;
-
-	Model* skyBoxModel;
-
-	glm::vec2 currentMousePos{ 0 };
-	glm::vec2 mouseDeltaPos{ 0 };
-	glm::vec2 lastMousePos{ 0 };
-
-	 int selectedModelCount = 0;
-
-
-	 float lastX;
-	 float lastY;
-	 float deltaTime;
-	 double lastTime;
-	 float lastFrame;
-	 float mouseSmoothingFactor = 0.75f;
-
-	 float scrollTime;
-
-	 bool firstMouse = true;
-	 bool isImguiPanelsEnable = false;
-	 void MouseInputUpdate();
+//	void PostRender();
+//	void Clear();
+//	void ShutDown();
+//
+//	void ProcessInput(GLFWwindow* window);
+//
+//	void EngineGraphicsRender();
+//	void EngineGameLoop();
+//	void RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView = false);
+//	void ChangeCursorState(eCursorState state);
+//	
+//	
+//	FrameBuffer* sceneViewframeBuffer;
+//	FrameBuffer* gameframeBuffer;
+//	FrameBuffer* gBufferFramebuffer;
+//	Camera* sceneViewcamera;
+//	Camera* gameScenecamera;
+//	Camera* renderTextureCamera;
+//
+//	Shader* defaultShader;
+//	Shader* solidColorShader;
+//	Shader* alphaBlendShader;
+//	Shader* alphaCutoutShader;
+//	Shader* boneAnimationShader;
+//	Shader* defaultInstanceShader;
+//	Shader* grassInstanceShader;
+//	Shader* particleShader;
+//	Shader* gBufferShader;
+//	Shader* lightPassShader;
+//
+//	Shader* stencilShader;
+//	Shader* skyboxShader;
+//	Shader* interiorMapShader;
+//
+//	glm::mat4 projection;
+//	glm::mat4 view;
+//	glm::mat4 skyBoxView;
+//
+//	eCursorState currentCursorState = eCursorState::VISIBLE;
+//
+//	OcculsionManager* occlusionManager;
+//	FogSystem* fogSystem;
+//
+//	bool isPlayMode = false;
+//	bool isMaximizePressed = false;
+//	bool isDepth = false;
+//	bool isFog = false;
+//	bool isCellShade = false;
+//
+//	int windowWidth;
+//	int  WindowHeight;
+//private:
+//
+//	GLFWwindow* window;
+//
+//	SkyboxMaterial* skyBoxMaterial;
+//
+//	Model* skyBoxModel;
+//
+//	glm::vec2 currentMousePos{ 0 };
+//	glm::vec2 mouseDeltaPos{ 0 };
+//	glm::vec2 lastMousePos{ 0 };
+//
+//	 int selectedModelCount = 0;
+//
+//
+//	 float lastX;
+//	 float lastY;
+//	 float deltaTime;
+//	 double lastTime;
+//	 float lastFrame;
+//	 float mouseSmoothingFactor = 0.75f;
+//
+//	 float scrollTime;
+//
+//	 bool firstMouse = true;
+//	 bool isImguiPanelsEnable = false;
+//	 void MouseInputUpdate();
 
 };
 

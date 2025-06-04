@@ -1,5 +1,5 @@
 #include "EditorLayout.h"
-#include "../ApplicationRenderer.h"
+#include "../RenderingPipeline/BaseRenderingPipeline.h"
 
 int SETPIPELINE = 1;
 EditorLayout& EditorLayout::GetInstance()
@@ -26,13 +26,13 @@ void EditorLayout::InitializeEditors()
     toolPanel = new ToolPanel();
 
     
-    sceneViewportPanel->frameBuffer = applicationRenderer->sceneViewframeBuffer;
+    sceneViewportPanel->frameBuffer = Renderer->sceneViewframeBuffer;
    
-    sceneViewportPanel->sceneViewportCamera = applicationRenderer->sceneViewcamera;
+    sceneViewportPanel->sceneViewportCamera = Renderer->sceneViewcamera;
   
-    toolPanel->isApplicationPlayMode = &applicationRenderer->isPlayMode;
+    toolPanel->isApplicationPlayMode = &Renderer->isPlayMode;
 
-    gameviewportPanel->frameBuffer = applicationRenderer->gameframeBuffer;
+    gameviewportPanel->frameBuffer = Renderer->gameframeBuffer;
     gameviewportPanel->gameViewportResolution = ImVec2(1920, 1080);
 }
 
@@ -61,7 +61,7 @@ void EditorLayout::SetSelectedObjectsEnable(bool isEnable)
 
 void EditorLayout::SetIsMaxiizePressedState(bool state)
 {
-    applicationRenderer->isMaximizePressed = state;
+    Renderer->isMaximizePressed = state;
 }
 
 bool EditorLayout::IsViewportHovered()
@@ -76,7 +76,7 @@ bool EditorLayout::IsGameViewportHovered()
 
 bool EditorLayout::IsMaximizePressed()
 {
-    return applicationRenderer->isMaximizePressed;
+    return Renderer->isMaximizePressed;
 }
 
 std::vector<Object*> EditorLayout::GetSelectedObjects()

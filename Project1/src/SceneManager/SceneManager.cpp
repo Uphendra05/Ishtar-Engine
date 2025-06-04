@@ -13,7 +13,7 @@ void SceneManager::AddScene(const std::string& sceneName, BaseScene* scene)
     listOfScenes[sceneName] = scene;
 
     scene->sceneName = sceneName;
-    scene->application = application;
+    scene->application = Renderer;
 
     currentSceneName = sceneName;
 

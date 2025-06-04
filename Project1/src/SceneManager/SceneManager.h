@@ -4,7 +4,7 @@
 #include <vector>
 #include "BaseScene.h"
 
-class ApplicationRenderer;
+class BaseRenderingPipeline;
 
 class SceneManager
 {
@@ -23,7 +23,7 @@ public:
 	BaseScene* GetScene(const std::string& sceneName);
 	BaseScene* GetCurrentScene();
 
-	ApplicationRenderer* application = nullptr;
+	BaseRenderingPipeline* Renderer = nullptr;
 
 private:
 

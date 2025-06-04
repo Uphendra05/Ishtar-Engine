@@ -141,6 +141,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\RenderingPipeline\DeferredRendering.cpp" />
+    <ClCompile Include="src\RenderingPipeline\ForwardRenderer.cpp" />
     <ClCompile Include="src\RenderingPipeline\BaseRenderingPipeline.cpp" />
     <ClCompile Include="src\MaterialGBuffer.cpp" />
     <ClCompile Include="src\SceneManager\Scenes\SceneTen.cpp" />
@@ -284,6 +286,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\RenderingPipeline\DeferredRendering.h" />
+    <ClInclude Include="src\RenderingPipeline\ForwardRenderer.h" />
     <ClInclude Include="src\RenderingPipeline\BaseRenderingPipeline.h" />
     <ClInclude Include="src\MaterialGBuffer.h" />
     <ClInclude Include="src\SceneManager\Scenes\SceneTen.h" />

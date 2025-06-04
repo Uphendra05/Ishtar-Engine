@@ -1,5 +1,5 @@
 #include "SceneThree.h"
-#include "../../ApplicationRenderer.h"
+#include "../../RenderingPipeline/BaseRenderingPipeline.h"
 
 
 SceneThree::SceneThree(const std::string& sceneName) : BaseScene::BaseScene(sceneName)

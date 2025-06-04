@@ -7,7 +7,7 @@
 
 class CubeVolume;
 class CameraController;
-class ApplicationRenderer;
+class BaseRenderingPipeline;
 
  enum class eEffectType;
 
@@ -15,7 +15,7 @@ class PlayerController : public PhysicsSkinMeshRenderer, public iInputObserver
 {
 public:
 	PlayerController();
-	PlayerController(ApplicationRenderer* application);
+	PlayerController(BaseRenderingPipeline* application);
 	~PlayerController();
 
 	 void DrawProperties() override;
@@ -57,7 +57,7 @@ private:
 	BaseState* currentState;
 	std::unordered_map<ePlayerState, BaseState*> listOfPlayerStates;
 
-	ApplicationRenderer* application;
+	BaseRenderingPipeline* application;
 
 	// Inherited via iInputObserver
 	void OnKeyPressed(const int& key) override;

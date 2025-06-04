@@ -9,7 +9,7 @@ InteriorMapping::InteriorMapping()
 
 }
 
-InteriorMapping::InteriorMapping(ApplicationRenderer* applicaiton)
+InteriorMapping::InteriorMapping(BaseRenderingPipeline* applicaiton)
 {
     this->application = applicaiton;
 

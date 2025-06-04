@@ -8,7 +8,8 @@
 #include "SceneViewportPanel.h"
 #include "ToolPanel.h"
 #include "GameViewportPanel.h"
-class ApplicationRenderer;
+class BaseRenderingPipeline;
+
 class EditorLayout
 {
 public :
@@ -27,7 +28,7 @@ public :
 	Object* GetCurrentSelectedObject();
 	std::vector<Object*> GetSelectedObjects();
 
-	ApplicationRenderer* applicationRenderer;
+	BaseRenderingPipeline* Renderer;
 private:
 
 	Heirachy* hierarchyPanel;

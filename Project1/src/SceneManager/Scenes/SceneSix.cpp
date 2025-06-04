@@ -1,5 +1,5 @@
 #include "SceneSix.h"
-#include "../../ApplicationRenderer.h"
+#include "../../RenderingPipeline/BaseRenderingPipeline.h"
 #include"../../AI/Enemy.h"
 
 SceneSix::SceneSix(const std::string& sceneName) : BaseScene::BaseScene(sceneName)
