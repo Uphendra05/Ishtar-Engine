@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -141,7 +141,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
-    <ClCompile Include="src\RenderingPipeline\DeferredRendering.cpp" />
+    <ClCompile Include="src\RenderingPipeline\PipelineManager.cpp" />
+    <ClCompile Include="src\RenderingPipeline\DeferredRenderer.cpp" />
     <ClCompile Include="src\RenderingPipeline\ForwardRenderer.cpp" />
     <ClCompile Include="src\RenderingPipeline\BaseRenderingPipeline.cpp" />
     <ClCompile Include="src\MaterialGBuffer.cpp" />
@@ -261,7 +262,6 @@
     <ClCompile Include="Extern\imGui\imgui_widgets.cpp" />
     <ClCompile Include="src\SkinnedMeshRenderer.cpp" />
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\ApplicationRenderer.cpp" />
     <ClCompile Include="src\GraphicsRender.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\Light.cpp" />
@@ -286,7 +286,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
-    <ClInclude Include="src\RenderingPipeline\DeferredRendering.h" />
+    <ClInclude Include="src\RenderingPipeline\PipelineManager.h" />
+    <ClInclude Include="src\RenderingPipeline\DeferredRenderer.h" />
     <ClInclude Include="src\RenderingPipeline\ForwardRenderer.h" />
     <ClInclude Include="src\RenderingPipeline\BaseRenderingPipeline.h" />
     <ClInclude Include="src\MaterialGBuffer.h" />
@@ -418,7 +419,6 @@
     <ClInclude Include="Extern\imGui\imstb_truetype.h" />
     <ClInclude Include="src\SkinnedMeshRenderer.h" />
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\ApplicationRenderer.h" />
     <ClInclude Include="src\GraphicsRender.h" />
     <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\Light.h" />

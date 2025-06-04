@@ -1,9 +1,9 @@
 #pragma once
 #include "BaseRenderingPipeline.h"
-class DeferredRendering : public BaseRenderingPipeline
+class DeferredRenderer : public BaseRenderingPipeline
 {
 public :
-	DeferredRendering() {};
+	DeferredRenderer();
 	// Inherited via BaseRenderingPipeline
 	void RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView) override;
 };

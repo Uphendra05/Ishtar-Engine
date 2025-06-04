@@ -52,6 +52,8 @@ public:
 	virtual void RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView = false) = 0;
 
 
+	std::string pipelineName = "None";
+
 	static void SetViewPort(GLFWwindow* window, int width, int height);
 	void KeyCallBack(GLFWwindow* window, int key, int scancode, int action, int mods);
 	void MouseCallBack(GLFWwindow* window, double xposIn, double yposIn);

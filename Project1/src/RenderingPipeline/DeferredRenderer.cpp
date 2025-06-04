@@ -1,6 +1,11 @@
-#include "DeferredRendering.h"
+#include "DeferredRenderer.h"
 
-void DeferredRendering::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView)
+DeferredRenderer::DeferredRenderer()
+{
+	pipelineName = "Deferred Rendering Pipeline";
+}
+
+void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView)
 {
 
 	gBufferFramebuffer->Bind();

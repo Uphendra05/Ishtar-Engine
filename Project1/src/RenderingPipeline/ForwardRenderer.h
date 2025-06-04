@@ -4,7 +4,7 @@ class ForwardRenderer : public BaseRenderingPipeline
 {
 
 public:
-	ForwardRenderer() {};
+	ForwardRenderer() ;
 	// Inherited via BaseRenderingPipeline
 	void RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView) override;
 

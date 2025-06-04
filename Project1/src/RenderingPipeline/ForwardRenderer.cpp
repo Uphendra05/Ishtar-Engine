@@ -1,5 +1,11 @@
 #include "ForwardRenderer.h"
 
+ForwardRenderer::ForwardRenderer()
+{
+    pipelineName = "Deferred Rendering Pipeline";
+
+}
+
 void ForwardRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView)
 {
     framebuffer->Bind();

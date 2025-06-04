@@ -1,17 +1,21 @@
 #include "ApplicationRenderer.h"
 #include "RenderingPipeline/ForwardRenderer.h"
-#include "RenderingPipeline/DeferredRendering.h"
+#include "RenderingPipeline/DeferredRenderer.h"
+#include "RenderingPipeline/PipelineManager.h"
 int main()
 {
-	/*ApplicationRenderer application;
-	application.WindowInitialize(1920, 1080, "Ishtar Engine");
-	application.Render();*/
+	PipelineManager pipelineManager;
 
-	BaseRenderingPipeline* renderer = new DeferredRendering();
-	renderer->WindowInitialize(1920, 1080, "Ishtar Engine");
+	PipelineType selectedPipeline = PipelineType::Deferred;
 
-	renderer->Render();
-
+	if (selectedPipeline == PipelineType::Forward) 
+	{
+		pipelineManager.SetPipeline(std::make_unique<ForwardRenderer>());
+	}
+	else 
+	{
+		pipelineManager.SetPipeline(std::make_unique<DeferredRenderer>());
+	}
 
 
 	return 0;

@@ -84,9 +84,6 @@
     <ClCompile Include="src\IndexBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\ApplicationRenderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -444,7 +441,10 @@
     <ClCompile Include="src\RenderingPipeline\ForwardRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\RenderingPipeline\DeferredRendering.cpp">
+    <ClCompile Include="src\RenderingPipeline\DeferredRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RenderingPipeline\PipelineManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -525,9 +525,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\IndexBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ApplicationRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\GraphicsRender.h">
@@ -932,7 +929,10 @@
     <ClInclude Include="src\RenderingPipeline\ForwardRenderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\RenderingPipeline\DeferredRendering.h">
+    <ClInclude Include="src\RenderingPipeline\DeferredRenderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\RenderingPipeline\PipelineManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

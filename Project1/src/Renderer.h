@@ -4,7 +4,7 @@
 #include <glad/glad.h>
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
-#include <iostream>
+
 #include <fstream>
 #include <sstream>
 //#include <Windows.h>
@@ -17,7 +17,6 @@
 
 
 
-
 #define ASSERT(x) if(!(x)) __debugbreak();
 #define GLCALL(x) GLClrError();\
 x;\
@@ -25,6 +24,7 @@ ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
 void GLClrError();
 bool GLLogCall(const char* function, const char* file, int line);
+
 
 
 
