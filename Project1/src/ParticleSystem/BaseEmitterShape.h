@@ -10,6 +10,8 @@ public:
 	glm::vec3 rotation = glm::vec3(0);
 	glm::vec3 scale = glm::vec3(0);
 
+
+	virtual ~BaseEmitterShape() = default;
 	virtual void DrawProperties();
 	virtual void SceneDraw() = 0;
 	virtual void UpdateParticle(glm::vec3& pos, glm::vec3& dir) = 0;

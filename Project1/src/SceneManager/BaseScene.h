@@ -18,6 +18,7 @@ public:
 	static unsigned int sceneID;
 
 	BaseScene();
+	virtual ~BaseScene() = default;
 	BaseScene(std::string sceneName);
 
 	virtual void Start() = 0;;

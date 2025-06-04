@@ -48,7 +48,7 @@ class BaseRenderingPipeline
 public:
 
 	BaseRenderingPipeline() ;
-	virtual ~BaseRenderingPipeline() {};
+	virtual ~BaseRenderingPipeline() = default;
 	virtual void RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView = false) = 0;
 
 
