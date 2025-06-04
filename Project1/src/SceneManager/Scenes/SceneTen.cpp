@@ -21,6 +21,14 @@ void SceneTen::Start()
 
     directionLight->transform.SetRotation(glm::vec3(0, 0, 5));
     directionLight->transform.SetPosition(glm::vec3(3, 3, 5));
+
+    /*Model* window3 = new Model("Models/Backpack/Backpack.obj");
+    window3->name = "Backpack";
+    Texture* diffuse2 = new Texture("Models/Backpack/1001_albedo.jpg");
+    Texture* specular2 = new Texture("Models/Backpack/1001_roughness.jpg");
+    window3->meshes[0]->meshMaterial->material()->diffuseTexture = diffuse2;
+    window3->meshes[0]->meshMaterial->material()->specularTexture = specular2;
+    GraphicsRender::GetInstance().AddModelAndShader(window3, application->defaultShader);*/
    
 
     Model* window2 = new Model("Models/Backpack/Backpack.obj");
@@ -31,9 +39,10 @@ void SceneTen::Start()
 
     window2->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse;
     window2->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular;
-   
+    GraphicsRender::GetInstance().AddModelAndShader(window2, application->gBufferShader);
 
-   GraphicsRender::GetInstance().AddModelAndShader(window2, application->gBufferShader);
+
+   
 
 }
 

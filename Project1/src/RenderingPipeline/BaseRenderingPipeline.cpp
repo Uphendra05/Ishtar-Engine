@@ -274,7 +274,7 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
 
     specification.width = windowWidth;
     specification.height = WindowHeight;
-    specification.attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::DEPTH };
+    specification.attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::DEPTH24STENCIL8 };
 
 
     gBufferFrameBufferSpecs.width = windowWidth;
@@ -333,6 +333,9 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
 
 void BaseRenderingPipeline::InitializeShaders()
 {
+
+    glEnable(GL_DEPTH_TEST);
+
     defaultShader = new Shader("Shaders/DefaultShader_Vertex.vert", "Shaders/DefaultShader_Fragment.frag");
 
     solidColorShader = new Shader("Shaders/SolidColor_Vertex.vert", "Shaders/SolidColor_Fragment.frag", SOLID);
