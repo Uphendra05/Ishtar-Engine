@@ -12,7 +12,7 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 
 	gBufferFramebuffer->Bind();
 	GraphicsRender::GetInstance().Clear();
-	GraphicsRender::GetInstance().Draw();
+	GraphicsRender::GetInstance().DrawGBufferModels();
 	gBufferShader->Bind();
 	gBufferShader->setMat4("view", camera->GetViewMatrix());
 	gBufferShader->setMat4("projection", camera->GetProjectionMatrix());
@@ -21,14 +21,11 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 
 #pragma endregion
 
-	
 
-
-	
 	framebuffer->Bind();
 	GraphicsRender::GetInstance().Clear();
-	glDepthMask(GL_FALSE);
-	glDisable(GL_DEPTH_TEST);
+	
+
 
 #pragma region LIGHTING PASS
 
@@ -47,19 +44,15 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 	lightPassShader->setInt("gAlbedoSpec", 2);
 
 	// Set uniforms (light, viewPos, etc.)
-	lightPassShader->setVec3("light.position", glm::vec3(1, 1, 1));
+	lightPassShader->setVec3("light.position", camera->transform.position);
 	lightPassShader->setVec3("light.color", glm::vec3(1, 1, 1));
-	lightPassShader->setFloat("light.linear", 0.009f);
-	lightPassShader->setFloat("light.quadratic", 0.0002f);
+	lightPassShader->setFloat("light.linear", 0.09f);
+	lightPassShader->setFloat("light.quadratic", 0.02f);
 	lightPassShader->setVec3("viewPos", camera->transform.position);
 
 	Quad::GetInstance().RenderQuad();
 
-	glDepthMask(GL_TRUE);
 	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
-
-
 	// Blit depth from g-buffer to final framebuffer
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, gBufferFramebuffer->GetRendererID());
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer->GetRendererID());
@@ -117,7 +110,7 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 		EntityManager::GetInstance().Render();
 		SceneManager::GetInstance().Render();
 	}
-	//GraphicsRender::GetInstance().Draw();
+	GraphicsRender::GetInstance().Draw();
 	GraphicsRender::GetInstance().SetCamera(camera);
 	//LightManager::GetInstance().RenderLights();
 

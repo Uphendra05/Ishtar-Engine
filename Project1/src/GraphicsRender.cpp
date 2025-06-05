@@ -30,6 +30,14 @@ void GraphicsRender::AddModelAndShader(Model* model, Shader* shader)
 	
 }
 
+void GraphicsRender::AddGbufferModels(Model* model, Shader* shader)
+{
+	if (shader->blendMode == OPAQUE || shader->blendMode == ALPHA_CUTOUT || shader->blendMode == SOLID)
+	{
+		gBufferModels.push_back(new ModelAndShader(model, shader));
+	}
+}
+
 void GraphicsRender::RemoveModel(Model* _model)
 {
 	for (ModelAndShader* model :  modelAndShaderList)
@@ -172,6 +180,17 @@ void GraphicsRender::Draw()
 
 }
 
+void GraphicsRender::DrawGBufferModels()
+{
+	for (ModelAndShader* modelAndShader : gBufferModels)
+	{
+		if (modelAndShader->model == selectedModel)  continue;
+
+		modelAndShader->model->Draw(modelAndShader->shader);
+	}
+
+}
+
 void GraphicsRender::Clear()
 {
 	GLCALL(glClearColor(0.1f, 0.1f, 0.1f, 1));
@@ -240,6 +259,7 @@ void GraphicsRender::DrawLine(glm::vec3 start, glm::vec3 endpoint, glm::vec4 col
 void GraphicsRender::ClearModelList()
 {
 	modelAndShaderList.clear();
+	gBufferModels.clear();
 	transparentmodelAndShaderList.clear();
 }
 

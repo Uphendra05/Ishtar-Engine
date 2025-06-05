@@ -46,6 +46,7 @@ public:
 
 
 	void AddModelAndShader(Model* model, Shader* shader);
+	void AddGbufferModels(Model* model, Shader* shader);
 	void RemoveModel(Model* model);
 
 	void SetCamera(Camera* camera);
@@ -56,6 +57,7 @@ public:
 
 	void InitializeGraphics();
 	void Draw();
+	void DrawGBufferModels();
 	void Clear();
 	void DrawSphere(glm::vec3 center, float radius, glm::vec4 color, bool isWireFrame = false);
 	void DrawBox(glm::vec3 center, glm::vec3 dimensions, glm::vec4 color ,bool isWireFrame = false);
@@ -87,9 +89,8 @@ private:
 	
 
 
-
-
 	std::vector<ModelAndShader*> modelAndShaderList;
+	std::vector<ModelAndShader*> gBufferModels;
 	std::vector<ModelAndShader*> transparentmodelAndShaderList;
 
 

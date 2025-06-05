@@ -298,7 +298,7 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
 
     InitializeShaders();
 
-    GraphicsRender::GetInstance().InitializeGraphics();
+    //GraphicsRender::GetInstance().InitializeGraphics();
 
     DebugModels::GetInstance().defaultCube = new Model("Models/DefaultCube/DefaultCube.fbx", false, true);
     DebugModels::GetInstance().defaultSphere = new Model("Models/DefaultSphere/DefaultSphere.fbx", false, true);
@@ -334,7 +334,7 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
 void BaseRenderingPipeline::InitializeShaders()
 {
 
-    glEnable(GL_DEPTH_TEST);
+  
 
     defaultShader = new Shader("Shaders/DefaultShader_Vertex.vert", "Shaders/DefaultShader_Fragment.frag");
 
