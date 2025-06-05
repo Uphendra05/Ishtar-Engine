@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\ImGui\BufferTexture.cpp" />
     <ClCompile Include="src\RenderingPipeline\PipelineManager.cpp" />
     <ClCompile Include="src\RenderingPipeline\DeferredRenderer.cpp" />
     <ClCompile Include="src\RenderingPipeline\ForwardRenderer.cpp" />
@@ -286,6 +287,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\ImGui\BufferTexture.h" />
     <ClInclude Include="src\RenderingPipeline\PipelineManager.h" />
     <ClInclude Include="src\RenderingPipeline\DeferredRenderer.h" />
     <ClInclude Include="src\RenderingPipeline\ForwardRenderer.h" />

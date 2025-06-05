@@ -8,6 +8,7 @@
 #include "SceneViewportPanel.h"
 #include "ToolPanel.h"
 #include "GameViewportPanel.h"
+#include "BufferTexture.h"
 class BaseRenderingPipeline;
 
 class EditorLayout
@@ -37,6 +38,7 @@ private:
 	SceneViewportPanel* sceneViewportPanel;
 	ToolPanel* toolPanel;
 	GameViewportPanel* gameviewportPanel;
+	BufferTexture* bufferTextureView;
 
 	Object* currentSelectedObject = nullptr;
 

@@ -39,6 +39,7 @@ void SceneTen::Start()
 
     window2->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse;
     window2->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular;
+    window2->transform.position = glm::vec3(0, 0, -10);
     GraphicsRender::GetInstance().AddGbufferModels(window2, application->gBufferShader);
 
 

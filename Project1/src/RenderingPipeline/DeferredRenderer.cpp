@@ -52,6 +52,9 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 
 	Quad::GetInstance().RenderQuad();
 
+
+	glDepthMask(GL_TRUE);
+
 	glEnable(GL_DEPTH_TEST);
 	// Blit depth from g-buffer to final framebuffer
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, gBufferFramebuffer->GetRendererID());
@@ -110,7 +113,7 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 		EntityManager::GetInstance().Render();
 		SceneManager::GetInstance().Render();
 	}
-	GraphicsRender::GetInstance().Draw();
+	//GraphicsRender::GetInstance().Draw();
 	GraphicsRender::GetInstance().SetCamera(camera);
 	//LightManager::GetInstance().RenderLights();
 

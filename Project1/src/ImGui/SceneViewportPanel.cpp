@@ -43,6 +43,7 @@ void SceneViewportPanel::OnRender(float windowWidth, float windowHeight)
         viewportSize = viewPortPanelSize;
 
         frameBuffer->Resize(viewportSize.x, viewportSize.y);
+        gbufferFBO->Resize(viewportSize.x, viewportSize.y);
         sceneViewportCamera->Resize(viewportSize.x, viewportSize.y);
     }
 

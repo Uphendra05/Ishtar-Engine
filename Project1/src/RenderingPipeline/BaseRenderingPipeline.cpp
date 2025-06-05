@@ -279,6 +279,7 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
 
     gBufferFrameBufferSpecs.width = windowWidth;
     gBufferFrameBufferSpecs.height = WindowHeight;
+
     gBufferFrameBufferSpecs.attachments = {
         FramebufferTextureSpecification(FramebufferTextureFormat::RGB16F),   // gPosition
         FramebufferTextureSpecification(FramebufferTextureFormat::RGB16F),   // gNormal
@@ -536,9 +537,9 @@ void BaseRenderingPipeline::EngineGraphicsRender()
 
     if (!isMaximizePressed)
     {
-
+       
         RenderForCamera(sceneViewcamera, sceneViewframeBuffer, true);
-
+       
     }
 
     for (Camera* camera : CameraManager::GetInstance().GetCameras())

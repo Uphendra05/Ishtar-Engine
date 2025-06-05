@@ -11,6 +11,7 @@ public:
 	void OnRender(float windowWidth, float windowHeight) override;
 
 	FrameBuffer* frameBuffer = nullptr;
+	FrameBuffer* gbufferFBO = nullptr;
 
 	ImVec2 viewportSize;
 	ImGuizmo::OPERATION gizmoType = ImGuizmo::OPERATION::TRANSLATE;

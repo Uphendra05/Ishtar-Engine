@@ -24,9 +24,11 @@ void EditorLayout::InitializeEditors()
     sceneViewportPanel = new SceneViewportPanel();
     gameviewportPanel = new GameViewportPanel();
     toolPanel = new ToolPanel();
+    bufferTextureView = new BufferTexture();
 
     
     sceneViewportPanel->frameBuffer = Renderer->sceneViewframeBuffer;
+    sceneViewportPanel->gbufferFBO = Renderer->gBufferFramebuffer;
    
     sceneViewportPanel->sceneViewportCamera = Renderer->sceneViewcamera;
   
@@ -34,6 +36,12 @@ void EditorLayout::InitializeEditors()
 
     gameviewportPanel->frameBuffer = Renderer->gameframeBuffer;
     gameviewportPanel->gameViewportResolution = ImVec2(1920, 1080);
+
+
+    bufferTextureView->gbufferFBO = Renderer->gBufferFramebuffer;
+    bufferTextureView->sceneViewFBO = Renderer->sceneViewframeBuffer;
+    bufferTextureView->viewPortRes = ImVec2(600, 600);
+
 }
 
 void EditorLayout::SetSelectedObjects(std::vector<Object*> objects)
