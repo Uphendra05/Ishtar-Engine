@@ -35,7 +35,7 @@ void main()
     // Specular
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, Normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 46.0); // hardcoded shininess
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 20.0); // hardcoded shininess
     vec3 specular = SpecularStrength * spec * light.color;
 
     // Attenuation

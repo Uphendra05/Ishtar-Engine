@@ -38,6 +38,7 @@
 #include "../FogSystem.h"
 #include "../InteriorMapping/EmptyCheck.h"
 #include "../Physics/PhysicsEngine.h"
+#include "../TexturesGBuffer.h"
 
 
 class BaseRenderingPipeline
@@ -121,6 +122,10 @@ public:
 	int  WindowHeight;
 	float scrollTime;
 
+protected:
+
+	TexturesGBuffer gBufferTextures;
+
 private:
 
 	GLFWwindow* window;
@@ -146,7 +151,7 @@ private:
 
 	bool firstMouse = true;
 	bool isImguiPanelsEnable = false;
-	
+
 
 
 };

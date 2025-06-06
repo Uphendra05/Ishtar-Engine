@@ -31,16 +31,16 @@ void SceneTen::Start()
     GraphicsRender::GetInstance().AddModelAndShader(window3, application->defaultShader);*/
    
 
-    Model* window2 = new Model("Models/Backpack/Backpack.obj");
-    window2->name = "Backpack";
-    Texture* diffuse = new Texture("Models/Backpack/1001_albedo.jpg");
-    Texture* specular = new Texture("Models/Backpack/1001_roughness.jpg");
-    window2->meshes[0]->meshMaterial =  new MaterialGBuffer();
+    Model* Car = new Model("Models/Car/Car.obj");
+    Car->name = "Backpack";
+    Texture* diffuse = new Texture("Models/Car/WhiplashColor.png");
+    Texture* specular = new Texture("Models/Car/WhiplashRoughness.png");
+    Car->meshes[0]->meshMaterial =  new MaterialGBuffer();
 
-    window2->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse;
-    window2->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular;
-    window2->transform.position = glm::vec3(0, 0, -10);
-    GraphicsRender::GetInstance().AddGbufferModels(window2, application->gBufferShader);
+    Car->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse;
+    Car->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular;
+    Car->transform.position = glm::vec3(0, 0, -10);
+    GraphicsRender::GetInstance().AddGbufferModels(Car, application->gBufferShader);
 
 
    

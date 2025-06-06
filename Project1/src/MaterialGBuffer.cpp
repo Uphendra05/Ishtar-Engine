@@ -21,7 +21,7 @@ void MaterialGBuffer::UpdateMaterial(Shader* shader)
     shader->Bind();
 
 
-    shader->setFloat("specularIntensity", 10.0f);
+    shader->setFloat("specularIntensity", 222.0f);
 
     
     if (this->diffuseTexture != nullptr)

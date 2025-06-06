@@ -256,6 +256,12 @@ void GraphicsRender::DrawLine(glm::vec3 start, glm::vec3 endpoint, glm::vec4 col
 		model.DrawSolidColor(color, true);
 }
 
+void GraphicsRender::AttachGBufferTexture(Shader* ligthPassShader, FrameBuffer* gBufferFBO)
+{
+
+	
+}
+
 void GraphicsRender::ClearModelList()
 {
 	modelAndShaderList.clear();
@@ -305,5 +311,17 @@ void GraphicsRender::CleanUpData()
 	}
 
 	transparentmodelAndShaderList.clear();
+
+
+	for (ModelAndShader* modelAndShader : gBufferModels)
+	{
+		modelAndShader->model = nullptr;
+		modelAndShader->shader = nullptr;
+		delete modelAndShader->model;
+
+		delete modelAndShader->shader;
+		delete modelAndShader;
+	}
+	gBufferModels.clear();
 
 }

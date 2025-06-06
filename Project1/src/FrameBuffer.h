@@ -61,7 +61,7 @@ public:
 	void Resize(uint32_t width, uint32_t height);
 
 	uint32_t& GetColorAttachmentID(int index = 0);
-	int GetColorAttachmentCount() const;
+	uint32_t GetColorAttachmentCount();
 	unsigned int& GetRendererID();
 	uint32_t& GetDepthAttachementID();
 	FrameBufferSpecification specification;

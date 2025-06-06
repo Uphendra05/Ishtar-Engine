@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Renderer.h"
-#include"model.h"
+#include "model.h"
 #include "Shader.h"
 #include "Camera.h"
 #include "SkinnedMeshRenderer.h"
@@ -63,6 +63,7 @@ public:
 	void DrawBox(glm::vec3 center, glm::vec3 dimensions, glm::vec4 color ,bool isWireFrame = false);
 	void DrawBox(glm::vec3 center, glm::vec3 dimensions, glm::vec3 rotation, glm::vec4 color ,bool isWireFrame = false);
 	void DrawLine(glm::vec3 start, glm::vec3 endpoint, glm::vec4 color);
+	void AttachGBufferTexture(Shader* ligthPassShader, FrameBuffer* gBufferFBO);
 	void ClearModelList();
 	void CleanUpData();
 

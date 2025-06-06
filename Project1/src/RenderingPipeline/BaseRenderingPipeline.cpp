@@ -293,7 +293,7 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
     gameframeBuffer = new FrameBuffer(specification);
 
     gBufferFramebuffer = new FrameBuffer(gBufferFrameBufferSpecs);
-
+    gBufferTextures.SetFramebuffer(gBufferFramebuffer);
     EditorLayout::GetInstance().Renderer = this;
 
 

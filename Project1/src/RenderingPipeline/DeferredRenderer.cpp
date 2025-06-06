@@ -1,8 +1,9 @@
 #include "DeferredRenderer.h"
-
 DeferredRenderer::DeferredRenderer()
 {
 	pipelineName = "Deferred Rendering Pipeline";
+
+
 }
 
 void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView)
@@ -30,18 +31,8 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 #pragma region LIGHTING PASS
 
 
-	lightPassShader->Bind();
-
-	// Bind G-buffer textures
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(0)); // Position
-	lightPassShader->setInt("gPosition", 0);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(1)); // Normal
-	lightPassShader->setInt("gNormal", 1);
-	glActiveTexture(GL_TEXTURE2);
-	glBindTexture(GL_TEXTURE_2D, gBufferFramebuffer->GetColorAttachmentID(2)); // AlbedoSpec
-	lightPassShader->setInt("gAlbedoSpec", 2);
+	
+	gBufferTextures.AttachGBufferTexturesToQuad(lightPassShader);
 
 	// Set uniforms (light, viewPos, etc.)
 	lightPassShader->setVec3("light.position", camera->transform.position);
@@ -50,10 +41,10 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 	lightPassShader->setFloat("light.quadratic", 0.02f);
 	lightPassShader->setVec3("viewPos", camera->transform.position);
 
+	
+
 	Quad::GetInstance().RenderQuad();
 
-
-	glDepthMask(GL_TRUE);
 
 	glEnable(GL_DEPTH_TEST);
 	// Blit depth from g-buffer to final framebuffer
@@ -64,7 +55,6 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 		0, 0, framebuffer->specification.width, framebuffer->specification.height,
 		GL_DEPTH_BUFFER_BIT, GL_NEAREST
 	);
-	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer->GetRendererID());
 
 #pragma endregion
 
@@ -93,6 +83,8 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 	solidColorShader->Bind();
 	solidColorShader->setMat4("projection", projection);
 	solidColorShader->setMat4("view", view);
+
+
 
 	glDepthFunc(GL_LEQUAL);
 	skyboxShader->Bind();

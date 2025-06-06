@@ -134,9 +134,9 @@ uint32_t& FrameBuffer::GetColorAttachmentID(int index)
 	return invalidID;
 }
 
-int FrameBuffer::GetColorAttachmentCount() const 
+uint32_t FrameBuffer::GetColorAttachmentCount() 
 {
-	return static_cast<int>(colorAttachmentsID.size());
+	return colorAttachmentsID.size();
 }
 
 unsigned int& FrameBuffer::GetRendererID()
