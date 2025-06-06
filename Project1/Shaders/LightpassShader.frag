@@ -27,6 +27,7 @@ void main()
     vec3 Normal = normalize(texture(gNormal, TexCoords).rgb);
     vec3 Albedo = texture(gAlbedoSpec, TexCoords).rgb;
     float SpecularStrength = texture(gAlbedoSpec, TexCoords).a;
+    float shininess = texture(gAlbedoSpec, TexCoords).b;
 
     // Lighting calculations
     vec3 lightDir = normalize(light.position - FragPos);
@@ -35,7 +36,7 @@ void main()
     // Specular
     vec3 viewDir = normalize(viewPos - FragPos);
     vec3 reflectDir = reflect(-lightDir, Normal);
-    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 20.0); // hardcoded shininess
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), 10.0); // hardcoded shininess
     vec3 specular = SpecularStrength * spec * light.color;
 
     // Attenuation

@@ -11,13 +11,14 @@ uniform sampler2D diffuse_Texture;
 uniform sampler2D specular_Texture;
 uniform float specularIntensity ;
 
+
 void main()
 {
     gPosition = FragPos;
     gNormal = normalize(Normal);
     vec3 texColor = texture(diffuse_Texture, TexCoords).rgb;
-    float specColor = texture(specular_Texture, TexCoords).r * specularIntensity;
+    float specColor = texture(specular_Texture, TexCoords).r ;
 
     gAlbedoSpec.rgb = texColor; // Red + texture mix   
-    gAlbedoSpec.a = specColor;
+    gAlbedoSpec.a = specColor * specularIntensity;
 }
