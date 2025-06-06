@@ -56,10 +56,16 @@ void Heirachy::ShowLights()
         return;
     }
     std::vector<Light*> lights = lightManager->GetLightList();
+    std::vector<Light*> deferredLights = lightManager->GetDeferredLightList();
 
     for (Light* light : lights)
     {
         light->SceneDraw();
+    }
+
+    for (Light* Deflight : deferredLights)
+    {
+        Deflight->SceneDraw();
     }
 
 }

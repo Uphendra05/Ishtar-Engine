@@ -10,7 +10,6 @@ SceneTen::SceneTen(const std::string& sceneName) : BaseScene::BaseScene(sceneNam
 void SceneTen::Start()
 {
 
-   
     Light* directionLight = new Light();
     directionLight->Initialize(LightType::DIRECTION_LIGHT, 1);
     directionLight->SetAmbientColor(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f));
@@ -20,19 +19,27 @@ void SceneTen::Start()
     directionLight->SetInnerAndOuterCutoffAngle(11, 12);
 
     directionLight->transform.SetRotation(glm::vec3(0, 0, 5));
-    directionLight->transform.SetPosition(glm::vec3(3, 3, 5));
+    directionLight->transform.SetPosition(glm::vec3(0, 0, 5));
 
-    /*Model* window3 = new Model("Models/Backpack/Backpack.obj");
+
+    Light* deferredLight = new Light();
+    deferredLight->SetLightType(LightType::POINT_LIGHT);
+    deferredLight->InitializeDeferredLights();
+    deferredLight->SetAttenuation(0.09f, 0.02f, 0.02f);
+
+    deferredLight->transform.position = glm::vec3(0, 0, -9);
+
+    Model* window3 = new Model("Models/Backpack/Backpack.obj");
     window3->name = "Backpack";
     Texture* diffuse2 = new Texture("Models/Backpack/1001_albedo.jpg");
     Texture* specular2 = new Texture("Models/Backpack/1001_roughness.jpg");
     window3->meshes[0]->meshMaterial->material()->diffuseTexture = diffuse2;
     window3->meshes[0]->meshMaterial->material()->specularTexture = specular2;
-    GraphicsRender::GetInstance().AddModelAndShader(window3, application->defaultShader);*/
+    GraphicsRender::GetInstance().AddModelAndShader(window3, application->defaultShader);
    
 
     Model* Car = new Model("Models/Car/Car.obj");
-    Car->name = "Backpack";
+    Car->name = "Car";
     Texture* diffuse = new Texture("Models/Car/WhiplashColor.png");
     Texture* specular = new Texture("Models/Car/WhiplashRoughness.png");
     Car->meshes[0]->meshMaterial =  new MaterialGBuffer();
@@ -42,6 +49,8 @@ void SceneTen::Start()
     Car->transform.position = glm::vec3(0, 0, -10);
     GraphicsRender::GetInstance().AddGbufferModels(Car, application->gBufferShader);
 
+
+ 
 
    
 

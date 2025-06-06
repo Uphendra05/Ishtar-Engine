@@ -57,6 +57,33 @@ void LightManager::RemoveShader(Shader* shader)
     }
 }
 
+void LightManager::AddDeferredLight(Light* light)
+{
+    deferredLights.push_back(light);
+}
+
+void LightManager::RemoveDeferredLight(Light* light)
+{
+    deferredLights.erase(std::remove(deferredLights.begin(), deferredLights.end(), light), deferredLights.end());
+
+}
+
+void LightManager::AddDeferredShader(Shader* shader)
+{
+    deferredLightShader.push_back(shader);
+
+}
+
+void LightManager::RemoveDeferredShader(Shader* shader)
+{
+    std::vector<Shader*> ::iterator it = std::find(deferredLightShader.begin(), deferredLightShader.end(), shader);
+
+    if (it != deferredLightShader.end())
+    {
+        deferredLightShader.erase(it);
+    }
+}
+
 
 
 
@@ -168,7 +195,37 @@ void LightManager::RenderLights()
     }
 }
 
+void LightManager::RenderLightPassShaderLights()
+{
+
+    for (Shader* shader : deferredLightShader)
+    {
+        shader->Bind();
+        for (size_t i = 0; i < deferredLights.size(); i++)
+        {
+            if (deferredLights.size() > LightManager::MAXDEFERRED_LIGHT)
+            {
+                std::cout << "Light exceeded ...  File : " << __FILE__ << " Line : " << __LINE__ << std::endl;
+                break;
+            }
+            std::string index = std::to_string(i);
+            float intensity = deferredLights[i]->GetIntensityValue();
+            shader->setVec3("lights[" + index + "].position", deferredLights[i]->transform.position.x, deferredLights[i]->transform.position.y, deferredLights[i]->transform.position.z);
+            shader->setVec4("lights[" + index + "].color", deferredLights[i]->GetLightColor().x * intensity, deferredLights[i]->GetLightColor().y * intensity, deferredLights[i]->GetLightColor().z * intensity, deferredLights[i]->GetLightColor().w);
+            shader->setFloat("lights[" + index + "].linear", deferredLights[i]->GetAttenuation().x);    // Linear
+            shader->setFloat("lights[" + index + "].quadratic", deferredLights[i]->GetAttenuation().y); // Quadratic
+
+        }
+    }
+}
+
 const std::vector<Light*>& LightManager::GetLightList()
 {
     return lightList;
+}
+
+const std::vector<Light*>& LightManager::GetDeferredLightList()
+{
+    return deferredLights;
+
 }

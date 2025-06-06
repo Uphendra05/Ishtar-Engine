@@ -389,6 +389,7 @@ void BaseRenderingPipeline::InitializeShaders()
     LightManager::GetInstance().AddShader(alphaCutoutShader);
     LightManager::GetInstance().AddShader(defaultInstanceShader);
     LightManager::GetInstance().AddShader(grassInstanceShader);
+    LightManager::GetInstance().AddDeferredShader(lightPassShader);
 
 }
 

@@ -58,6 +58,23 @@ void Light::Initialize(const LightType& type, const float& intensity)
 
 }
 
+void Light::InitializeDeferredLights()
+{
+
+	SetAttenuation(1, 1, 1);
+	SetColor(1, 1, 1, 1);
+
+	LoadModel(*DebugModels::GetInstance().defaultSphere, true);
+	transform.SetScale(glm::vec3(this->lightTransformScale));
+
+	SetNameBaseOnType();
+
+
+	LightManager::GetInstance().AddDeferredLight(this);
+	GraphicsRender::GetInstance().AddModelAndShader(this, GraphicsRender::GetInstance().solidColorShader);
+
+}
+
 
 void Light::SetColor(const float x, const float y, const float z, const float w)
 {

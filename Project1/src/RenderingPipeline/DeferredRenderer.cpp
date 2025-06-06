@@ -34,11 +34,14 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 	
 	gBufferTextures.AttachGBufferTexturesToQuad(lightPassShader);
 
+    LightManager::GetInstance().RenderLightPassShaderLights();
+
 	// Set uniforms (light, viewPos, etc.)
-	lightPassShader->setVec3("light.position", camera->transform.position);
-	lightPassShader->setVec3("light.color", glm::vec3(1, 1, 1));
-	lightPassShader->setFloat("light.linear", 0.09f);
-	lightPassShader->setFloat("light.quadratic", 0.02f);
+	//lightPassShader->setVec3("light[0].position", camera->transform.position);
+	//lightPassShader->setVec3("light[0].color", glm::vec3(1, 1, 1));
+	//lightPassShader->setFloat("light[0].linear", 0.09f);
+	//lightPassShader->setFloat("light[0].quadratic", 0.02f);
+
 	lightPassShader->setVec3("viewPos", camera->transform.position);
 
 	
@@ -105,7 +108,7 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 		EntityManager::GetInstance().Render();
 		SceneManager::GetInstance().Render();
 	}
-	//GraphicsRender::GetInstance().Draw();
+	GraphicsRender::GetInstance().Draw();
 	GraphicsRender::GetInstance().SetCamera(camera);
 	//LightManager::GetInstance().RenderLights();
 

@@ -20,6 +20,9 @@ public:
     Light();
     void Initialize(const LightType& type);
     void Initialize(const LightType& type = LightType::POINT_LIGHT, const float& intensity =0.5f );
+
+    void InitializeDeferredLights();
+
     void SetColor(const float x, const float y ,const float z ,const float w);
     void SetColor(const glm::vec4& color);
     void SetAmbientColor(const glm::vec4& ambient);
