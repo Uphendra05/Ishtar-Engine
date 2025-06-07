@@ -26,7 +26,7 @@ public:
     void  RenderLights();
     void  RenderLightPassShaderLights();
     static const unsigned int MAX_LIGHT = 11;
-    static const unsigned int MAXDEFERRED_LIGHT = 100;
+    static const unsigned int MAXDEFERRED_LIGHT = 500;
     
     const std::vector<Light*>& GetLightList();
     const std::vector<Light*>& GetDeferredLightList();
