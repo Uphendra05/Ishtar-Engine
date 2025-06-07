@@ -22,12 +22,19 @@ void SceneTen::Start()
     directionLight->transform.SetPosition(glm::vec3(0, 0, 5));
 
 
-    Light* deferredLight = new Light();
+   /* Light* deferredLight = new Light();
     deferredLight->SetLightType(LightType::POINT_LIGHT);
     deferredLight->InitializeDeferredLights();
     deferredLight->SetAttenuation(0.09f, 0.02f, 0.02f);
+    deferredLight->transform.position = glm::vec3(0, 0, -9);*/
 
-    deferredLight->transform.position = glm::vec3(0, 0, -9);
+    Light* deferredLight2 = new Light();
+    deferredLight2->SetLightType(LightType::SPOT_LIGHT);
+    deferredLight2->InitializeDeferredLights();
+    deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
+    deferredLight2->transform.position = glm::vec3(0, 0, -1);
+
+
 
     Model* window3 = new Model("Models/Backpack/Backpack.obj");
     window3->name = "Backpack";
@@ -51,6 +58,20 @@ void SceneTen::Start()
 
 
  
+
+    for (size_t i = 0; i < 50; i++)
+    {
+        Model* Car2 = new Model(*Car);
+        Car2->name = "Car " + i;
+        Texture* diffuse2 = new Texture(*diffuse);
+        Texture* specular2 = new Texture(*specular);
+        Car2->meshes[0]->meshMaterial = new MaterialGBuffer();
+
+        Car2->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse2;
+        Car2->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular2;
+        Car2->transform.position = glm::vec3(0, 0, -10);
+        GraphicsRender::GetInstance().AddGbufferModels(Car2, application->gBufferShader);
+    }
 
    
 

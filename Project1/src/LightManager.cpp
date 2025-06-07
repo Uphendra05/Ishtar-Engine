@@ -210,10 +210,16 @@ void LightManager::RenderLightPassShaderLights()
             }
             std::string index = std::to_string(i);
             float intensity = deferredLights[i]->GetIntensityValue();
+
             shader->setVec3("lights[" + index + "].position", deferredLights[i]->transform.position.x, deferredLights[i]->transform.position.y, deferredLights[i]->transform.position.z);
             shader->setVec4("lights[" + index + "].color", deferredLights[i]->GetLightColor().x * intensity, deferredLights[i]->GetLightColor().y * intensity, deferredLights[i]->GetLightColor().z * intensity, deferredLights[i]->GetLightColor().w);
             shader->setFloat("lights[" + index + "].linear", deferredLights[i]->GetAttenuation().x);    // Linear
             shader->setFloat("lights[" + index + "].quadratic", deferredLights[i]->GetAttenuation().y); // Quadratic
+            shader->setInt("lights[" + index + "].lightType", (int)deferredLights[i]->lightType);
+            shader->setFloat("lights[" + index + "].constant", deferredLights[i]->GetAttenuation().z);  // Constant
+            shader->setFloat("lights[" + index + "].cutOff", glm::cos(glm::radians(deferredLights[i]->GetInnerAndOuterAngle().x)));
+            shader->setFloat("lights[" + index + "].outerCutOff", glm::cos(glm::radians(deferredLights[i]->GetInnerAndOuterAngle().y)));
+            shader->setVec3("lights[" + index + "].direction", deferredLights[i]->transform.GetForward());
 
         }
     }
