@@ -97,6 +97,7 @@ void Light::SetAttenuation(const float& constant, const float& linear, const flo
 	this->constant = constant;
 	this->linear = linear;
 	this->quadratic = quadratic;
+	this->lightMax = std::fmaxf(std::fmaxf(color.r, color.g), color.b);;
 
 }
 
@@ -150,6 +151,16 @@ glm::vec4& Light::GetLightColor()
 	return color;
 }
 
+float& Light::GetRadius()
+{
+
+	float radius = (-linear + std::sqrtf(linear * linear - 4 * quadratic * (constant - (256.0 / 5.0) * lightMax)))
+		/ (2 * quadratic);
+	return radius;
+}
+
+
+
 glm::vec4& Light::GetAmbientColor()
 {
 	return ambient;
@@ -198,6 +209,7 @@ void Light::OnDestroy()
 
 void Light::Render()
 {
+	GraphicsRender::GetInstance().DrawSphere(transform.position, lightRadius, glm::vec4(1, 0, 0,1), true);
 }
 
 void Light::DrawLightProperties()
@@ -240,6 +252,7 @@ void Light::AttenuationProperties()
 	DrawDragFloatImGui("Constant", constant, 0.01f, -100, 100, columnWidth);
 	DrawDragFloatImGui("Linear", linear, 0.01f, -100, 100, columnWidth);
 	DrawDragFloatImGui("Quadratic", quadratic, 0.01f, -100, 100, columnWidth);
+	DrawDragFloatImGui("Light Radius", lightRadius, 0.01f, -100, 100, columnWidth);
 
 
 

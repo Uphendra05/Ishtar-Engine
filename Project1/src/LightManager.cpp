@@ -220,6 +220,7 @@ void LightManager::RenderLightPassShaderLights()
             shader->setFloat("lights[" + index + "].cutOff", glm::cos(glm::radians(deferredLights[i]->GetInnerAndOuterAngle().x)));
             shader->setFloat("lights[" + index + "].outerCutOff", glm::cos(glm::radians(deferredLights[i]->GetInnerAndOuterAngle().y)));
             shader->setVec3("lights[" + index + "].direction", deferredLights[i]->transform.GetForward());
+            shader->setFloat("lights[" + index + "].radius", deferredLights[i]->GetRadius() * deferredLights[i]->lightRadius);
 
         }
     }

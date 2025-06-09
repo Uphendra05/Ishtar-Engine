@@ -37,6 +37,7 @@ public:
 
 
     glm::vec4& GetLightColor();
+    float& GetRadius();
     glm::vec4& GetAmbientColor();
     glm::vec3& GetAttenuation();
     float& GetIntensityValue();
@@ -54,6 +55,7 @@ public:
     void Render() override;
 
     LightType lightType;
+    float lightRadius = .25f;
 private:
     Material material;
 
@@ -65,6 +67,7 @@ private:
     float constant;
     float linear;
     float quadratic;
+    float lightMax;
     float intensity = 0.5f;
 
     //spot Lights
