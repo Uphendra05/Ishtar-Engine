@@ -285,6 +285,7 @@
     <ClCompile Include="src\ImGui\WindowDockingPanel.cpp" />
     <ClCompile Include="src\ImGui\ToolPanel.cpp" />
     <ClCompile Include="src\TexturesGBuffer.cpp" />
+    <ClCompile Include="src\UniformBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
@@ -451,6 +452,7 @@
     <ClInclude Include="src\ImGui\WindowDockingPanel.h" />
     <ClInclude Include="src\ImGui\ToolPanel.h" />
     <ClInclude Include="src\TexturesGBuffer.h" />
+    <ClInclude Include="src\UniformBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\AnimationShader.frag" />

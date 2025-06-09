@@ -47,9 +47,13 @@ public:
     void setMat3(const std::string& name, const glm::mat3& mat) ;   
     void setMat4(const std::string& name, const glm::mat4& mat) ;
     void setMat4(const std::string& name, unsigned int count, bool transpose , const float* value) ;
+    void BindUniformBlock(const std::string& blockName, GLuint bindingPoint);
+
 
     unsigned  int FindUniformLocations(const std::string& name);
     unsigned int& GetShaderId();
+    GLuint GetUniformBlockIndex(const std::string& blockName);
+
 
     unsigned int rendererID;
     bool modelUniform = true;

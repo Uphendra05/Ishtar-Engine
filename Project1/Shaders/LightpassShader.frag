@@ -26,7 +26,7 @@ struct Light
     float radius;
 };
 
-#define MAX_LIGHTS 100
+#define MAX_LIGHTS 200
 uniform Light lights[MAX_LIGHTS];
 
 uniform vec3 viewPos;
@@ -34,7 +34,7 @@ uniform vec3 viewPos;
 int POINT_LIGHT_ID = 1;
 int SPOTLIGHT_ID = 2;
 
- int lightCount = 100;
+ int lightCount = 200;
 
 
 

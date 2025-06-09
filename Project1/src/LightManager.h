@@ -25,6 +25,7 @@ public:
     void UpdateUniformValuesToShader(Shader* shader);
     void  RenderLights();
     void  RenderLightPassShaderLights();
+    void UpdateLightPassUBO();
     static const unsigned int MAX_LIGHT = 11;
     static const unsigned int MAXDEFERRED_LIGHT = 500;
     

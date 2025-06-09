@@ -226,6 +226,12 @@ void LightManager::RenderLightPassShaderLights()
     }
 }
 
+void LightManager::UpdateLightPassUBO()
+{
+
+
+}
+
 const std::vector<Light*>& LightManager::GetLightList()
 {
     return lightList;

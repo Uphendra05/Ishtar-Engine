@@ -193,6 +193,17 @@ void Shader::setMat4(const std::string& name, unsigned int count, bool transpose
     GLCALL(glUniformMatrix4fv(FindUniformLocations(name), count, transpose, value));
 }
 
+void Shader::BindUniformBlock(const std::string& blockName, GLuint bindingPoint)
+{
+    GLuint blockIndex = GetUniformBlockIndex(blockName);
+    if (blockIndex == GL_INVALID_INDEX)
+    {
+        std::cout << "Warning: Uniform block '" << blockName << "' not found in shader.\n";
+        return;
+    }
+    glUniformBlockBinding(rendererID, blockIndex, bindingPoint);
+}
+
 
 unsigned int Shader::FindUniformLocations(const std::string& name)
 {
@@ -213,6 +224,11 @@ unsigned int Shader::FindUniformLocations(const std::string& name)
 unsigned int& Shader::GetShaderId()
 {
     return rendererID;
+}
+
+GLuint Shader::GetUniformBlockIndex(const std::string& blockName)
+{
+    return glGetUniformBlockIndex(rendererID, blockName.c_str());
 }
 
 void Shader::checkCompileErrors(unsigned int shader, std::string type)
