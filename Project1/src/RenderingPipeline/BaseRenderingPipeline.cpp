@@ -390,7 +390,8 @@ void BaseRenderingPipeline::InitializeShaders()
     LightManager::GetInstance().AddShader(defaultInstanceShader);
     LightManager::GetInstance().AddShader(grassInstanceShader);
     LightManager::GetInstance().AddDeferredShader(lightPassShader);
-
+    LightManager::GetInstance().SetUBOs();
+    LightManager::GetInstance().LightUBO->BindShaderToUBO(lightPassShader->rendererID, "LightBlock");
 }
 
 void BaseRenderingPipeline::InitializeSkybox()

@@ -290,6 +290,7 @@
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
     <ClInclude Include="src\ImGui\BufferTexture.h" />
+    <ClInclude Include="src\LightUBO.h" />
     <ClInclude Include="src\RenderingPipeline\PipelineManager.h" />
     <ClInclude Include="src\RenderingPipeline\DeferredRenderer.h" />
     <ClInclude Include="src\RenderingPipeline\ForwardRenderer.h" />

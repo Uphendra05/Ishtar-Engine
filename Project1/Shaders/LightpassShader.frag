@@ -1,4 +1,4 @@
-#version 330 core
+#version 430 core
 
 out vec4 FragColor;
 
@@ -9,32 +9,37 @@ uniform sampler2D gPosition;
 uniform sampler2D gNormal;
 uniform sampler2D gAlbedoSpec;
 
-struct Light 
+struct Lights 
 {
     vec3 position;
+    float pad1;
     vec3 direction;
+    float pad2;
     int lightType;
-
     float constant;
     float linear;
     float quadratic;
-
     float cutOff;
     float outerCutOff;
-
     vec4 color;
     float radius;
+    float pad3, pad4, pad5; // Padding to align to 16-byte std140 rules
 };
 
-#define MAX_LIGHTS 200
-uniform Light lights[MAX_LIGHTS];
+
+
+// Declare the UBO
+layout(std140,binding = 0) uniform LightBlock 
+{
+    Lights lights[1];
+};
+
+//uniform Lights lights[200];
 
 uniform vec3 viewPos;
 
 int POINT_LIGHT_ID = 1;
 int SPOTLIGHT_ID = 2;
-
- int lightCount = 200;
 
 
 
@@ -48,6 +53,8 @@ void main()
 
     vec3 result = CalculateDeferredLighting(viewDir, FragPos);
 
+    
+
     FragColor = vec4(result, 1.0);
 }
 
@@ -60,12 +67,14 @@ vec3 CalculateDeferredLighting( vec3 viewDir, vec3 fragPosition)
     vec3 Albedo = texture(gAlbedoSpec, TexCoords).rgb;
     float SpecularStrength = texture(gAlbedoSpec, TexCoords).a;
 
+    
 
-    for (int i = 0; i < lightCount; ++i)
+
+    for (int i = 0; i < 1; ++i)
     {
-        float lightDistance = length(lights[i].position - fragPosition);
-        if(lightDistance < lights[i].radius)
-        {
+     
+
+        
            
         
 
@@ -78,21 +87,28 @@ vec3 CalculateDeferredLighting( vec3 viewDir, vec3 fragPosition)
                 
                  // Light direction
                  vec3 lightDir = normalize(lights[i].position - fragPosition);
+
+                
                 
                  // Diffuse
                  float diff = max(dot(Normal, lightDir), 0.0);
-                 vec3 diffuse = diff * Albedo * lights[i].color.rgb;
+                 vec3 diffuse = diff * Albedo * lights[i].color.xyz;
                 
                  // Specular
                  vec3 reflectDir = reflect(-lightDir, Normal);
                  float spec = pow(max(dot(viewDir, reflectDir), 0.0), 300.0); // hardcoded shininess
-                 vec3 specular = SpecularStrength * spec * lights[i].color.rgb;
+                 vec3 specular = SpecularStrength * spec * lights[i].color.xyz;
                 
                  // Attenuation
                  float attDistance = length(lights[i].position - fragPosition);
                  float attenuation = 1.0 / (lights[i].constant + lights[i].linear * attDistance + lights[i].quadratic * (attDistance * attDistance));
-                
                   result += (diffuse + specular) * attenuation;
+
+     
+                
+                
+
+
                 }
                 
                 if(LightType == SPOTLIGHT_ID)
@@ -126,7 +142,7 @@ vec3 CalculateDeferredLighting( vec3 viewDir, vec3 fragPosition)
                 
                 
                 
-                }
+               
   
      }
     

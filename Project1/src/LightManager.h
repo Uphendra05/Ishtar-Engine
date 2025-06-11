@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Light.h"
+#include "LightUBO.h"
+#include "UniformBuffer.h"
 
 class LightManager 
 {
@@ -10,6 +12,7 @@ public:
    
 
     void SetUniforms(GLuint shaderID);
+    void SetUBOs();
     void AddLight(Light* light);
     void RemoveLight(Light* light);
     void AddShader(Shader* shader);
@@ -27,10 +30,13 @@ public:
     void  RenderLightPassShaderLights();
     void UpdateLightPassUBO();
     static const unsigned int MAX_LIGHT = 11;
-    static const unsigned int MAXDEFERRED_LIGHT = 500;
+    static const unsigned int MAXDEFERRED_LIGHT = 200;
     
     const std::vector<Light*>& GetLightList();
     const std::vector<Light*>& GetDeferredLightList();
+    UniformBuffer* LightUBO;
+
+    
 private:
     std::vector<Light*> lightList;
 
@@ -39,6 +45,10 @@ private:
     std::vector<Shader*> listOfShaders;
 
     std::vector<Shader*> deferredLightShader;
+
+    LightBlock block;
+
+
 };
 
 

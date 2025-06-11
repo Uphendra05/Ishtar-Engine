@@ -11,58 +11,18 @@ void SceneTen::Start()
 {
 
  
-    for (size_t i = 0; i < 50; i++)
-    {
+    
 
         Light* deferredLight2 = new Light();
         deferredLight2->SetLightType(LightType::POINT_LIGHT);
         deferredLight2->InitializeDeferredLights();
         deferredLight2->SetColor(glm::vec4(1,0,0,1));
         deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(0, 10, (-10 + i) * 4.2f);
+        deferredLight2->transform.position = glm::vec3(0, 10, 10);
 
-    }
+    
 
-    for (size_t i = 0; i < 50; i++)
-    {
-
-        Light* deferredLight2 = new Light();
-        deferredLight2->SetLightType(LightType::POINT_LIGHT);
-        deferredLight2->InitializeDeferredLights();
-        deferredLight2->SetColor(glm::vec4(0, 0, 1, 1));
-
-        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(10, 1.5, (-10 + i) * 4.2f);
-
-    }
-
-    for (size_t i = 0; i < 50; i++)
-    {
-
-        Light* deferredLight2 = new Light();
-        deferredLight2->SetLightType(LightType::POINT_LIGHT);
-        deferredLight2->InitializeDeferredLights();
-        deferredLight2->SetColor(glm::vec4(0, 1, 0, 1));
-
-        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(-10, 1.5, (-10 + i) * 4.2f);
-
-    }
-
-
-
-    for (size_t i = 0; i < 50; i++)
-    {
-
-        Light* deferredLight2 = new Light();
-        deferredLight2->SetLightType(LightType::POINT_LIGHT);
-        deferredLight2->InitializeDeferredLights();
-        deferredLight2->SetColor(glm::vec4(1, 1, 1, 1));
-
-        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(0, -3.5, (-10 + i) * 4.2f);
-
-    }
+   
 
 
  
@@ -78,21 +38,19 @@ void SceneTen::Start()
     Car->transform.position = glm::vec3(0, 0, -10);
     GraphicsRender::GetInstance().AddGbufferModels(Car, application->gBufferShader);
 
-    for (size_t i = 0; i < 50; i++)
-    {
-        std::string index = std::to_string(i);
+   
 
         Model* Car2 = new Model(*Car);
-        Car2->name = "Car " + index;
+        Car2->name = "Car " ;
         Texture* diffuse2 = new Texture(*diffuse);
         Texture* specular2 = new Texture(*specular);
         Car2->meshes[0]->meshMaterial = new MaterialGBuffer();
 
         Car2->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse2;
         Car2->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular2;
-        Car2->transform.position = glm::vec3(0, 0, (- 10 + i) * 4.2f);
+        Car2->transform.position = glm::vec3(0, 0, 10 );
         GraphicsRender::GetInstance().AddGbufferModels(Car2, application->gBufferShader);
-    }
+  
 
    
 

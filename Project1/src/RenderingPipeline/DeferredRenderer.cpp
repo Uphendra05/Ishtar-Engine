@@ -34,7 +34,7 @@ void DeferredRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer,
 	
 	gBufferTextures.AttachGBufferTexturesToQuad(lightPassShader);
 
-    LightManager::GetInstance().RenderLightPassShaderLights();
+    LightManager::GetInstance().UpdateLightPassUBO();
 
 	// Set uniforms (light, viewPos, etc.)
 	//lightPassShader->setVec3("light[0].position", camera->transform.position);

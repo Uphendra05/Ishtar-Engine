@@ -32,6 +32,13 @@ void LightManager::SetUniforms(GLuint shaderID)
 
 }
 
+void LightManager::SetUBOs()
+{
+    LightUBO = new UniformBuffer(sizeof(LightBlock) , 0);
+   
+
+}
+
 void LightManager::AddLight(Light* light)
 {
     lightList.push_back(light);
@@ -193,6 +200,7 @@ void LightManager::RenderLights()
 
         }
     }
+
 }
 
 void LightManager::RenderLightPassShaderLights()
@@ -228,6 +236,31 @@ void LightManager::RenderLightPassShaderLights()
 
 void LightManager::UpdateLightPassUBO()
 {
+
+    for (size_t i = 0; i < deferredLights.size(); i++)
+    {
+        float intensity = deferredLights[i]->GetIntensityValue();
+
+        block.lights[i].position.x = deferredLights[i]->transform.position.x;
+        block.lights[i].position.y = deferredLights[i]->transform.position.y;
+        block.lights[i].position.z = deferredLights[i]->transform.position.z;
+
+        block.lights[i].color.x = deferredLights[i]->GetLightColor().r;
+        block.lights[i].color.y = deferredLights[i]->GetLightColor().g;
+        block.lights[i].color.z = deferredLights[i]->GetLightColor().b;
+
+        block.lights[i].linear = deferredLights[i]->GetAttenuation().x;
+        block.lights[i].quadratic = deferredLights[i]->GetAttenuation().y;
+        block.lights[i].lightType = (int)deferredLights[i]->lightType;
+        block.lights[i].constant = deferredLights[i]->GetAttenuation().z;
+        block.lights[i].cutOff = glm::cos(glm::radians(deferredLights[i]->GetInnerAndOuterAngle().x));
+        block.lights[i].outerCutOff = glm::cos(glm::radians(deferredLights[i]->GetInnerAndOuterAngle().y));
+        block.lights[i].direction = deferredLights[i]->transform.GetForward();
+        block.lights[i].radius = deferredLights[i]->GetRadius() * deferredLights[i]->lightRadius;
+
+    }
+    LightUBO->UpdateUniformBufferData(&block, sizeof(LightBlock), 0);
+
 
 
 }

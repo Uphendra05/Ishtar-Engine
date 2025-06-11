@@ -25,6 +25,10 @@ void UniformBuffer::BindShaderToUBO(unsigned int shaderID, const GLchar* uniform
     glUniformBlockBinding(shaderID, blockIndex, mBindingPoint);
 }
 
+void UniformBuffer::GetBufferData(const void* data, unsigned int size, unsigned int offset)
+{
+}
+
 void UniformBuffer::Unbind()
 {
     glBindBuffer(GL_UNIFORM_BUFFER, 0);

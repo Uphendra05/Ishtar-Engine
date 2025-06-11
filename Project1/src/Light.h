@@ -55,7 +55,7 @@ public:
     void Render() override;
 
     LightType lightType;
-    float lightRadius = .25f;
+    float lightRadius = 40.25f;
 private:
     Material material;
 
