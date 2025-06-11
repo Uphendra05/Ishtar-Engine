@@ -12,17 +12,78 @@ void SceneTen::Start()
 
  
     
-
+    for (size_t i = 0; i < 100; i++)
+    {
         Light* deferredLight2 = new Light();
         deferredLight2->SetLightType(LightType::POINT_LIGHT);
         deferredLight2->InitializeDeferredLights();
-        deferredLight2->SetColor(glm::vec4(1,0,0,1));
+        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
         deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(0, 10, 10);
+        deferredLight2->transform.position = glm::vec3(0, 5.5, (-10 + i) * 4.2f);
 
-    
 
+    }
    
+
+    for (size_t i = 0; i < 100; i++)
+    {
+        Light* deferredLight2 = new Light();
+        deferredLight2->SetLightType(LightType::POINT_LIGHT);
+        deferredLight2->InitializeDeferredLights();
+        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
+        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
+        deferredLight2->transform.position = glm::vec3(10, 5.5, (-10 + i) * 4.2f);
+
+
+    }
+
+    for (size_t i = 0; i < 100; i++)
+    {
+        Light* deferredLight2 = new Light();
+        deferredLight2->SetLightType(LightType::POINT_LIGHT);
+        deferredLight2->InitializeDeferredLights();
+        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
+        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
+        deferredLight2->transform.position = glm::vec3(-10, 5.5, (-10 + i) * 4.2f);
+
+
+    }
+
+    for (size_t i = 0; i < 100; i++)
+    {
+        Light* deferredLight2 = new Light();
+        deferredLight2->SetLightType(LightType::POINT_LIGHT);
+        deferredLight2->InitializeDeferredLights();
+        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
+        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
+        deferredLight2->transform.position = glm::vec3(0, -5.5, (-10 + i) * 4.2f);
+
+
+    }
+
+    for (size_t i = 0; i < 100; i++)
+    {
+        Light* deferredLight2 = new Light();
+        deferredLight2->SetLightType(LightType::POINT_LIGHT);
+        deferredLight2->InitializeDeferredLights();
+        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
+        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
+        deferredLight2->transform.position = glm::vec3(10, -5.5, (-10 + i) * 4.2f);
+
+
+    }
+
+    for (size_t i = 0; i < 100; i++)
+    {
+        Light* deferredLight2 = new Light();
+        deferredLight2->SetLightType(LightType::POINT_LIGHT);
+        deferredLight2->InitializeDeferredLights();
+        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
+        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
+        deferredLight2->transform.position = glm::vec3(-10, -5.5, (-10 + i) * 4.2f);
+
+
+    }
 
 
  
@@ -39,19 +100,20 @@ void SceneTen::Start()
     GraphicsRender::GetInstance().AddGbufferModels(Car, application->gBufferShader);
 
    
-
+    for (size_t i = 0; i < 100; i++)
+    {
         Model* Car2 = new Model(*Car);
-        Car2->name = "Car " ;
+        Car2->name = "Car ";
         Texture* diffuse2 = new Texture(*diffuse);
         Texture* specular2 = new Texture(*specular);
         Car2->meshes[0]->meshMaterial = new MaterialGBuffer();
 
         Car2->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse2;
         Car2->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular2;
-        Car2->transform.position = glm::vec3(0, 0, 10 );
+        Car2->transform.position = glm::vec3(0, 0, (-10 + i) * 4.2f);
         GraphicsRender::GetInstance().AddGbufferModels(Car2, application->gBufferShader);
-  
 
+    }
    
 
 }

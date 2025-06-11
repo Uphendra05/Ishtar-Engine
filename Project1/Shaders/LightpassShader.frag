@@ -13,17 +13,21 @@ struct Lights
 {
     vec3 position;
     float pad1;
+
     vec3 direction;
     float pad2;
+
     int lightType;
     float constant;
     float linear;
     float quadratic;
+
     float cutOff;
     float outerCutOff;
-    vec4 color;
     float radius;
-    float pad3, pad4, pad5; // Padding to align to 16-byte std140 rules
+    float pad3;
+
+    vec4 color;
 };
 
 
@@ -31,7 +35,7 @@ struct Lights
 // Declare the UBO
 layout(std140,binding = 0) uniform LightBlock 
 {
-    Lights lights[1];
+    Lights lights[600];
 };
 
 //uniform Lights lights[200];
@@ -70,13 +74,15 @@ vec3 CalculateDeferredLighting( vec3 viewDir, vec3 fragPosition)
     
 
 
-    for (int i = 0; i < 1; ++i)
+    for (int i = 0; i < 600; ++i)
     {
      
 
         
            
-        
+         float lightDistance = length(lights[i].position - fragPosition);
+        if(lightDistance < lights[i].radius)
+        {
 
 
 
@@ -140,7 +146,7 @@ vec3 CalculateDeferredLighting( vec3 viewDir, vec3 fragPosition)
                    result += (diffuse + specular) * attenuation;
                 
                 
-                
+                }
                 
                
   
