@@ -25,7 +25,7 @@ void EditorLayout::InitializeEditors()
     gameviewportPanel = new GameViewportPanel();
     toolPanel = new ToolPanel();
     bufferTextureView = new BufferTexture();
-
+    contentBrowser = new ContentBrowser();
     
     sceneViewportPanel->frameBuffer = Renderer->sceneViewframeBuffer;
     sceneViewportPanel->gbufferFBO = Renderer->gBufferFramebuffer;

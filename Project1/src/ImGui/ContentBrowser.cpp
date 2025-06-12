@@ -1,8 +1,7 @@
-#include "GameViewportPanel.h"
+#include "ContentBrowser.h"
 
-void GameViewportPanel::OnRender(float windowWidth, float windowHeight)
+void ContentBrowser::OnRender(float windowWidth, float windowHeight)
 {
-    ImGui::ShowStyleEditor();
 
     // isEnable = false;
     if (!isPanelOpen)
@@ -18,7 +17,7 @@ void GameViewportPanel::OnRender(float windowWidth, float windowHeight)
     ImGui::PushStyleColor(ImGuiCol_WindowBg, windowColor);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
-    if (!ImGui::Begin("GameView", &isPanelOpen) || !isEnable)
+    if (!ImGui::Begin("Content Browser", &isPanelOpen) || !isEnable)
     {
         ImGui::End();
         ImGui::PopStyleColor();
@@ -31,12 +30,13 @@ void GameViewportPanel::OnRender(float windowWidth, float windowHeight)
 
     isHovered = ImGui::IsWindowHovered();
 
-    float cameraAspectRatio = gameViewportResolution.x / gameViewportResolution.y;
+    float cameraAspectRatio = viewPortRes.x / viewPortRes.y;
     float viewportRatio = viewPortPanelSize.x / viewPortPanelSize.y;
 
 
     ImVec2 renderSize;
     ImVec2 renderPos;
+    ImVec2 padding;
 
 
     if (viewportRatio > cameraAspectRatio)
@@ -57,8 +57,9 @@ void GameViewportPanel::OnRender(float windowWidth, float windowHeight)
 
     renderPos.y += lineHeight;
 
-    ImGui::SetCursorPos(renderPos);
-    ImGui::Image((void*)frameBuffer->GetColorAttachmentID(), renderSize, ImVec2(0, 1), ImVec2(1, 0));
+    renderPos.x *= -0.0005f;
+
+   
 
     ImGui::End();
 

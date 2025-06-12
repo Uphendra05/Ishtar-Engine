@@ -456,6 +456,9 @@
     <ClCompile Include="src\UniformBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ImGui\ContentBrowser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -954,6 +957,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\LightUBO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ImGui\ContentBrowser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,4 +4,6 @@
 BasePanel::BasePanel()
 {
 	PanelManager::GetInstance().AddPanel(this);
+	
+
 }

@@ -35,7 +35,7 @@ struct Lights
 // Declare the UBO
 layout(std140,binding = 0) uniform LightBlock 
 {
-    Lights lights[1800];
+    Lights lights[200];
 };
 
 //uniform Lights lights[200];
@@ -72,7 +72,7 @@ vec3 CalculateDeferredLighting( vec3 viewDir, vec3 fragPosition)
     float SpecularStrength = texture(gAlbedoSpec, TexCoords).a;
 
 
-    for (int i = 0; i < 1800; ++i)
+    for (int i = 0; i < 200; ++i)
     {
      
 
