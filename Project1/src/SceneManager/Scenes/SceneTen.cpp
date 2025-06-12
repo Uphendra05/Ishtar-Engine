@@ -28,21 +28,17 @@ void SceneTen::Start()
     floor->meshes[0]->meshMaterial->gBufferMat()->specularTexture = cubespecular;
 
     floor->transform.position = glm::vec3(0, 0, 0);
-    floor->transform.SetScale(glm::vec3(100, 0.25, 100));
+    floor->transform.SetScale(glm::vec3(1000, 0.25, 1000));
 
     GraphicsRender::GetInstance().AddGbufferModels(floor, application->gBufferShader);
  
-    float rotation = 0;
+   
 
-    // === Car ===
+    // Cache
     Model* tempCar = new Model("Models/Car/Car.fbx");
     Texture* tempDiffuse = new Texture("Models/Car/Diffuse.png");
     Texture* tempSpecular = new Texture("Models/Car/Specular.png");
     
-
-   
-
-
 
     float spacing = 10.0f;
 
@@ -51,7 +47,7 @@ void SceneTen::Start()
         for (int z = 0; z < 30; ++z)
         {
             glm::vec3 carPosition = glm::vec3(x * spacing, 0.0f, z * spacing);
-            float rotationY = rotation;
+            float rotationY = 0;
 
             Model* car = new Model(*tempCar);
             car->name = "Car_" + std::to_string(x) + "_" + std::to_string(z);
@@ -63,7 +59,7 @@ void SceneTen::Start()
             car->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular;
 
             car->transform.position = carPosition;
-            car->transform.SetRotation(glm::vec3(-90, rotationY, 0)); // Rotate around Y
+            car->transform.SetRotation(glm::vec3(-90, rotationY, 0)); 
             GraphicsRender::GetInstance().AddGbufferModels(car, application->gBufferShader);
 
             Light* pointLight = new Light();

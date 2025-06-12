@@ -71,8 +71,6 @@ vec3 CalculateDeferredLighting( vec3 viewDir, vec3 fragPosition)
     vec3 Albedo = texture(gAlbedoSpec, TexCoords).rgb;
     float SpecularStrength = texture(gAlbedoSpec, TexCoords).a;
 
-    
-
 
     for (int i = 0; i < 1800; ++i)
     {
