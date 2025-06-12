@@ -12,108 +12,82 @@ void SceneTen::Start()
 
  
     
-    for (size_t i = 0; i < 100; i++)
-    {
-        Light* deferredLight2 = new Light();
-        deferredLight2->SetLightType(LightType::POINT_LIGHT);
-        deferredLight2->InitializeDeferredLights();
-        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
-        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(0, 5.5, (-10 + i) * 4.2f);
-
-
-    }
    
-
-    for (size_t i = 0; i < 100; i++)
-    {
-        Light* deferredLight2 = new Light();
-        deferredLight2->SetLightType(LightType::POINT_LIGHT);
-        deferredLight2->InitializeDeferredLights();
-        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
-        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(10, 5.5, (-10 + i) * 4.2f);
+    
 
 
-    }
 
-    for (size_t i = 0; i < 100; i++)
-    {
-        Light* deferredLight2 = new Light();
-        deferredLight2->SetLightType(LightType::POINT_LIGHT);
-        deferredLight2->InitializeDeferredLights();
-        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
-        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(-10, 5.5, (-10 + i) * 4.2f);
+    Model* floor = new Model("Models/DefaultCube/DefaultCube.fbx", true);
+    floor->name = "floor";
+   
+    Texture* cubediffuse = new Texture("Models/DefaultCube/Default_Diffuse.png");
+    Texture* cubespecular = new Texture("Models/DefaultCube/Default_Specular.jpg");
+    floor->meshes[0]->meshMaterial = new MaterialGBuffer();
 
+    floor->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = cubediffuse;
+    floor->meshes[0]->meshMaterial->gBufferMat()->specularTexture = cubespecular;
 
-    }
+    floor->transform.position = glm::vec3(0, 0, 0);
+    floor->transform.SetScale(glm::vec3(100, 0.25, 100));
 
-    for (size_t i = 0; i < 100; i++)
-    {
-        Light* deferredLight2 = new Light();
-        deferredLight2->SetLightType(LightType::POINT_LIGHT);
-        deferredLight2->InitializeDeferredLights();
-        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
-        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(0, -5.5, (-10 + i) * 4.2f);
-
-
-    }
-
-    for (size_t i = 0; i < 100; i++)
-    {
-        Light* deferredLight2 = new Light();
-        deferredLight2->SetLightType(LightType::POINT_LIGHT);
-        deferredLight2->InitializeDeferredLights();
-        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
-        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(10, -5.5, (-10 + i) * 4.2f);
-
-
-    }
-
-    for (size_t i = 0; i < 100; i++)
-    {
-        Light* deferredLight2 = new Light();
-        deferredLight2->SetLightType(LightType::POINT_LIGHT);
-        deferredLight2->InitializeDeferredLights();
-        deferredLight2->SetColor(glm::vec4(1, 0, 0, 1));
-        deferredLight2->SetAttenuation(0.09f, 0.02f, 0.02f);
-        deferredLight2->transform.position = glm::vec3(-10, -5.5, (-10 + i) * 4.2f);
-
-
-    }
-
-
+    GraphicsRender::GetInstance().AddGbufferModels(floor, application->gBufferShader);
  
+    float rotation = 0;
 
-    Model* Car = new Model("Models/Car/Car.obj");
-    Car->name = "Car";
-    Texture* diffuse = new Texture("Models/Car/WhiplashColor.png");
-    Texture* specular = new Texture("Models/Car/WhiplashRoughness.png");
-    Car->meshes[0]->meshMaterial =  new MaterialGBuffer();
-
-    Car->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse;
-    Car->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular;
-    Car->transform.position = glm::vec3(0, 0, -10);
-    GraphicsRender::GetInstance().AddGbufferModels(Car, application->gBufferShader);
+    // === Car ===
+    Model* tempCar = new Model("Models/Car/Car.fbx");
+    Texture* tempDiffuse = new Texture("Models/Car/Diffuse.png");
+    Texture* tempSpecular = new Texture("Models/Car/Specular.png");
+    
 
    
-    for (size_t i = 0; i < 100; i++)
+
+
+
+    float spacing = 10.0f;
+
+    for (int x = 0; x < 30; ++x)
     {
-        Model* Car2 = new Model(*Car);
-        Car2->name = "Car ";
-        Texture* diffuse2 = new Texture(*diffuse);
-        Texture* specular2 = new Texture(*specular);
-        Car2->meshes[0]->meshMaterial = new MaterialGBuffer();
+        for (int z = 0; z < 30; ++z)
+        {
+            glm::vec3 carPosition = glm::vec3(x * spacing, 0.0f, z * spacing);
+            float rotationY = rotation;
 
-        Car2->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse2;
-        Car2->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular2;
-        Car2->transform.position = glm::vec3(0, 0, (-10 + i) * 4.2f);
-        GraphicsRender::GetInstance().AddGbufferModels(Car2, application->gBufferShader);
+            Model* car = new Model(*tempCar);
+            car->name = "Car_" + std::to_string(x) + "_" + std::to_string(z);
 
+            Texture* diffuse = new Texture(*tempDiffuse);
+            Texture* specular = new Texture(*tempSpecular);
+            car->meshes[0]->meshMaterial = new MaterialGBuffer();
+            car->meshes[0]->meshMaterial->gBufferMat()->diffuseTexture = diffuse;
+            car->meshes[0]->meshMaterial->gBufferMat()->specularTexture = specular;
+
+            car->transform.position = carPosition;
+            car->transform.SetRotation(glm::vec3(-90, rotationY, 0)); // Rotate around Y
+            GraphicsRender::GetInstance().AddGbufferModels(car, application->gBufferShader);
+
+            Light* pointLight = new Light();
+            pointLight->SetLightType(LightType::POINT_LIGHT);
+            pointLight->InitializeDeferredLights();
+            pointLight->SetColor(glm::vec4(1, 1, 1, 1));
+            pointLight->SetAttenuation(1.0f, 0.09f, 0.032f);
+            pointLight->transform.position = carPosition + glm::vec3(0, 4.0f, 0);
+
+            Light* spotLight = new Light();
+            spotLight->SetLightType(LightType::SPOT_LIGHT);
+            spotLight->InitializeDeferredLights();
+            spotLight->SetColor(glm::vec4(1, 1, 1, 1));
+            spotLight->SetAttenuation(1.0f, 0.09f, 0.032f);
+            spotLight->SetInnerAndOuterCutoffAngle(0, 45.0f);
+
+            spotLight->transform.position = carPosition + glm::vec3(0, 1.5f, 0);
+            spotLight->transform.SetRotation(glm::vec3(0,180,0));
+            spotLight->lightRadius = 1.0f;
+        }
     }
+
+    
+
    
 
 }

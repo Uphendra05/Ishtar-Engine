@@ -9,7 +9,7 @@ class LightManager
 public:
 
     static LightManager& GetInstance();
-   
+    ~LightManager();
 
     void SetUniforms(GLuint shaderID);
     void SetUBOs();

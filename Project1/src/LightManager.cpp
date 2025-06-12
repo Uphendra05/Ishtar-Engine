@@ -9,6 +9,11 @@ LightManager& LightManager::GetInstance()
     return instance;
 }
 
+LightManager::~LightManager()
+{
+    delete LightUBO;
+}
+
 
 void LightManager::SetUniforms(GLuint shaderID)
 {

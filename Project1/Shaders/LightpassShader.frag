@@ -35,7 +35,7 @@ struct Lights
 // Declare the UBO
 layout(std140,binding = 0) uniform LightBlock 
 {
-    Lights lights[600];
+    Lights lights[1800];
 };
 
 //uniform Lights lights[200];
@@ -74,7 +74,7 @@ vec3 CalculateDeferredLighting( vec3 viewDir, vec3 fragPosition)
     
 
 
-    for (int i = 0; i < 600; ++i)
+    for (int i = 0; i < 1800; ++i)
     {
      
 

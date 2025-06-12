@@ -26,5 +26,5 @@ struct Lights
 
 struct LightBlock
 {
-    Lights lights[600];
+    Lights lights[1800];
 };
