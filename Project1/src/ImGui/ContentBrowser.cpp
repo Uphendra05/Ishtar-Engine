@@ -33,6 +33,7 @@ void ContentBrowser::OnRender(float windowWidth, float windowHeight)
 
 
     ImGui::PushStyleColor(ImGuiCol_WindowBg, windowColor);
+
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 
     if (!ImGui::Begin("Content Browser", &isPanelOpen) || !isEnable)
@@ -103,8 +104,9 @@ void ContentBrowser::OnRender(float windowWidth, float windowHeight)
              Texture* tempTexture = directoryEntry.is_directory() ? fileFolderIcon : fileIcon;
 
             ImGui::PushID(displayName.c_str());
+
             ImGui::ImageButton((ImTextureID)(intptr_t)tempTexture->id , { thumbnailSize,thumbnailSize });
-            if (ImGui::IsItemActive() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+            if (ImGui::IsItemActive() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
             {
                 if (directoryEntry.is_directory())
                 {
@@ -116,7 +118,7 @@ void ContentBrowser::OnRender(float windowWidth, float windowHeight)
 
            
             ImGui::PopID();
-            ImGui::Text(displayName.c_str());
+            ImGui::TextWrapped(displayName.c_str());
             ImGui::NextColumn();
 
         }

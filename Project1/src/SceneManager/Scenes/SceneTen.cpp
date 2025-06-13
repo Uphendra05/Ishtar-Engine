@@ -10,11 +10,6 @@ SceneTen::SceneTen(const std::string& sceneName) : BaseScene::BaseScene(sceneNam
 void SceneTen::Start()
 {
 
- 
-    
-   
-    
-
 
 
     Model* floor = new Model("Models/DefaultCube/DefaultCube.fbx", true);
@@ -42,9 +37,9 @@ void SceneTen::Start()
 
     float spacing = 10.0f;
 
-    for (int x = 0; x < 10; ++x)
+    for (int x = 0; x < 30; ++x)
     {
-        for (int z = 0; z < 10; ++z)
+        for (int z = 0; z < 30; ++z)
         {
             glm::vec3 carPosition = glm::vec3(x * spacing, 0.0f, z * spacing);
             float rotationY = 0;

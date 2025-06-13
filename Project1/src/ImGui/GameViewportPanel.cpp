@@ -2,8 +2,6 @@
 
 void GameViewportPanel::OnRender(float windowWidth, float windowHeight)
 {
-    ImGui::ShowStyleEditor();
-
     // isEnable = false;
     if (!isPanelOpen)
     {

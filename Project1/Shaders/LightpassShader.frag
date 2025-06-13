@@ -30,12 +30,12 @@ struct Lights
     vec4 color;
 };
 
-
+const int lightCount = 1800;
 
 // Declare the UBO
 layout(std140,binding = 0) uniform LightBlock 
 {
-    Lights lights[200];
+    Lights lights[lightCount];
 };
 
 //uniform Lights lights[200];
@@ -72,7 +72,7 @@ vec3 CalculateDeferredLighting( vec3 viewDir, vec3 fragPosition)
     float SpecularStrength = texture(gAlbedoSpec, TexCoords).a;
 
 
-    for (int i = 0; i < 200; ++i)
+    for (int i = 0; i < lightCount; ++i)
     {
      
 
