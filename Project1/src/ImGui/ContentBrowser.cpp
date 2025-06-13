@@ -58,7 +58,17 @@ void ContentBrowser::OnRender(float windowWidth, float windowHeight)
         }
     }
     
+    float leftPaneWidth = 250.0f; // Fixed width for folder tree
+    ImVec2 contentSize = ImGui::GetContentRegionAvail();
 
+    // Left Pane
+    ImGui::BeginChild("LeftPane", ImVec2(leftPaneWidth, contentSize.y), true);
+    DrawDirectoryTree(sAssetPath);
+    ImGui::EndChild();
+
+    ImGui::SameLine();
+
+    ImGui::BeginChild("RightPane", ImVec2(0, contentSize.y), true);
     static float paddingThumbSize = 16.0f;
     static float thumbnailSize = 128.0f;
     float cellSize = paddingThumbSize + thumbnailSize;
@@ -94,7 +104,7 @@ void ContentBrowser::OnRender(float windowWidth, float windowHeight)
 
             ImGui::PushID(displayName.c_str());
             ImGui::ImageButton((ImTextureID)(intptr_t)tempTexture->id , { thumbnailSize,thumbnailSize });
-            if (ImGui::IsItemActive() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+            if (ImGui::IsItemActive() && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
             {
                 if (directoryEntry.is_directory())
                 {
@@ -121,12 +131,53 @@ void ContentBrowser::OnRender(float windowWidth, float windowHeight)
 
     ImGui::Columns(1);
 
-    ImGui::SliderFloat("Thumbnail Size", &thumbnailSize, 16, 512);
-    ImGui::SliderFloat("Padding", &paddingThumbSize, 0, 32);
 
-
+    ImGui::EndChild();
     ImGui::End();
 
     ImGui::PopStyleColor();
     ImGui::PopStyleVar();
+}
+
+void ContentBrowser::DrawDirectoryTree(const std::filesystem::path& directory)
+{
+    for (auto& entry : std::filesystem::directory_iterator(directory))
+    {
+        if (directory == sAssetPath && !entry.is_directory())
+            continue;
+
+        const auto& path = entry.path();
+        auto relativePath = std::filesystem::relative(path, sAssetPath);
+        std::string name = relativePath.filename().string();
+       
+      
+
+        if (entry.is_directory())
+        {
+           
+            ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_OpenOnArrow;
+            bool opened = ImGui::TreeNodeEx(name.c_str(), flags);
+
+            if (ImGui::IsItemActive() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left ) && !ImGui::IsItemToggledOpen())
+            {
+                mCurrentDirectory =  path;
+                std::cout << "Clicked: " << path << "\n";
+            }
+
+            if (opened)
+            {
+                DrawDirectoryTree(path);
+                ImGui::TreePop();
+            }
+            
+        }
+        else
+        {
+           
+
+            ImGui::TreeNodeEx(name.c_str(), ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen);
+        }
+       
+    }
+
 }

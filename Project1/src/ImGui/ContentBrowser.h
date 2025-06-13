@@ -19,6 +19,8 @@ public:
 
 private:
 
+	void DrawDirectoryTree(const std::filesystem::path& directory);
+
 	std::filesystem::path mCurrentDirectory ;
 
 	Texture* fileFolderIcon = nullptr;
