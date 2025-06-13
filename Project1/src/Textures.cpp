@@ -18,6 +18,8 @@ Texture::Texture(const std::string& filePath)
 	this->id = LoadTextureID(filePath.c_str());
 }
 
+
+
 Texture::~Texture()
 {
 	GLCALL(glDeleteTextures(1, &id));

@@ -7,8 +7,15 @@ static const std::filesystem::path sAssetPath = "../Project1";
 
 ContentBrowser::ContentBrowser() : mCurrentDirectory(sAssetPath)
 {
+    fileFolderIcon = new Texture("Textures/Content Browser/Filefolder2.png");
+    fileIcon = new Texture("Textures/Content Browser/FileIcon.png");
 
+}
 
+ContentBrowser::~ContentBrowser()
+{
+    delete fileFolderIcon;
+    delete fileIcon;
 }
 
 void ContentBrowser::OnRender(float windowWidth, float windowHeight)
@@ -24,7 +31,6 @@ void ContentBrowser::OnRender(float windowWidth, float windowHeight)
 
     ImGuiStyle& style = ImGui::GetStyle();
 
-    float lineHeight = ImGui::GetFontSize() + style.FramePadding.y * 2;
 
     ImGui::PushStyleColor(ImGuiCol_WindowBg, windowColor);
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
@@ -38,38 +44,10 @@ void ContentBrowser::OnRender(float windowWidth, float windowHeight)
 
     }
 
-    ImVec2 viewPortPanelSize = ImGui::GetContentRegionAvail();
 
     isHovered = ImGui::IsWindowHovered();
 
-    float cameraAspectRatio = viewPortRes.x / viewPortRes.y;
-    float viewportRatio = viewPortPanelSize.x / viewPortPanelSize.y;
-
-
-    ImVec2 renderSize;
-    ImVec2 renderPos;
-    ImVec2 padding;
-
-
-    if (viewportRatio > cameraAspectRatio)
-    {
-        renderSize.y = viewPortPanelSize.y;
-        renderSize.x = renderSize.y * cameraAspectRatio;
-        renderPos.x = (viewPortPanelSize.x - renderSize.x) * 0.5f;
-        renderPos.y = 0;
-    }
-    else
-    {
-        renderSize.x = viewPortPanelSize.x;
-        renderSize.y = renderSize.x / cameraAspectRatio;
-        renderPos.x = 0;
-        renderPos.y = (viewPortPanelSize.y - renderSize.y) * 0.5f;
-
-    }
-
-    renderPos.y += lineHeight;
-    renderPos.x *= -0.0005f;
-
+    
 
 
     if (mCurrentDirectory != std::filesystem::path(sAssetPath))
@@ -79,9 +57,10 @@ void ContentBrowser::OnRender(float windowWidth, float windowHeight)
             mCurrentDirectory = mCurrentDirectory.parent_path();
         }
     }
+    
 
     static float paddingThumbSize = 16.0f;
-    static float thumbnailSize = 256;
+    static float thumbnailSize = 128.0f;
     float cellSize = paddingThumbSize + thumbnailSize;
     float pandelWidth = ImGui::GetContentRegionAvail().x;
     int columnCount = (int) (pandelWidth / cellSize);
@@ -89,43 +68,56 @@ void ContentBrowser::OnRender(float windowWidth, float windowHeight)
 
     ImGui::Columns(columnCount, 0, false);
 
-    for (auto& directoryEntry : fs::directory_iterator(mCurrentDirectory))
-    {
-
-        const fs::path& path = directoryEntry.path();
-        auto relativePath =  std::filesystem::relative(path, sAssetPath);
-        std::string displayName = relativePath.filename().string();
-
-        if (mCurrentDirectory == sAssetPath && !directoryEntry.is_directory())
-            continue; 
-
-
-        ImGui::Button(displayName.c_str(), { thumbnailSize,thumbnailSize });
-        ImGui::Text(displayName.c_str());
-
-
-
-        if (directoryEntry.is_directory())
-        {
-           /* if (ImGui::Button(displayName.c_str()))
-            {
-                mCurrentDirectory /= path.filename();
-            }*/
-        }
-        else
-        {
-            /*if (ImGui::Button(displayName.c_str()))
-            {
-
-            }*/
-
-        }
-        
-        ImGui::NextColumn();
-
+    if (!fs::exists(mCurrentDirectory) || !fs::is_directory(mCurrentDirectory)) {
+        std::cerr << "Invalid directory: " << mCurrentDirectory << "\n";
+        mCurrentDirectory = sAssetPath; 
+        ImGui::End();
+        ImGui::PopStyleColor();
+        ImGui::PopStyleVar();
+        return;
     }
 
+    std::string displayName;
+    try {
 
+        for (auto& directoryEntry : fs::directory_iterator(mCurrentDirectory))
+        {
+            const auto& path = directoryEntry.path();
+            auto relativePath = std::filesystem::relative(path, sAssetPath);
+            displayName = relativePath.filename().string();
+
+
+            if (mCurrentDirectory == sAssetPath && !directoryEntry.is_directory())
+                continue;
+
+             Texture* tempTexture = directoryEntry.is_directory() ? fileFolderIcon : fileIcon;
+
+            ImGui::PushID(displayName.c_str());
+            ImGui::ImageButton((ImTextureID)(intptr_t)tempTexture->id , { thumbnailSize,thumbnailSize });
+            if (ImGui::IsItemActive() && ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+            {
+                if (directoryEntry.is_directory())
+                {
+
+                    mCurrentDirectory /= path.filename();
+                }
+            }
+
+
+           
+            ImGui::PopID();
+            ImGui::Text(displayName.c_str());
+            ImGui::NextColumn();
+
+        }
+
+    }
+    catch (const fs::filesystem_error& e)
+    {
+            std::cerr << "Filesystem error: " << e.what() << "\n";
+            std::cerr << "Path1: " << e.path1() << "\n";
+            std::cerr << "Path2: " << e.path2() << "\n";
+    }
 
     ImGui::Columns(1);
 

@@ -12,9 +12,9 @@
 class Texture : public BaseTexture
 {
 public:
-	Texture( const std::string& filePath);
+	Texture(const std::string& filePath);
 	~Texture();
-	unsigned int id;
+	uint32_t id;
 	std::string path;
 	std::string type;
 	void LoadTexture(const std::string& filePath, const std::string& _type);
