@@ -129,4 +129,9 @@ The Engine has some handful of features implemented until now and I'm steadily w
 <ins>**Shaders With GLSL**</ins>
 * Interior Mapping
 
+<ins>**Engine Specific**</ins>
+* Particle System
+* FMOD audio 
+
+
 You can learn more about how I implemented each of the feature in my portfolio. Click this Link to open my Portfolio: https://uphendhra.wixsite.com/website
