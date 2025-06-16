@@ -106,3 +106,27 @@ That is all you need to do to start working in a Scene separately.
 
 
 ## Engine Features Till Date
+
+The Engine has some handful of features implemented until now and I'm steadily working on more new features and new shaders with industry standard techniques. I'm constantly learning new methods and techniques in Graphics Programming and it's really exciting honestly! Below you'll find the Features that I've implemented. You can find exciting stuff if you surf through my engine.
+
+<ins>**Graphics Stuff**</ins>
+
+* Off Screen Rendering
+* Frustrum Culling
+* Mesh Instancing
+* Post Processing
+* Level Of Detail
+* Skeletal Animation
+* Shadows
+* Deferred Rendering
+* ImGUI Panels and Content Browser
+
+<ins>**Physics Stuff**</ins>
+* PhysX Integration
+* Softbody Physics Simulation
+* Bounding Volume Hierarchy Collision
+
+<ins>**Shaders With GLSL**</ins>
+* Interior Mapping
+
+You can learn more about how I implemented each of the feature in my portfolio. Click this Link to open my Portfolio: https://uphendhra.wixsite.com/website
