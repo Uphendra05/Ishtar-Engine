@@ -180,6 +180,21 @@ void GraphicsRender::Draw()
 
 }
 
+void GraphicsRender::DrawModelsDepth(Shader* depthShader)
+{
+
+	for (ModelAndShader* modelAndShader : modelAndShaderList)
+	{
+		if (modelAndShader->model == selectedModel)  continue;
+
+		modelAndShader->model->Draw(depthShader);
+	}
+
+
+
+
+}
+
 void GraphicsRender::DrawGBufferModels()
 {
 	for (ModelAndShader* modelAndShader : gBufferModels)

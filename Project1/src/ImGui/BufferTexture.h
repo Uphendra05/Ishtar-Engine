@@ -10,6 +10,7 @@ public:
 	void OnRender(float windowWidth, float windowHeight) override;
 
 	FrameBuffer* gbufferFBO = nullptr;
+	FrameBuffer* depthFBO = nullptr;
 	FrameBuffer* sceneViewFBO = nullptr;
 	ImVec2 viewPortRes;
 	ImVec2 viewPortSize;

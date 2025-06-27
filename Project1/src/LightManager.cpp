@@ -96,6 +96,30 @@ void LightManager::RemoveDeferredShader(Shader* shader)
     }
 }
 
+glm::mat4 LightManager::LightProjection()
+{
+    float near_plane = 1.0f, far_plane = 7.5f;
+    glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+
+     return lightProjection;
+}
+
+glm::mat4 LightManager::LightView()
+{
+    glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
+                                      glm::vec3(0.0f, 0.0f, 0.0f),
+                                      glm::vec3(0.0f, 1.0f, 0.0f));
+
+    return lightView;
+
+}
+
+glm::mat4 LightManager::LightSpaceMatrix()
+{
+    glm::mat4 lightSpaceMatrix = LightProjection() * LightView();
+    return lightSpaceMatrix;
+}
+
 
 
 

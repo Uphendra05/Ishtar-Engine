@@ -6,7 +6,7 @@ int main()
 {
 	PipelineManager pipelineManager;
 
-	PipelineType selectedPipeline = PipelineType::Deferred;
+	PipelineType selectedPipeline = PipelineType::Forward;
 
 	if (selectedPipeline == PipelineType::Forward) 
 	{

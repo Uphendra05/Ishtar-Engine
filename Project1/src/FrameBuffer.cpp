@@ -234,6 +234,8 @@ void FrameBuffer::Invalidate()
 		{
 			//Only Depth-pass
 			GLCALL(glDrawBuffer(GL_NONE));
+			GLCALL(glReadBuffer(GL_NONE));
+
 		}
 	}
 

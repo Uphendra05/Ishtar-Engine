@@ -2,12 +2,25 @@
 
 ForwardRenderer::ForwardRenderer()
 {
-    pipelineName = "Deferred Rendering Pipeline";
+    pipelineName = "Forward Rendering Pipeline";
 
 }
 
 void ForwardRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView)
 {
+
+    GLCALL(glEnable(GL_DEPTH_TEST));
+
+    depthMapFramebuffer->Bind();
+     //GraphicsRender::GetInstance().Clear();
+
+    simpleDepthMap->Bind();
+    simpleDepthMap->setMat4("lightSpaceMatrix", LightManager::GetInstance().LightSpaceMatrix());
+   // GraphicsRender::GetInstance().DrawModelsDepth(simpleDepthMap);
+
+
+    depthMapFramebuffer->Unbind();
+
     framebuffer->Bind();
 
     GraphicsRender::GetInstance().Clear();

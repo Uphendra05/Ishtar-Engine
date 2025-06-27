@@ -23,6 +23,10 @@ public:
     void AddDeferredShader(Shader* shader);
     void RemoveDeferredShader(Shader* shader);
 
+    glm::mat4 LightProjection();
+    glm::mat4 LightView();
+    glm::mat4 LightSpaceMatrix();
+
     // This is called every frame
     void UpdateUniformValues(GLuint shaderID);
     void UpdateUniformValuesToShader(Shader* shader);

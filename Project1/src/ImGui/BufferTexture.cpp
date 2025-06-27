@@ -1,5 +1,4 @@
 #include "BufferTexture.h"
-
 void BufferTexture::OnRender(float windowWidth, float windowHeight)
 {
     // isEnable = false;
@@ -57,27 +56,40 @@ void BufferTexture::OnRender(float windowWidth, float windowHeight)
     renderPos.y += lineHeight;
 
     renderPos.x *= -0.0005f;
-   
-    ImGui::SameLine();
-    ImGui::Image((void*)gbufferFBO->GetColorAttachmentID(0), renderSize, ImVec2(0, 1), ImVec2(1, 0));
-    ImGui::SetCursorPos(renderPos);
+
+    
+#pragma region Deferred Rendering
+    /* Deferred Rendering
+   ImGui::SameLine();
+   ImGui::Image((void*)gbufferFBO->GetColorAttachmentID(0), renderSize, ImVec2(0, 1), ImVec2(1, 0));
+   ImGui::SetCursorPos(renderPos);
+
+   ImGui::SameLine();
+   ImGui::Image((void*)gbufferFBO->GetColorAttachmentID(1), renderSize, ImVec2(0, 1), ImVec2(1, 0));
+   ImGui::SetCursorPos(renderPos);
+
+   ImGui::SameLine();
+   ImGui::Image((void*)gbufferFBO->GetColorAttachmentID(2), renderSize, ImVec2(0, 1), ImVec2(1, 0));
+
+   ImGui::SetCursorPos(renderPos);
+
+   ImGui::SameLine();
+   ImGui::Image((void*)gbufferFBO->GetDepthAttachementID(), renderSize, ImVec2(0, 1), ImVec2(1, 0));
+
+   ImGui::SetCursorPos(renderPos);
+
+   ImGui::SameLine();
+   ImGui::Image((void*)sceneViewFBO->GetDepthAttachementID(), renderSize, ImVec2(0, 1), ImVec2(1, 0));*/
+#pragma endregion
+
+#pragma region Forward Rendering Shadows
 
     ImGui::SameLine();
-    ImGui::Image((void*)gbufferFBO->GetColorAttachmentID(1), renderSize, ImVec2(0, 1), ImVec2(1, 0));
-    ImGui::SetCursorPos(renderPos);
+    ImGui::Image((void*)depthFBO->GetDepthAttachementID(), renderSize, ImVec2(0, 1), ImVec2(1, 0));
 
-    ImGui::SameLine();
-    ImGui::Image((void*)gbufferFBO->GetColorAttachmentID(2), renderSize, ImVec2(0, 1), ImVec2(1, 0));
 
-    ImGui::SetCursorPos(renderPos);
+#pragma endregion
 
-    ImGui::SameLine();
-    ImGui::Image((void*)gbufferFBO->GetDepthAttachementID(), renderSize, ImVec2(0, 1), ImVec2(1, 0));
-
-    ImGui::SetCursorPos(renderPos);
-
-    ImGui::SameLine();
-    ImGui::Image((void*)sceneViewFBO->GetDepthAttachementID(), renderSize, ImVec2(0, 1), ImVec2(1, 0));
 
     ImGui::End();
 

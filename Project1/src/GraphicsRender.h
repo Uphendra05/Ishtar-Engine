@@ -57,6 +57,7 @@ public:
 
 	void InitializeGraphics();
 	void Draw();
+	void DrawModelsDepth(Shader* depthShader);
 	void DrawGBufferModels();
 	void Clear();
 	void DrawSphere(glm::vec3 center, float radius, glm::vec4 color, bool isWireFrame = false);

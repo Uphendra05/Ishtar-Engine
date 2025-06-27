@@ -459,6 +459,9 @@
     <ClCompile Include="src\ImGui\ContentBrowser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\SceneManager\Scenes\SceneEleven.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -962,6 +965,9 @@
     <ClInclude Include="src\ImGui\ContentBrowser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\SceneManager\Scenes\SceneEleven.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Source.frag" />
@@ -1010,5 +1016,7 @@
     <None Include="Shaders\DefaultGBuffer.vert" />
     <None Include="Shaders\LightpassShader.vert" />
     <None Include="Shaders\LightpassShader.frag" />
+    <None Include="Shaders\SimpleDepthMap.vert" />
+    <None Include="Shaders\SimpleDepthMap.frag" />
   </ItemGroup>
 </Project>

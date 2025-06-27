@@ -2,7 +2,7 @@
 #include "BaseRenderingPipeline.h"
 
 
-enum class PipelineType 
+ enum class PipelineType 
 {
     Forward,
     Deferred

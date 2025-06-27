@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\SceneManager\Scenes\SceneEleven.cpp" />
     <ClCompile Include="src\ImGui\BufferTexture.cpp" />
     <ClCompile Include="src\ImGui\ContentBrowser.cpp" />
     <ClCompile Include="src\RenderingPipeline\PipelineManager.cpp" />
@@ -291,6 +292,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\SceneManager\Scenes\SceneEleven.h" />
     <ClInclude Include="src\ImGui\BufferTexture.h" />
     <ClInclude Include="src\ImGui\ContentBrowser.h" />
     <ClInclude Include="src\LightUBO.h" />
@@ -498,6 +500,8 @@
     <None Include="Shaders\Shadow\ShadowDepth.vert" />
     <None Include="Shaders\Shadow\ShadowMapShader.frag" />
     <None Include="Shaders\Shadow\ShadowMapShader.vert" />
+    <None Include="Shaders\SimpleDepthMap.frag" />
+    <None Include="Shaders\SimpleDepthMap.vert" />
     <None Include="Shaders\SkyboxShader.frag" />
     <None Include="Shaders\SkyboxShader.vert" />
     <None Include="Shaders\StencilOutline.frag" />

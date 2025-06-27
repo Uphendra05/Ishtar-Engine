@@ -40,6 +40,7 @@ void EditorLayout::InitializeEditors()
 
     bufferTextureView->gbufferFBO = Renderer->gBufferFramebuffer;
     bufferTextureView->sceneViewFBO = Renderer->sceneViewframeBuffer;
+    bufferTextureView->depthFBO = Renderer->depthMapFramebuffer;
     bufferTextureView->viewPortRes = ImVec2(600, 600);
 
 }

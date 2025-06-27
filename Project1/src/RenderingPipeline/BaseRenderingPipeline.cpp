@@ -10,6 +10,7 @@
 #include "../SceneManager/Scenes/SceneEight.h"
 #include "../SceneManager/Scenes/SceneNine.h"
 #include "../SceneManager/Scenes/SceneTen.h"
+#include "../SceneManager/Scenes/SceneEleven.h"
 
 
 BaseRenderingPipeline::BaseRenderingPipeline()
@@ -271,6 +272,7 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
 
     FrameBufferSpecification specification;
     FrameBufferSpecification gBufferFrameBufferSpecs;
+    FrameBufferSpecification depthMapFramebufferSpecs;
 
     specification.width = windowWidth;
     specification.height = WindowHeight;
@@ -280,6 +282,8 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
     gBufferFrameBufferSpecs.width = windowWidth;
     gBufferFrameBufferSpecs.height = WindowHeight;
 
+    
+
     gBufferFrameBufferSpecs.attachments = {
         FramebufferTextureSpecification(FramebufferTextureFormat::RGB16F),   // gPosition
         FramebufferTextureSpecification(FramebufferTextureFormat::RGB16F),   // gNormal
@@ -287,19 +291,28 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
         FramebufferTextureSpecification(FramebufferTextureFormat::DEPTH24STENCIL8)
     };
 
+    depthMapFramebufferSpecs.width = windowWidth;
+    depthMapFramebufferSpecs.height = WindowHeight;
+    depthMapFramebufferSpecs.attachments = {  FramebufferTextureFormat::DEPTH24STENCIL8 };
+
 
     sceneViewframeBuffer = new FrameBuffer(specification);
 
     gameframeBuffer = new FrameBuffer(specification);
 
     gBufferFramebuffer = new FrameBuffer(gBufferFrameBufferSpecs);
+
+
     gBufferTextures.SetFramebuffer(gBufferFramebuffer);
+
+    depthMapFramebuffer = new FrameBuffer(depthMapFramebufferSpecs);
+
     EditorLayout::GetInstance().Renderer = this;
 
 
     InitializeShaders();
 
-    //GraphicsRender::GetInstance().InitializeGraphics();
+    GraphicsRender::GetInstance().InitializeGraphics();
 
     DebugModels::GetInstance().defaultCube = new Model("Models/DefaultCube/DefaultCube.fbx", false, true);
     DebugModels::GetInstance().defaultSphere = new Model("Models/DefaultSphere/DefaultSphere.fbx", false, true);
@@ -371,6 +384,7 @@ void BaseRenderingPipeline::InitializeShaders()
 
     lightPassShader = new Shader("Shaders/LightpassShader.vert", "Shaders/LightpassShader.frag");
 
+    simpleDepthMap = new Shader("Shaders/SimpleDepthMap.vert", "Shaders/SimpleDepthMap.frag");
 
     GraphicsRender::GetInstance().defaultShader = defaultShader;
     GraphicsRender::GetInstance().solidColorShader = solidColorShader;
@@ -429,8 +443,9 @@ void BaseRenderingPipeline::Start()
     BaseScene* sceneEight = new SceneEight("SoftBody");
     BaseScene* sceneNine = new SceneNine("InteriorMapping");
     BaseScene* sceneTen = new SceneTen("DeferredRendering");
+    BaseScene* sceneEleven = new SceneEleven("Shadows");
 
-    SceneManager::GetInstance().OnChangeScene("DeferredRendering");
+    SceneManager::GetInstance().OnChangeScene("Shadows");
 
     FPS* fps = new FPS();
     fogSystem = new FogSystem();
@@ -548,11 +563,11 @@ void BaseRenderingPipeline::EngineGraphicsRender()
     {
         if (camera->renderTexture == nullptr)
         {
-            //RenderForCamera(camera, gameframeBuffer);
+            RenderForCamera(camera, gameframeBuffer);
         }
         else
         {
-            //RenderForCamera(camera, camera->renderTexture->framebuffer); 
+            RenderForCamera(camera, camera->renderTexture->framebuffer); 
         }
 
     }

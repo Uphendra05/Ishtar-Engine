@@ -84,6 +84,7 @@ public:
 	FrameBuffer* sceneViewframeBuffer;
 	FrameBuffer* gameframeBuffer;
 	FrameBuffer* gBufferFramebuffer;
+	FrameBuffer* depthMapFramebuffer;
 	Camera* sceneViewcamera;
 	Camera* gameScenecamera;
 	Camera* renderTextureCamera;
@@ -98,6 +99,7 @@ public:
 	Shader* particleShader;
 	Shader* gBufferShader;
 	Shader* lightPassShader;
+	Shader* simpleDepthMap;
 
 	Shader* stencilShader;
 	Shader* skyboxShader;
