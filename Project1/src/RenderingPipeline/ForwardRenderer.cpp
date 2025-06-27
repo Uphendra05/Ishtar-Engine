@@ -12,11 +12,11 @@ void ForwardRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, 
     GLCALL(glEnable(GL_DEPTH_TEST));
 
     depthMapFramebuffer->Bind();
-     //GraphicsRender::GetInstance().Clear();
+     GraphicsRender::GetInstance().Clear();
 
     simpleDepthMap->Bind();
     simpleDepthMap->setMat4("lightSpaceMatrix", LightManager::GetInstance().LightSpaceMatrix());
-   // GraphicsRender::GetInstance().DrawModelsDepth(simpleDepthMap);
+    GraphicsRender::GetInstance().DrawModelsDepth(simpleDepthMap);
 
 
     depthMapFramebuffer->Unbind();

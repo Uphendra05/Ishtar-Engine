@@ -38,9 +38,9 @@ void SceneEleven::Start()
 
     Model* Floor = new Model("Models/DefaultQuad/DefaultQuad.fbx");
     Floor->name = "Floor";
-    Floor->transform.SetPosition(glm::vec3(0, -0.72, 0));
+    Floor->transform.SetPosition(glm::vec3(0, -1.72, 0));
     Floor->transform.SetRotation(glm::vec3(-90, 0, 0));
-    Floor->transform.SetScale(glm::vec3(30));
+    Floor->transform.SetScale(glm::vec3(50));
     GraphicsRender::GetInstance().AddModelAndShader(Floor, application->defaultShader);
 
 

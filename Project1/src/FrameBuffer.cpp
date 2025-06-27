@@ -8,6 +8,8 @@ static bool IsDepthFormat(FramebufferTextureFormat format)
 	{
 	case FramebufferTextureFormat::DEPTH24STENCIL8: return true;
 		break;
+    case FramebufferTextureFormat::DEPTH_COMPONENT: return true;
+        break;
 	}
 	return false;
 }
@@ -66,7 +68,18 @@ static void AttachDepthTexture(uint32_t id, int samples, GLenum format, GLenum a
 	}
 	else
 	{
-		GLCALL(glTexStorage2D(GL_TEXTURE_2D, 1, format, width, height));
+        if (format == GL_DEPTH_COMPONENT)
+        {
+            GLCALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT24, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, nullptr));
+        }
+        else if (format == GL_DEPTH24_STENCIL8)
+        {
+            GLCALL(glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH24_STENCIL8, width, height, 0, GL_DEPTH_STENCIL, GL_UNSIGNED_INT_24_8, nullptr));
+        }
+        else
+        {
+            GLCALL(glTexStorage2D(GL_TEXTURE_2D, 1, format, width, height));
+        }
 
 		GLCALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
 		GLCALL(glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR));
@@ -151,100 +164,98 @@ uint32_t& FrameBuffer::GetDepthAttachementID()
 
 void FrameBuffer::Invalidate()
 {
-	if (rendererID != 0)
-	{
-		GLCALL(glDeleteFramebuffers(1, &rendererID));
-		GLCALL(glDeleteTextures(colorAttachmentsID.size(), colorAttachmentsID.data()));
-		GLCALL(glDeleteTextures(1, &depthAttachmentID));
+    // Clean up existing framebuffer
+    if (rendererID != 0)
+    {
+        GLCALL(glDeleteFramebuffers(1, &rendererID));
+        GLCALL(glDeleteTextures((GLsizei)colorAttachmentsID.size(), colorAttachmentsID.data()));
+        GLCALL(glDeleteTextures(1, &depthAttachmentID));
 
-		colorAttachmentsID.clear();
-		depthAttachmentID = 0;
-	}
+        colorAttachmentsID.clear();
+        depthAttachmentID = 0;
+    }
 
-	GLCALL(glCreateFramebuffers(1, &rendererID));
-	GLCALL(glBindFramebuffer(GL_FRAMEBUFFER, rendererID));
+    // Create and bind new framebuffer
+    GLCALL(glGenFramebuffers(1, &rendererID));
+    GLCALL(glBindFramebuffer(GL_FRAMEBUFFER, rendererID));
 
+    bool multiSample = specification.samples > 1;
 
-	bool multiSample = specification.samples > 1;
-	if (colorAttachmentSpecifications.size())
-	{
-		colorAttachmentsID.resize(colorAttachmentSpecifications.size());
+    // --- Color Attachments ---
+    if (!colorAttachmentSpecifications.empty())
+    {
+        colorAttachmentsID.resize(colorAttachmentSpecifications.size());
+        CreateTextures(multiSample, colorAttachmentsID.data(), colorAttachmentsID.size());
 
-		CreateTextures(multiSample, colorAttachmentsID.data(), colorAttachmentsID.size());
+        for (size_t i = 0; i < colorAttachmentsID.size(); i++)
+        {
+            BindTexture(multiSample, colorAttachmentsID[i]);
+            auto format = colorAttachmentSpecifications[i].textureFormat;
 
+            switch (format)
+            {
+            case FramebufferTextureFormat::RGBA8:
+                AttachColorTexture(colorAttachmentsID[i], specification.samples, GL_RGBA8, specification.width, specification.height, (int)i);
+                break;
+            case FramebufferTextureFormat::RGB16F:
+                AttachColorTexture(colorAttachmentsID[i], specification.samples, GL_RGB16F, specification.width, specification.height, (int)i);
+                break;
+            case FramebufferTextureFormat::RGBA16F:
+                AttachColorTexture(colorAttachmentsID[i], specification.samples, GL_RGBA16F, specification.width, specification.height, (int)i);
+                break;
+            default:
+                std::cerr << "Unsupported framebuffer color format\n";
+                break;
+            }
+        }
+    }
 
-		for (size_t i = 0; i < colorAttachmentsID.size(); i++)
-		{
-			BindTexture(multiSample, colorAttachmentsID[i]);
-			auto format = colorAttachmentSpecifications[i].textureFormat;
+    // --- Depth Attachment ---
+    if (depthAttachmentSpec.textureFormat != FramebufferTextureFormat::NONE)
+    {
+        CreateTextures(multiSample, &depthAttachmentID, 1);
+        BindTexture(multiSample, depthAttachmentID);
 
-			switch (format)
-			{
-			case FramebufferTextureFormat::RGBA8:
-				AttachColorTexture(colorAttachmentsID[i], specification.samples,
-					GL_RGBA8, specification.width, specification.height, i);
-				break;
+        switch (depthAttachmentSpec.textureFormat)
+        {
+        case FramebufferTextureFormat::DEPTH24STENCIL8:
+            AttachDepthTexture(depthAttachmentID, specification.samples, GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL_ATTACHMENT, specification.width, specification.height);
+            break;
+        case FramebufferTextureFormat::DEPTH_COMPONENT:
+            AttachDepthTexture(depthAttachmentID, specification.samples, GL_DEPTH_COMPONENT, GL_DEPTH_ATTACHMENT, specification.width, specification.height);
+            break;
+        default:
+            std::cerr << "Unsupported framebuffer depth formatss\n";
+            break;
+        }
+    }
 
-			case FramebufferTextureFormat::RGB16F:
-				AttachColorTexture(colorAttachmentsID[i], specification.samples,
-					GL_RGB16F, specification.width, specification.height, i);
-				break;
+    // --- Draw/Read Buffers ---
+    if (colorAttachmentsID.empty())
+    {
+        // Depth-only framebuffer (e.g., shadow map)
+        GLCALL(glDrawBuffer(GL_NONE));
+        GLCALL(glReadBuffer(GL_NONE));
+    }
+    else if (colorAttachmentsID.size() > 1)
+    {
+        GLenum buffers[4] = {
+            GL_COLOR_ATTACHMENT0,
+            GL_COLOR_ATTACHMENT1,
+            GL_COLOR_ATTACHMENT2,
+            GL_COLOR_ATTACHMENT3
+        };
+        GLCALL(glDrawBuffers((GLsizei)colorAttachmentsID.size(), buffers));
+    }
 
-			case FramebufferTextureFormat::RGBA16F:
-				AttachColorTexture(colorAttachmentsID[i], specification.samples,
-					GL_RGBA16F, specification.width, specification.height, i);
-				break;
+    // --- Check framebuffer completeness ---
+    GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    if (status != GL_FRAMEBUFFER_COMPLETE)
+    {
+        std::cerr << "Framebuffer incomplete! Status: 0x" << std::hex << status << std::dec << "\n";
+    }
 
-			default:
-				std::cerr << "Unsupported framebuffer format\n";
-				break;
-			}
-			
-		}
-
-		if (depthAttachmentSpec.textureFormat != FramebufferTextureFormat::NONE)
-		{
-			CreateTextures(multiSample, &depthAttachmentID, 1);
-			BindTexture(multiSample, depthAttachmentID);
-
-			switch (depthAttachmentSpec.textureFormat)
-			{
-			case FramebufferTextureFormat::DEPTH24STENCIL8:
-				AttachDepthTexture(depthAttachmentID, specification.samples,
-					GL_DEPTH24_STENCIL8, GL_DEPTH_STENCIL_ATTACHMENT, specification.width, specification.height);
-				break;
-			}
-		}
-	}
-
-	if (colorAttachmentsID.size() > 1)
-	{
-		if (colorAttachmentsID.size() <= 4)
-		{
-			GLenum buffers[4] = {
-				 GL_COLOR_ATTACHMENT0,
-				 GL_COLOR_ATTACHMENT1,
-				 GL_COLOR_ATTACHMENT2,
-				 GL_COLOR_ATTACHMENT3 };
-
-			GLCALL(glDrawBuffers(colorAttachmentsID.size(), buffers));
-
-		}
-		else if(colorAttachmentsID.empty())
-		{
-			//Only Depth-pass
-			GLCALL(glDrawBuffer(GL_NONE));
-			GLCALL(glReadBuffer(GL_NONE));
-
-		}
-	}
-
-
-
-
-	GLCALL(glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE);
-
-	GLCALL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
+    GLCALL(glBindFramebuffer(GL_FRAMEBUFFER, 0));
 
 }
 

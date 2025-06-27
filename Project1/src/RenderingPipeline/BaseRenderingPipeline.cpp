@@ -291,9 +291,9 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
         FramebufferTextureSpecification(FramebufferTextureFormat::DEPTH24STENCIL8)
     };
 
-    depthMapFramebufferSpecs.width = windowWidth;
-    depthMapFramebufferSpecs.height = WindowHeight;
-    depthMapFramebufferSpecs.attachments = {  FramebufferTextureFormat::DEPTH24STENCIL8 };
+    depthMapFramebufferSpecs.width = 1024;
+    depthMapFramebufferSpecs.height = 1024;
+    depthMapFramebufferSpecs.attachments = { FramebufferTextureFormat::DEPTH_COMPONENT };
 
 
     sceneViewframeBuffer = new FrameBuffer(specification);
