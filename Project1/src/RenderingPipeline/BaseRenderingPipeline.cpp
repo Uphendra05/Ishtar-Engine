@@ -279,8 +279,8 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
     specification.attachments = { FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::RGBA8, FramebufferTextureFormat::DEPTH24STENCIL8 };
 
 
-    gBufferFrameBufferSpecs.width = windowWidth;
-    gBufferFrameBufferSpecs.height = WindowHeight;
+    gBufferFrameBufferSpecs.width = windowWidth   ;
+    gBufferFrameBufferSpecs.height = WindowHeight ;
 
     
 
@@ -291,8 +291,8 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
         FramebufferTextureSpecification(FramebufferTextureFormat::DEPTH24STENCIL8)
     };
 
-    depthMapFramebufferSpecs.width = 1024;
-    depthMapFramebufferSpecs.height = 1024;
+    depthMapFramebufferSpecs.width = windowWidth * 4;
+    depthMapFramebufferSpecs.height = WindowHeight * 4;
     depthMapFramebufferSpecs.attachments = { FramebufferTextureFormat::DEPTH_COMPONENT };
 
 

@@ -98,8 +98,8 @@ void LightManager::RemoveDeferredShader(Shader* shader)
 
 glm::mat4 LightManager::LightProjection()
 {
-    float near_plane = 1.0f, far_plane = 7.5f;
-    glm::mat4 lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, near_plane, far_plane);
+    float near_plane = 1.0f, far_plane = 17.5f;
+    glm::mat4 lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
 
      return lightProjection;
 }
@@ -107,18 +107,38 @@ glm::mat4 LightManager::LightProjection()
 glm::mat4 LightManager::LightView()
 {
     glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
-                                      glm::vec3(0.0f, 0.0f, 0.0f),
-                                      glm::vec3(0.0f, 1.0f, 0.0f));
+        glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3(0.0f, 1.0f, 0.0f));
+                                 
 
     return lightView;
 
 }
 
-glm::mat4 LightManager::LightSpaceMatrix()
+glm::mat4 LightManager::LightSpaceMatrix(const glm::mat4& proj, const glm::mat4& view)
 {
     glm::mat4 lightSpaceMatrix = LightProjection() * LightView();
     return lightSpaceMatrix;
 }
+
+std::vector<glm::vec3> LightManager::GetFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view)
+{
+    glm::mat4 inv = glm::inverse(proj * view);
+    std::vector<glm::vec3> frustumCorners;
+    for (int x = 0; x < 2; ++x)
+        for (int y = 0; y < 2; ++y)
+            for (int z = 0; z < 2; ++z)
+            {
+                glm::vec4 pt = inv * glm::vec4(
+                    2.0f * x - 1.0f,
+                    2.0f * y - 1.0f,
+                    2.0f * z - 1.0f,
+                    1.0f);
+                frustumCorners.push_back(glm::vec3(pt) / pt.w);
+            }
+    return frustumCorners;
+}
+
 
 
 

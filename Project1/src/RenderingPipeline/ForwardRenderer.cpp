@@ -9,13 +9,14 @@ ForwardRenderer::ForwardRenderer()
 void ForwardRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, bool isSceneView)
 {
 
-    GLCALL(glEnable(GL_DEPTH_TEST));
 
     depthMapFramebuffer->Bind();
-     GraphicsRender::GetInstance().Clear();
+
+    GraphicsRender::GetInstance().Clear();
+    GLCALL(glEnable(GL_DEPTH_TEST));
 
     simpleDepthMap->Bind();
-    simpleDepthMap->setMat4("lightSpaceMatrix", LightManager::GetInstance().LightSpaceMatrix());
+    simpleDepthMap->setMat4("lightSpaceMatrix", LightManager::GetInstance().LightSpaceMatrix(sceneViewcamera->GetProjectionMatrix(), sceneViewcamera->GetViewMatrix()));
     GraphicsRender::GetInstance().DrawModelsDepth(simpleDepthMap);
 
 
@@ -24,6 +25,7 @@ void ForwardRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, 
     framebuffer->Bind();
 
     GraphicsRender::GetInstance().Clear();
+    GLCALL(glEnable(GL_DEPTH_TEST));
 
     projection = camera->GetProjectionMatrix();
 
@@ -48,6 +50,8 @@ void ForwardRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, 
     defaultShader->setBool("fogActive", fogSystem->fogActive);
 
     defaultShader->setBool("isCellShading", isCellShade);
+    defaultShader->setMat4("lightSpaceMatrix", LightManager::GetInstance().LightSpaceMatrix(sceneViewcamera->GetProjectionMatrix(), sceneViewcamera->GetViewMatrix()));
+    defaultShader->setInt("shadowMap", depthMapFramebuffer->GetDepthAttachementID());
 
 
     boneAnimationShader->Bind();
@@ -151,3 +155,6 @@ void ForwardRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, 
     framebuffer->Unbind();
 
 }
+
+
+

@@ -72,6 +72,7 @@ public:
     bool useLOD = false;
     bool isLoadTexture;
     bool isOccluded = false;
+    bool castShadow = false;
 
     Model();
     Model(const Model& copyModel, bool isDebugModel = false);

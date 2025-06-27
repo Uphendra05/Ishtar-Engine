@@ -38,7 +38,7 @@ void main()
 	  TextureCoordinates = aTexCoords;
 	}
 	 meshColour = aColor;
-	 FragPosLightSpace = lightSpaceMatrix * vec4(FragPosition, 1.0);
+	 FragPosLightSpace =  lightSpaceMatrix * vec4(FragPosition, 1.0);
 	 gl_Position = projection * view * vec4(FragPosition, 1.0);
 }
 

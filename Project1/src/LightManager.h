@@ -3,7 +3,6 @@
 #include "Light.h"
 #include "LightUBO.h"
 #include "UniformBuffer.h"
-
 class LightManager 
 {
 public:
@@ -25,7 +24,8 @@ public:
 
     glm::mat4 LightProjection();
     glm::mat4 LightView();
-    glm::mat4 LightSpaceMatrix();
+    glm::mat4 LightSpaceMatrix(const glm::mat4& proj, const glm::mat4& view);
+    std::vector<glm::vec3> GetFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view);
 
     // This is called every frame
     void UpdateUniformValues(GLuint shaderID);

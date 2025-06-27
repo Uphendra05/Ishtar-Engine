@@ -108,9 +108,9 @@ void main()
 
     vec3 R = reflect(-viewDir, norm);
 
-    //float shadow =  ShadowCalculation(FragPosLightSpace,norm);
+    float shadow =  ShadowCalculation(FragPosLightSpace,norm);
 
-    vec4 result = CalculateLight(norm,viewDir,0);
+    vec4 result = CalculateLight(norm,viewDir,shadow);
   
      vec4 cutOff = texture(diffuse_Texture, TextureCoordinates);
  
@@ -220,6 +220,7 @@ float CalcFog()
 
 float ShadowCalculation(vec4 fragPosLightSpace, vec3 normal)
 {
+
    // perform perspective divide
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
     // transform to [0,1] range
@@ -229,15 +230,9 @@ float ShadowCalculation(vec4 fragPosLightSpace, vec3 normal)
     // get depth of current fragment from light's perspective
     float currentDepth = projCoords.z;
     // check whether current frag pos is in shadow
-    float bias = max(0.05 * (1.0 - dot(normal, lightDir)), biasValue); 
-
-    float shadow = currentDepth - bias > closestDepth  ? 1.0 : 0.0;
-
-	if(projCoords.z > 1.0)
-	{
-		shadow = 0;
-	}
-
+    float shadow = currentDepth > closestDepth  ? 1.0 : 0.0;
+    if(projCoords.z > 1.0)
+        shadow = 0.0;
     return shadow;
 }
 
@@ -265,7 +260,8 @@ vec4 CalculateLight(vec3 norm, vec3 viewDir,float shadowCalc)
        if(LightType == DIRECTION_LIGHT_ID)
        {
           vec3 lightDir = normalize(-lights[index].direction);
-          float diff = max(dot(norm, lightDir), 0.0);
+          float diff = max(dot(lightDir, norm), 0.0);
+
           if(isCellShading)
           {
 
@@ -303,19 +299,6 @@ vec4 CalculateLight(vec3 norm, vec3 viewDir,float shadowCalc)
 
          }
 
-
-         //vec4 ambient = lights[index].ambient   *         meshColour * texture(diffuse, TextureCoordinates);
-        // vec4 diffuse = lights[index].diffuse   * diff  * meshColour * texture(diffuse, TextureCoordinates);
-        // vec4 specular = lights[index].specular * spec  * meshColour * texture(specular, TextureCoordinates);
-
-
-//          vec3 ambient = lights[index].ambient * meshColour.rgb;
-//         vec3 diffuse =  lights[index].diffuse * diff * meshColour.rgb;
-//         vec3 specular =  lights[index].specular * spec *meshColour.rgb;
-
-         //vec4 finalValueforDir = material.baseColor;
-
-        // result+=finalValueforDir*lights[index].color;
         
        }
        if(LightType ==POINT_LIGHT_ID)
