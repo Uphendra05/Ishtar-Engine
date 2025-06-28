@@ -603,6 +603,7 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
      }
 
      DrawBoolImGui("isOccluded", isOccluded, 250);
+     DrawBoolImGui("Cast Shadow", castShadow, 250);
 
 
      ImGui::TreePop();

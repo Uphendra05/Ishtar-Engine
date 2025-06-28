@@ -1,8 +1,8 @@
 #pragma once
 #include "Shader.h"
-
 #include "Textures.h"
 #include "BaseMaterial.h"
+#include "ShadowMapTexture.h"
 enum AmbientType
 {
 	Value,
@@ -31,6 +31,7 @@ public:
 	BaseTexture* diffuseTexture; 
 	BaseTexture* specularTexture;
 	BaseTexture* alphaTexture;
+	ShadowMapTexture* shadowTexture;
 	AmbientType ambientType;
 
 	float ambient;

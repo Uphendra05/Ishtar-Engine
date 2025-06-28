@@ -462,6 +462,9 @@
     <ClCompile Include="src\SceneManager\Scenes\SceneEleven.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ShadowMapTexture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Shader.h">
@@ -966,6 +969,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\SceneManager\Scenes\SceneEleven.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShadowMapTexture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

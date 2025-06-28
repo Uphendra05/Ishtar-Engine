@@ -52,7 +52,6 @@ struct FrameBufferSpecification
 class FrameBuffer
 {
 public:
-
 	FrameBuffer( FrameBufferSpecification& specs);
 	~FrameBuffer();
 

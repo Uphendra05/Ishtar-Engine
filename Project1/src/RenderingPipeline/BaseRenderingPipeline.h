@@ -39,6 +39,7 @@
 #include "../InteriorMapping/EmptyCheck.h"
 #include "../Physics/PhysicsEngine.h"
 #include "../TexturesGBuffer.h"
+#include "../ShadowMapTexture.h"
 
 
 class BaseRenderingPipeline
@@ -127,6 +128,7 @@ public:
 protected:
 
 	TexturesGBuffer gBufferTextures;
+	ShadowMapTexture shadowMapTexture;
 
 private:
 

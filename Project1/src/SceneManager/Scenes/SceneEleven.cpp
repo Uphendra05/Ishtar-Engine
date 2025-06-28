@@ -38,7 +38,7 @@ void SceneEleven::Start()
     Cube2->name = "Cube2";
     Cube2->meshes[0]->meshMaterial->material()->SetBaseColor(glm::vec4(0, 0, 1, 0));
     Cube2->transform.SetPosition(glm::vec3(5.83, 0, 4.53));
-    Cube2->castShadow = true;
+    Cube2->castShadow = false;
 
     GraphicsRender::GetInstance().AddModelAndShader(Cube2, application->defaultShader);
 
@@ -47,7 +47,7 @@ void SceneEleven::Start()
     Floor->transform.SetPosition(glm::vec3(0, -1.72, 0));
     Floor->transform.SetRotation(glm::vec3(-90, 0, 0));
     Floor->transform.SetScale(glm::vec3(50));
-    Floor->castShadow = true;
+    Floor->castShadow = false;
     GraphicsRender::GetInstance().AddModelAndShader(Floor, application->defaultShader);
 
 

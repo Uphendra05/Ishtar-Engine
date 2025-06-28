@@ -94,6 +94,8 @@ static void AttachDepthTexture(uint32_t id, int samples, GLenum format, GLenum a
 	GLCALL(glFramebufferTexture2D(GL_FRAMEBUFFER, attachmentType, TextureTarget(multiSampled), id, 0));
 }
 
+
+
 FrameBuffer::FrameBuffer(FrameBufferSpecification& specs) : specification(specs)
 {
 

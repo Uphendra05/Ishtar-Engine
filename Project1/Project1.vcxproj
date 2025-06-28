@@ -142,6 +142,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Dependencies\glad\src\glad.c" />
+    <ClCompile Include="src\ShadowMapTexture.cpp" />
     <ClCompile Include="src\SceneManager\Scenes\SceneEleven.cpp" />
     <ClCompile Include="src\ImGui\BufferTexture.cpp" />
     <ClCompile Include="src\ImGui\ContentBrowser.cpp" />
@@ -292,6 +293,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\stb_image.h" />
+    <ClInclude Include="src\ShadowMapTexture.h" />
     <ClInclude Include="src\SceneManager\Scenes\SceneEleven.h" />
     <ClInclude Include="src\ImGui\BufferTexture.h" />
     <ClInclude Include="src\ImGui\ContentBrowser.h" />

@@ -185,7 +185,7 @@ void GraphicsRender::DrawModelsDepth(Shader* depthShader)
 	
 	for (ModelAndShader* modelAndShader : modelAndShaderList)
 	{
-		if (modelAndShader->model == selectedModel ) continue;
+		if (modelAndShader->model == selectedModel || !modelAndShader->model->castShadow) continue;
 
 		modelAndShader->model->Draw(depthShader);
 	}
@@ -205,8 +205,11 @@ void GraphicsRender::DrawModelsDepth(Shader* depthShader)
 		// First pass: Render the model normally and write to the stencil buffer
 		GLCALL(glStencilFunc(GL_ALWAYS, 1, 0xFF));
 		GLCALL(glStencilMask(0xFF));
-		
+		if (selectedModel->castShadow)
+		{
 			selectedModel->Draw(depthShader);
+
+		}
 
 
 		// Second pass: Render the model with a slightly larger scale to create an outline

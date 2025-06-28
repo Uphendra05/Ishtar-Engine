@@ -291,8 +291,8 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
         FramebufferTextureSpecification(FramebufferTextureFormat::DEPTH24STENCIL8)
     };
 
-    depthMapFramebufferSpecs.width = windowWidth * 4;
-    depthMapFramebufferSpecs.height = WindowHeight * 4;
+    depthMapFramebufferSpecs.width =    1024;
+    depthMapFramebufferSpecs.height =   1024;
     depthMapFramebufferSpecs.attachments = { FramebufferTextureFormat::DEPTH_COMPONENT };
 
 
@@ -304,15 +304,15 @@ void BaseRenderingPipeline::WindowInitialize(int width, int height, std::string 
 
 
     gBufferTextures.SetFramebuffer(gBufferFramebuffer);
-
     depthMapFramebuffer = new FrameBuffer(depthMapFramebufferSpecs);
 
     EditorLayout::GetInstance().Renderer = this;
+    ShadowMapTexture::SetFramebuffer(depthMapFramebuffer);
 
 
     InitializeShaders();
 
-    GraphicsRender::GetInstance().InitializeGraphics();
+   // GraphicsRender::GetInstance().InitializeGraphics();
 
     DebugModels::GetInstance().defaultCube = new Model("Models/DefaultCube/DefaultCube.fbx", false, true);
     DebugModels::GetInstance().defaultSphere = new Model("Models/DefaultSphere/DefaultSphere.fbx", false, true);

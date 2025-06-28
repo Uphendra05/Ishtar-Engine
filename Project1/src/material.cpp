@@ -7,6 +7,9 @@ Material::Material()
     ambientType = AmbientType::Value;
     ambientColor = glm::vec4(1.0f);
     baseColor = glm::vec4(1.0f);
+
+    shadowTexture = new ShadowMapTexture();
+    
     ResetMaterial();
 }
 
@@ -23,6 +26,7 @@ Material::Material(const Material& material)
     ambient= material.ambient;
     specular = material.specular;
     shininess = material.shininess;
+    shadowTexture = new ShadowMapTexture();
 
     useMaskTexture = material.useMaskTexture;
     alphaCutoffThreshold = material.alphaCutoffThreshold;
@@ -111,38 +115,46 @@ BaseMaterial* Material::DuplicateMaterial()
 
 void Material::UpdateMaterial(Shader* shader)
 {
-    shader->Bind();
+   
+        shader->Bind();
 
-    shader->setVec4("material.baseColor", this->GetBaseColor().x, this->GetBaseColor().y, this->GetBaseColor().z, this->GetBaseColor().w);
-    shader->setVec4("material.ambientColor", this->GetAmbientColor().x, this->GetAmbientColor().y, this->GetBaseColor().z, this->GetAmbientColor().w);
+        shader->setVec4("material.baseColor", this->GetBaseColor().x, this->GetBaseColor().y, this->GetBaseColor().z, this->GetBaseColor().w);
+        shader->setVec4("material.ambientColor", this->GetAmbientColor().x, this->GetAmbientColor().y, this->GetBaseColor().z, this->GetAmbientColor().w);
 
-    shader->setFloat("material.specularValue", this->GetSpecular());
-    shader->setFloat("material.shininess", this->shininess);
+        shader->setFloat("material.specularValue", this->GetSpecular());
+        shader->setFloat("material.shininess", this->shininess);
 
-    shader->setInt("ShaderBlend", (int)shader->blendMode);
-    shader->setBool("ObjectBlend", this->useMaskTexture);
-    shader->setFloat("alphaCutOffThreshold", this->alphaCutoffThreshold);
+        shader->setInt("ShaderBlend", (int)shader->blendMode);
+        shader->setBool("ObjectBlend", this->useMaskTexture);
+        shader->setFloat("alphaCutOffThreshold", this->alphaCutoffThreshold);
 
-    if (this->diffuseTexture != nullptr)
+        if (this->diffuseTexture != nullptr)
+        {
+            this->diffuseTexture->SetTextureSlot(0);
+            shader->setInt("diffuse_Texture", 0);
+            this->diffuseTexture->Bind();
+
+        }
+        if (this->specularTexture != nullptr)
+        {
+            this->specularTexture->SetTextureSlot(1);
+            shader->setInt("specular_Texture", 1);
+            this->specularTexture->Bind();
+
+        }
+
+        if (this->alphaTexture != nullptr)
+        {
+            this->alphaTexture->SetTextureSlot(2);
+            shader->setInt("opacity_Texture", 2);
+            this->alphaTexture->Bind();
+        }
+
+        
+    if (this->shadowTexture != nullptr)
     {
-        this->diffuseTexture->SetTextureSlot(0);
-        shader->setInt("diffuse_Texture", 0);
-        this->diffuseTexture->Bind();
+        this->shadowTexture->AttachShadowTexture(shader);
 
     }
-    if (this->specularTexture != nullptr)
-    {
-        this->specularTexture->SetTextureSlot(1);
-        shader->setInt("specular_Texture", 1);
-        this->specularTexture->Bind();
-
-    }
-
-    if (this->alphaTexture != nullptr)
-    {
-        this->alphaTexture->SetTextureSlot(2);
-        shader->setInt("opacity_Texture", 2);
-        this->alphaTexture->Bind();
-    }
-
+    
 }
