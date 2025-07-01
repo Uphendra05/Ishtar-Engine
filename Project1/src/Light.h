@@ -56,6 +56,8 @@ public:
 
     LightType lightType;
     float lightRadius = 0.10f;
+    float shadowDistance = 150.0f;
+
 private:
     Material material;
 

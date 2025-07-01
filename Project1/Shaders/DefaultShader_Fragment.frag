@@ -108,7 +108,7 @@ void main()
 
     vec3 R = reflect(-viewDir, norm);
 
-    float shadow =  ShadowCalculation(FragPosLightSpace,norm);
+    float shadow =  ShadowCalculation(FragPosLightSpace, norm);
 
     vec4 result = CalculateLight(norm,viewDir,shadow);
   

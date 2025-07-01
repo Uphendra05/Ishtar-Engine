@@ -234,6 +234,7 @@ void Light::DrawLightProperties()
 	DrawDragFloatImGui("InnerCutOffAngle", cutOffAngle, 0.1f,0,360.0f, columnWidth);
 	DrawDragFloatImGui("OuterCutOffAngle", outerCutOffAngle, 0.1f,0, 360.0f, columnWidth);
 	DrawDragFloatImGui("Intensity", intensity, 0.01f, 0.5f, 100, columnWidth);
+	DrawDragFloatImGui("Shadow Distance", shadowDistance, 0.01f, 0.5f, 400, columnWidth);
 
 	AttenuationProperties();
 

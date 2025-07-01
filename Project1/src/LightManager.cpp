@@ -98,8 +98,8 @@ void LightManager::RemoveDeferredShader(Shader* shader)
 
 glm::mat4 LightManager::LightProjection()
 {
-    float near_plane = 1.0f, far_plane = 17.5f;
-    glm::mat4 lightProjection = glm::ortho(-20.0f, 20.0f, -20.0f, 20.0f, near_plane, far_plane);
+    float near_plane = 1.0f, far_plane = 100.0f;
+    glm::mat4 lightProjection = glm::ortho(-50.0f, 50.0f, -50.0f, 50.0f, near_plane, far_plane);
 
      return lightProjection;
 }
@@ -109,6 +109,7 @@ glm::mat4 LightManager::LightView()
     glm::mat4 lightView = glm::lookAt(glm::vec3(-2.0f, 4.0f, -1.0f),
         glm::vec3(0.0f, 0.0f, 0.0f),
         glm::vec3(0.0f, 1.0f, 0.0f));
+
                                  
 
     return lightView;
@@ -117,8 +118,32 @@ glm::mat4 LightManager::LightView()
 
 glm::mat4 LightManager::LightSpaceMatrix(const glm::mat4& proj, const glm::mat4& view)
 {
-    glm::mat4 lightSpaceMatrix = LightProjection() * LightView();
-    return lightSpaceMatrix;
+
+    std::vector<glm::vec3> corners = GetFrustumCornersWorldSpace(
+        glm::perspective(glm::radians(45.0f), 1.0f, 0.1f, lightList[0]-> shadowDistance),
+        view
+    );
+
+    glm::vec3 center = glm::vec3(0.0f);
+    for (const auto& corner : corners)
+        center += corner;
+    center /= corners.size();
+
+    glm::vec3 lightDir = glm::normalize(lightList[0]->transform.GetForward());
+    glm::vec3 lightPos = center - lightDir * 30.0f;
+    glm::mat4 lightView = glm::lookAt(lightPos, center, glm::vec3(0.0f, 1.0f, 0.0f));
+
+    glm::vec3 min = glm::vec3(FLT_MAX);
+    glm::vec3 max = glm::vec3(-FLT_MAX);
+    for (const auto& corner : corners)
+    {
+        glm::vec3 cornerLS = glm::vec3(lightView * glm::vec4(corner, 1.0f));
+        min = glm::min(min, cornerLS);
+        max = glm::max(max, cornerLS);
+    }
+
+    glm::mat4 lightProjection = glm::ortho(min.x, max.x, min.y, max.y, -max.z - 10.0f, -min.z + 10.0f);
+    return lightProjection * lightView;
 }
 
 std::vector<glm::vec3> LightManager::GetFrustumCornersWorldSpace(const glm::mat4& proj, const glm::mat4& view)

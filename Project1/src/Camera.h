@@ -47,6 +47,8 @@ public:
     float cameraHeight;
     float nearPlane;
     float farPlane;
+    float aspectRatio;
+
     bool isPostprocessing = false;
     RenderTexture* renderTexture = nullptr;
     CameraType cameraType = CameraType::PERSPECTIVE;
@@ -111,6 +113,5 @@ public:
         void Render() override;
 private:
     glm::mat4 projectionMatrix;
-    float aspectRatio;
 };
 #endif
