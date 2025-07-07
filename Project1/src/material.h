@@ -31,6 +31,8 @@ public:
 	BaseTexture* diffuseTexture; 
 	BaseTexture* specularTexture;
 	BaseTexture* alphaTexture;
+	BaseTexture* normalTexture;
+
 	ShadowMapTexture* shadowTexture;
 	AmbientType ambientType;
 

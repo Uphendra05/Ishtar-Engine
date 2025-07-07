@@ -270,25 +270,40 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
         if (mesh->HasNormals())
         {
           
+
+          
+
             vector.x = mesh->mNormals[i].x;
             vector.y = mesh->mNormals[i].y;
             vector.z = mesh->mNormals[i].z;
             vertex.Normal = vector;
 
-            glm::vec2 nXZ = glm::vec2(vector.x, vector.z);
-            if (glm::length(nXZ) < 0.001f) {
-                // Vertical surface (floor/ceiling) — fallback tangent
-                vertex.Tangents = glm::vec2(0.0f, 1.0f);
-            }
-            else {
-                nXZ = glm::normalize(nXZ);
-                vertex.Tangents = glm::vec2(-nXZ.y, nXZ.x);
-            }
+
+           
+
+            
         }
-        else
+
+
+        // normals
+        if (mesh->HasTangentsAndBitangents())
         {
-            vertex.Tangents = glm::vec2(0.0f, 1.0f); // fallback
+
+
+            vector.x = mesh->mTangents[i].x;
+            vector.y = mesh->mTangents[i].y;
+            vector.z = mesh->mTangents[i].z;
+            vertex.Tangents = vector;
+
+            vector.x = mesh->mBitangents[i].x;
+            vector.y = mesh->mBitangents[i].y;
+            vector.z = mesh->mBitangents[i].z;
+            vertex.BitTangents = vector;
+
+
         }
+      
+       
         // texture coordinates
         if (mesh->mTextureCoords[0]) 
         {
@@ -346,6 +361,7 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
             baseMeshMaterial->material()->diffuseTexture = LoadMaterialTexture(m_aiMaterial, aiTextureType_DIFFUSE, "diffuse_Texture");
             baseMeshMaterial->material()->specularTexture = LoadMaterialTexture(m_aiMaterial, aiTextureType_SPECULAR, "specular_Texture");
             baseMeshMaterial->material()->alphaTexture = LoadMaterialTexture(m_aiMaterial, aiTextureType_OPACITY, "opacity_Texture");
+            baseMeshMaterial->material()->normalTexture = LoadMaterialTexture(m_aiMaterial, aiTextureType_HEIGHT, "normal_Texture");
 
             Texture* materialTexture = (Texture*)baseMeshMaterial->material()->alphaTexture;
 
@@ -428,6 +444,10 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
      case aiTextureType_OPACITY:
          path = "Textures/DefaultTextures/Default_Opacity.png";
          break;
+
+     case aiTextureType_HEIGHT:
+         path = "Textures/DefaultTextures/Default_Normal.png";
+         break;
     
      }
 
@@ -449,6 +469,8 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
  {
      if (mat->GetTextureCount(type) == 0)
      {
+          std::cout <<  "Default Texture Type Loaded : " << TextureType(type) << std::endl;
+
          return LoadDefaultTexture(type, typeName);
      }
 
@@ -505,6 +527,8 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
      case aiTextureType_EMISSIVE:
          break;
      case aiTextureType_HEIGHT:
+         return "NORMAL";
+
          break;
      case aiTextureType_NORMALS:
          break;

@@ -17,6 +17,7 @@ struct Material
 uniform sampler2D diffuse_Texture;
 uniform  sampler2D specular_Texture;  
 uniform sampler2D opacity_Texture;
+uniform sampler2D normal_Texture;
 uniform sampler2D shadowMap;
 
 struct sLight
@@ -103,7 +104,11 @@ uniform bool isCellShading = false;
 void main()
 {    
     // properties
-    vec3 norm = normalize(Normal);
+    vec3 norm = texture(normal_Texture, TextureCoordinates).rgb;
+    norm = normalize(norm * 2.0 - 1.0);  // this normal is in tangent space
+
+    //vec3 norm =  normalize(Normal);
+
     vec3 viewDir = normalize(viewPos - FragPosition);
 
     vec3 R = reflect(-viewDir, norm);

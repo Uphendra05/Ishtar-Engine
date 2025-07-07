@@ -21,6 +21,7 @@ Material::Material(const Material& material)
     diffuseTexture = material.diffuseTexture;
     specularTexture = material.specularTexture;
     alphaTexture = material.alphaTexture;
+    normalTexture = material.normalTexture;
 
     ambientType = material.ambientType;
     ambient= material.ambient;
@@ -37,6 +38,7 @@ Material::~Material()
     delete diffuseTexture;
     delete specularTexture;
     delete alphaTexture;
+    delete normalTexture;
 }
    
 
@@ -103,6 +105,7 @@ BaseMaterial* Material::DuplicateMaterial()
     material->diffuseTexture = this->diffuseTexture;
     material->specularTexture = this->specularTexture;
     material->alphaTexture = this->alphaTexture;
+    material->normalTexture = this->normalTexture;
     material->ambientType = this->ambientType;
     material->ambient = this->ambient;
     material->specular = this->specular;
@@ -150,11 +153,18 @@ void Material::UpdateMaterial(Shader* shader)
             this->alphaTexture->Bind();
         }
 
-        
-    if (this->shadowTexture != nullptr)
-    {
-        this->shadowTexture->AttachShadowTexture(shader);
+        if (this->normalTexture != nullptr)
+        {
+            this->normalTexture->SetTextureSlot(3);
+            shader->setInt("normal_Texture", 3);
+            this->normalTexture->Bind();
+        }
 
-    }
+        
+        if (this->shadowTexture != nullptr)
+        {
+            this->shadowTexture->AttachShadowTexture(shader);
+        
+        }
     
 }

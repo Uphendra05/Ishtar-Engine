@@ -10,5 +10,6 @@ struct Vertex
     glm::vec4 vRgb;
     glm::vec4 BoneID;
     glm::vec4 BoneWeight;
-    glm::vec2 Tangents;
+    glm::vec3 Tangents;
+    glm::vec3 BitTangents;
 };
