@@ -8,7 +8,7 @@ SceneEleven::SceneEleven(const std::string& sceneName) : BaseScene::BaseScene(sc
 void SceneEleven::Start()
 {
 
-    Light* directionLight = new Light();
+  /*  Light* directionLight = new Light();
     directionLight->Initialize(LightType::DIRECTION_LIGHT, 1);
     directionLight->SetAmbientColor(glm::vec4(0.2f, 0.2f, 0.2f, 1.0f));
 
@@ -17,7 +17,7 @@ void SceneEleven::Start()
     directionLight->SetInnerAndOuterCutoffAngle(11, 12);
     directionLight->castShadow = false;
 
-    directionLight->transform.SetRotation(glm::vec3(-40, 0, 0));
+    directionLight->transform.SetRotation(glm::vec3(-40, 0, 0));*/
 
 
     Light* pointLight = new Light();

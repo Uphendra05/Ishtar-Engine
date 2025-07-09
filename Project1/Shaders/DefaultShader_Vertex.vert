@@ -37,14 +37,12 @@ void main()
     FragPosition =  vec3(model * vec4(aPos, 1.0));
 		
 
-	mat3 normalMatrix = mat3(transpose(inverse(model)));
-
-	vec3 T = normalize(normalMatrix * aTangent);
+	mat3 normalMatrix = transpose(inverse(mat3(model)));
+    vec3 T = normalize(normalMatrix * aTangent);
+    vec3 N = normalize(normalMatrix * aNormal);
     vec3 B = normalize(normalMatrix * aBiTangent);
-    vec3 N = mat3(transpose(normalMatrix)) * aNormal;
-	T = normalize(T - dot(T, N) * N);
-
-    TBN = mat3(T, B, N);
+    T = normalize(T - dot(T, N) * N);
+    TBN = mat3(T, B, N);    
 
 
 	if(isScrollingTexture)
