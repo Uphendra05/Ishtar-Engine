@@ -118,7 +118,9 @@ BaseMaterial* Material::DuplicateMaterial()
 
 void Material::UpdateMaterial(Shader* shader)
 {
-   
+    if (shader->isUpdateUniforms == true)
+    {
+
         shader->Bind();
 
         shader->setVec4("material.baseColor", this->GetBaseColor().x, this->GetBaseColor().y, this->GetBaseColor().z, this->GetBaseColor().w);
@@ -160,11 +162,19 @@ void Material::UpdateMaterial(Shader* shader)
             this->normalTexture->Bind();
         }
 
+        if (this->displacementTexture != nullptr)
+        {
+            this->displacementTexture->SetTextureSlot(4);
+            shader->setInt("displacement_Texture", 4);
+            this->displacementTexture->Bind();
+        }
+
         
         if (this->shadowTexture != nullptr)
         {
             this->shadowTexture->AttachShadowTexture(shader);
         
         }
-    
+    }
+
 }

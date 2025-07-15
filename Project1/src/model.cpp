@@ -362,7 +362,8 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
             baseMeshMaterial->material()->specularTexture = LoadMaterialTexture(m_aiMaterial, aiTextureType_SPECULAR, "specular_Texture");
             baseMeshMaterial->material()->alphaTexture = LoadMaterialTexture(m_aiMaterial, aiTextureType_OPACITY, "opacity_Texture");
             baseMeshMaterial->material()->normalTexture = LoadMaterialTexture(m_aiMaterial, aiTextureType_HEIGHT, "normal_Texture");
-
+            baseMeshMaterial->material()->displacementTexture = LoadMaterialTexture(m_aiMaterial, aiTextureType_DISPLACEMENT, "displacement_Texture");
+           
             Texture* materialTexture = (Texture*)baseMeshMaterial->material()->alphaTexture;
 
             if (materialTexture->path != alphaTextureDefaultPath)
@@ -449,6 +450,9 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
          path = "Textures/DefaultTextures/Default_Normal.png";
          break;
     
+     case aiTextureType_DISPLACEMENT:
+         path = "Textures/DefaultTextures/Default_Displacement.png";
+         break;
      }
 
      for (unsigned int i = 0; i < textures_loaded.size(); i++)
@@ -538,6 +542,8 @@ std::shared_ptr<Mesh> Model::ProcessMesh(aiMesh* mesh, const aiScene* scene)
          return "OPACITY";
          break;
      case aiTextureType_DISPLACEMENT:
+         return "DISPLACEMENT";
+
          break;
      case aiTextureType_LIGHTMAP:
          break;

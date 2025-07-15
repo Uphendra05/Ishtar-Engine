@@ -353,6 +353,7 @@ void BaseRenderingPipeline::InitializeShaders()
     defaultShader = new Shader("Shaders/DefaultShader_Vertex.vert", "Shaders/DefaultShader_Fragment.frag");
 
     solidColorShader = new Shader("Shaders/SolidColor_Vertex.vert", "Shaders/SolidColor_Fragment.frag", SOLID);
+
     stencilShader = new Shader("Shaders/StencilOutline.vert", "Shaders/StencilOutline.frag", OPAQUE);
 
 
@@ -366,16 +367,13 @@ void BaseRenderingPipeline::InitializeShaders()
     skyboxShader->modelUniform = false;
 
     interiorMapShader = new Shader("Shaders/InteriorMapShader.vert", "Shaders/InteriorMapShader.frag");
-    interiorMapShader->modelUniform = true;
 
     boneAnimationShader = new Shader("Shaders/AnimationShader.vert", "Shaders/AnimationShader.frag");
 
     defaultInstanceShader = new Shader("Shaders/MeshInstanceShader.vert", "Shaders/MeshInstanceShader.frag");
     defaultInstanceShader->blendMode = OPAQUE;
-    defaultInstanceShader->modelUniform = false;
 
     grassInstanceShader = new Shader("Shaders/Grass/GrassMeshInstanceShader.vert", "Shaders/Grass/GrassMeshInstanceShader.frag", ALPHA_CUTOUT);
-    grassInstanceShader->modelUniform = false;
 
     particleShader = new Shader("Shaders/ParticleShader.vert", "Shaders/ParticleShader.frag");
     particleShader->blendMode = ALPHA_BLEND;
@@ -385,6 +383,7 @@ void BaseRenderingPipeline::InitializeShaders()
     lightPassShader = new Shader("Shaders/LightpassShader.vert", "Shaders/LightpassShader.frag");
 
     simpleDepthMap = new Shader("Shaders/SimpleDepthMap.vert", "Shaders/SimpleDepthMap.frag");
+    simpleDepthMap->isUpdateUniforms = false;
 
     GraphicsRender::GetInstance().defaultShader = defaultShader;
     GraphicsRender::GetInstance().solidColorShader = solidColorShader;

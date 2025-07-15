@@ -18,6 +18,7 @@ uniform sampler2D diffuse_Texture;
 uniform  sampler2D specular_Texture;  
 uniform sampler2D opacity_Texture;
 uniform sampler2D normal_Texture;
+uniform sampler2D displacement_Texture;
 uniform sampler2D shadowMap;
 
 struct sLight
@@ -91,6 +92,7 @@ uniform float fogStart;
 uniform float fogEnd;
 uniform vec3 fogColor;
 uniform bool fogActive;
+
 float CalcFog();
 float CalcLinearFog();
 float CalcExpoFog();
@@ -105,6 +107,7 @@ void main()
 {    
     // properties
     vec3 normalTex = texture(normal_Texture, TextureCoordinates).rgb;
+    vec3 displacementTex = texture(displacement_Texture, TextureCoordinates).rgb;
     vec3 normal = normalize(normalTex * 2.0 - 1.0); // tangent space normal
     vec3 finalnorm = normalize(TBN * normal); 
 

@@ -51,7 +51,6 @@ void ForwardRenderer::RenderForCamera(Camera* camera, FrameBuffer* framebuffer, 
 
     defaultShader->setBool("isCellShading", isCellShade);
     defaultShader->setMat4("lightSpaceMatrix", LightManager::GetInstance().LightSpaceMatrix(sceneViewcamera->GetProjectionMatrix(), sceneViewcamera->GetViewMatrix()));
-
     
     
 

@@ -57,6 +57,7 @@ public:
 
     unsigned int rendererID;
     bool modelUniform = true;
+    bool isUpdateUniforms = true;
     BlendMode blendMode = BlendMode::OPAQUE;
    
 private:
